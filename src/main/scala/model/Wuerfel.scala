@@ -3,16 +3,18 @@ import scala.util.Random
 
 case class Wuerfel() {
   private val w = new Random()
-  private var Summe = 0
+  private var w1 = 0
+  private var w2 = 0
 
-  def wuerfeln(Wuerfelanzahl: Int): (Int, Int) =
+  def wuerfeln(Wuerfelanzahl: Int) =
     if (Wuerfelanzahl == 1)
-      val tmp = (w.nextInt(7), 0)
-      Summe = tmp._1 + tmp._2
-      return tmp
+      w1 = w.nextInt(7)
+      w2 = 0
     else
-      val tmp = (w.nextInt(7), w.nextInt(7))
-      Summe = tmp._1 + tmp._2
-      return tmp
-  def getSum(): Int = Summe
+      w1 = w.nextInt(7)
+      w2 = w.nextInt(7)
+
+  def getSum(): Int = w1 + w2
+
+  override def toString() = w1 + " und " + w2
 }

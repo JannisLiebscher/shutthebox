@@ -5,4 +5,11 @@ import model.Board
 case class Controller(board: Board, w: Wuerfel) extends Observable:
   var out = "Hi ich bin ein Controller!"
   override def toString(): String = out
-  def wurefeln(anzahl: Int): (Int, Int) = w.wuerfeln(anzahl)
+
+  def wuerfeln() =
+    if (board.count() <= 6)
+      w.wuerfeln(1)
+      out = w.toString() + board.toString()
+    else
+      w.wuerfeln(2)
+      out = board.toString() + w.toString()

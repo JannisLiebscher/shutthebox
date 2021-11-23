@@ -4,7 +4,7 @@ import scala.io.StdIn.readLine
 import controller.Controller
 import util.Observer
 
-class TUI(controller: Controller) extends Observer:
+class Tui(controller: Controller) extends Observer:
   controller.add(this)
   def run =
     println(controller.toString())
@@ -16,3 +16,4 @@ class TUI(controller: Controller) extends Observer:
     val input = readLine
     input match
       case "w" =>
+        controller.wuerfeln()

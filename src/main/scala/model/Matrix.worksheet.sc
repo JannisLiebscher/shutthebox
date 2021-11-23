@@ -12,16 +12,29 @@ import model.Wuerfel
 val wu = new Wuerfel
 val a = wu.wuerfeln(2)
 wu.getSum()
-val b = wu.wuerfeln(1)
-wu.getSum()
+
+wu
 import model.Board
 
 var bo = new Board()
 bo.count()
-bo = bo.shut(1)
-bo = bo.shut(3)
+bo.shut(1).toString()
+bo.shut(3)
 bo
 bo.count()
-bo = bo.shut(1)
+bo.shut(1)
 bo.toString
 print(bo)
+import aview.Tui
+import controller.Controller
+val c = new Controller(new Board(4), new Wuerfel)
+c.wuerfeln()
+c.w
+c.toString()
+c.board.count()
+c.board.shut(4).toString()
+c.board.shut(3).toString()
+c.toString()
+c.board.count()
+c.wuerfeln()
+c.w
