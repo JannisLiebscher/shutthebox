@@ -1,7 +1,7 @@
 package model
 import scala.util.Random
 
-case class Wuerfel() {
+case class Dice() {
   private val w = new Random()
   private var w1 = 0
   private var w2 = 0

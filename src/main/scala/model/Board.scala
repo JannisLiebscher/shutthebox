@@ -1,7 +1,7 @@
 package model
 import model.Matrix
 import model.Stone
-case class Board(private var m: Matrix[Int]) {
+case class Board private (private var m: Matrix[Int]) {
 
   def this(size: Int = 9) =
     this(new Matrix[Int](size, 0))

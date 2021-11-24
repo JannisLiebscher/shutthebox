@@ -25,5 +25,28 @@ class MatrixSpec extends AnyWordSpec {
         an[IndexOutOfBoundsException] should be thrownBy matr.cell(0, 0)
       }
     }
+    "filled" should {
+      val matr = new Matrix[Int](2, 0)
+      "return contents from single cells using row and col" in {
+        matr.cell(0, 0) should be(0)
+        matr.cell(0, 1) should be(0)
+        matr.cell(1, 0) should be(0)
+        matr.cell(1, 1) should be(0)
+      }
+      "keep its size when replaceing cells" in {
+        matr.size should be(2)
+        matr.replace(0, 0, 1).size should be(matr.size)
+        matr.replace(1, 1, 2).size should be(matr.size)
+        matr.fill(-1).size should be(matr.size)
+      }
+      "throw an IndexOutOfBoundsException when trying to access fields outside of the matrix" in {
+        an[IndexOutOfBoundsException] should be thrownBy matr.cell(-1, 1)
+        an[IndexOutOfBoundsException] should be thrownBy matr.cell(1, -1)
+        an[IndexOutOfBoundsException] should be thrownBy matr.cell(2, 1)
+      }
+      "allow to be fully filled with a single element" in {
+        matr.fill(9) should be(Matrix(Vector(Vector(9, 9), Vector(9, 9))))
+      }
+    }
   }
 }
