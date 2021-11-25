@@ -22,7 +22,7 @@ class BoardSpec extends AnyWordSpec {
         .shut(4)
         .shut(4) should have message "assertion failed: shutting down twice"
     }
-    "have a String representation depending on the shutted stones" in {
+    /* "have a String representation depending on the shutted stones" in {
       val bo = new Board(4)
       bo.toString() should be(
         "| 1 | 2 | 3 | 4 |" + sys.props("line.separator") +
@@ -32,7 +32,7 @@ class BoardSpec extends AnyWordSpec {
         "| 1 | 2 | 3 | 4 |" + sys.props("line.separator") +
           "| # | # | # | 4 | "
       )
-    }
+    } */
 
   }
 }
