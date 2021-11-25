@@ -7,9 +7,8 @@ case class Dice() {
   private var w2 = 0
 
   def wuerfeln(Wuerfelanzahl: Int) =
-    if (Wuerfelanzahl == 1)
-      w1 = w.nextInt(7)
-      w2 = 0
+    if (Wuerfelanzahl == 1) w1 = w.nextInt(7)
+    //w2 = 0
     else
       w1 = w.nextInt(7)
       w2 = w.nextInt(7)
