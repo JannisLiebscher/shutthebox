@@ -9,10 +9,12 @@ case class Controller(board: Board, w: Dice) extends Observable:
   def wuerfeln() =
     if (board.count() <= 6)
       w.wuerfeln(1)
-      out = w.toString() + board.toString()
+      out = board.toString() + w.toString()
     else
       w.wuerfeln(2)
       out = board.toString() + w.toString()
+    notifyObservers
   def shut(num: Int): Unit =
     board.shut(num)
     out = board.toString()
+    notifyObservers

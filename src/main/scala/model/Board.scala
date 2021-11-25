@@ -10,7 +10,7 @@ case class Board private (private var m: Matrix[Int]) {
   def shut(num: Int): Unit =
     if (m.cell(num - 1, 0) != 0)
       m = m.replace(num - 1, 0, 0).replace(num - 1, 1, num)
-    else print("Stein " + num + " ist schon unten!")
+    else print("Stein " + num + " ist schon unten!\n")
 
   def count(): Int =
     var sum = 0
