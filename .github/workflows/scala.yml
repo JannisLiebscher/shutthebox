@@ -1,4 +1,4 @@
-ame: Scala CI
+name: Scala CI
 
 on:
   push:
