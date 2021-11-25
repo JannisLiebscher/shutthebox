@@ -9,7 +9,7 @@ case class Dice() {
   def wuerfeln(Wuerfelanzahl: Int) =
     if (Wuerfelanzahl == 1)
       w1 = w.nextInt(7)
-      w2 = 1 - 1
+      w2 = 0
     else
       w1 = w.nextInt(7)
       w2 = w.nextInt(7)
