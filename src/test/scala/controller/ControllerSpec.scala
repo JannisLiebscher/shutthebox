@@ -8,7 +8,7 @@ class ControllerSpec extends AnyWordSpec {
   "A Controller" should {
     "be created using a Board and a Dice as parameters" in {
       val con = new Controller(new Board(4), new Dice())
-      con.toString() should be("Wilkommen zu ShutTheBox")
+      con.toString() should be("Wilkommen zu ShutTheBox!")
     }
     "should be able to get String representation of a rolled dice" in {
       val con = new Controller(new Board(4), new Dice())
