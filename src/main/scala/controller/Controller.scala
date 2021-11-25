@@ -15,3 +15,4 @@ case class Controller(board: Board, w: Dice) extends Observable:
       out = board.toString() + w.toString()
   def shut(num: Int): Unit =
     board.shut(num)
+    out = board.toString()
