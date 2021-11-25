@@ -3,7 +3,7 @@ import util.Observable
 import model.Dice
 import model.Board
 case class Controller(var board: Board, w: Dice) extends Observable:
-  private var out = "Hi ich bin ein Controller!"
+  private var out = "Wilkommen zu ShutTheBox!"
   override def toString(): String = out
 
   def wuerfeln() =
