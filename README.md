@@ -10,3 +10,4 @@ For more information on the sbt-dotty plugin, see the
 [![Coverage Status](https://coveralls.io/repos/github/JannisLiebscher/shutthebox/badge.svg?branch=master)](https://coveralls.io/github/JannisLiebscher/shutthebox?branch=master)
 
 ![Build_Status](https://github.com/<NAME>/<REPONAME>/actions/workflows/scala.yml/badge.svg?branch=master)
+<a href='https://coveralls.io/github/JannisLiebscher/shutthebox'><img src='https://coveralls.io/repos/github/JannisLiebscher/shutthebox/badge.svg' alt='Coverage Status' /></a>
