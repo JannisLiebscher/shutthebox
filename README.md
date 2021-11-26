@@ -9,4 +9,5 @@ For more information on the sbt-dotty plugin, see the
 
 
 ![example workflow](https://github.com/JannisLiebscher/shutthebox/actions/workflows/scala.yml/badge.svg)
+[![Coverage Status](https://coveralls.io/repos/github/JannisLiebscher/shutthebox/badge.svg?branch=master)](https://coveralls.io/github/JannisLiebscher/shutthebox?branch=master)
 
