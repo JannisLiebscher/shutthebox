@@ -12,6 +12,6 @@ case class Game(var board: Board, var w: Dice, players: Players) {
   override def toString(): String =
     players.toString + eol +
       board.toString + eol +
-      w.toString + " Summe: " + w.getSum() +
+      w.toString + " | Summe: " + w.getSum() +
       error
 }

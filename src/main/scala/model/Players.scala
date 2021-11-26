@@ -1,13 +1,13 @@
 package model
 
-case class Players private (private players: Vector[(String, Int)]) {
+case class Players private (count: Int, players: Vector[(String, Int)]) {
   require(players.size >= 1)
-  val count = 0
   def this(count: Int) =
-    this(Vector.tabulate(count)(n => ("Player " + (n + 1), 0)))
+    this(count, Vector.tabulate(count)(n => ("Player " + (n + 1), 0)))
 
   def addScore(player: Int, amount: Int): Players = {
     new Players(
+      count,
       players.updated(
         player - 1,
         (players(player - 1)._1, players(player - 1)._2 + amount)
