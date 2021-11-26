@@ -1,13 +1,12 @@
 import model.Matrix
-import model.Stone
 
-val field = new Matrix[Stone](4, Stone.EMPTY)
-field.replace(0, 0, Stone.ONE)
-field.replace(0, 1, Stone.EIGHT)
-val field2 = field.replace(1, 0, Stone.NINE)
+val field = new Matrix[Int](4, 0)
+field.replace(0, 0, 1)
+field.replace(0, 1, 8)
+val field2 = field.replace(1, 0, 9)
 field.size
-field2.cell(1, 1).getName
-field2.cell(1, 0).getName
+field2.cell(1, 1)
+field2.cell(1, 0)
 import model.Dice
 val wu = new Dice()
 val a = wu.wuerfeln(2)
