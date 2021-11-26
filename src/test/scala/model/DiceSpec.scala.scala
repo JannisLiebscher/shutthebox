@@ -7,7 +7,8 @@ class DiceSpec extends AnyWordSpec {
 
   "A Dice" should {
     val wu = Dice("one")
-    "be created without any parameters" in {
+    "be created using the amount of dices to roll" in {
+      //Dice("one") should be(anInstanceOf[OneDice])
       wu.toString should fullyMatch regex """Gewuerfelt: [0-6]"""
       wu.getSum() should be <= 12
     }

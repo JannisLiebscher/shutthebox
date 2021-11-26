@@ -9,6 +9,7 @@ class PlayersSpec extends AnyWordSpec {
       val pl = new Players(3)
       pl.getScore(1) should be(0)
       pl.getScore(3) should be(0)
+      pl.toString() should be("not supported yet")
     }
     "increase a players score number by using player number and amount to add as parameters" in {
       val pl = new Players(3)
