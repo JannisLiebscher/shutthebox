@@ -2,16 +2,23 @@ package controller
 import util.Observable
 import model.Dice
 import model.Board
-case class Controller(var board: Board, w: Dice) extends Observable:
-  private var out = "Wilkommen zu ShutTheBox!"
-  override def toString(): String = out
+import model.Game
+case class Controller(var game: Game) extends Observable:
 
-  def wuerfeln() =
-    if (board.count() <= 6) out = board.toString() + w.wuerfeln(1).toString()
-    else
-      out = board.toString() + w.wuerfeln(2).toString()
+  override def toString(): String = game.toString()
+
+  def doAndPublish(doThis: => Game) =
+    game = doThis
     notifyObservers
-  def shut(num: Int): Unit =
-    board = board.shut(num)
-    out = board.toString()
+  def doAndPublish(doThis: Int => Game, num: Int) =
+    game = doThis(num)
     notifyObservers
+
+  def wuerfeln(): Game =
+    if (game.count() <= 6) game = game.wuerfeln(1)
+    else game = game.wuerfeln(2)
+    return game
+
+  def shut(num: Int): Game =
+    game = game.shut(num)
+    return game

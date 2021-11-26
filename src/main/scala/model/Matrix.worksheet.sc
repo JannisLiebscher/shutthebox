@@ -1,4 +1,4 @@
-import model.Matrix
+import model.*
 
 val field = new Matrix[Int](4, 0)
 field.replace(0, 0, 1)
@@ -7,13 +7,13 @@ val field2 = field.replace(1, 0, 9)
 field.size
 field2.cell(1, 1)
 field2.cell(1, 0)
-import model.Dice
-val wu = new Dice()
-val a = wu.wuerfeln(2)
-wu.getSum()
 
-wu
-import model.Board
+var wu = Dice("one")
+wu.wuerfeln(2).toString()
+wu.wuerfeln(2)
+wu = wu.wuerfeln(2)
+wu.toString()
+wu.getSum()
 
 var bo = new Board()
 bo.count()
@@ -25,14 +25,11 @@ bo.toString
 print(bo)
 import aview.Tui
 import controller.Controller
-val c = new Controller(new Board(4), new Dice())
+val c = new Controller(new Game())
 c.wuerfeln()
-c.w
 c.toString()
-c.board.count()
-c.board.shut(4).shut(3).toString()
-c.board.shut(3).toString()
+
+c.shut(4).shut(3).toString()
+c.shut(3).toString()
 c.toString()
-c.board.count()
 c.wuerfeln()
-c.w

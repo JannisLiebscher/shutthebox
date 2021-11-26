@@ -7,8 +7,8 @@ import util.Observer
 class Tui(controller: Controller) extends Observer:
 
   controller.add(this)
-  println(controller.toString())
-  getInputAndPrintLoop(" ")
+  println("Welcome to ShutTheBox")
+  getInputAndPrintLoop("q")
 
   override def update = println(controller.toString)
 
@@ -16,9 +16,9 @@ class Tui(controller: Controller) extends Observer:
     val input = in
     input match
       case "w" =>
-        controller.wuerfeln()
+        controller.doAndPublish(controller.wuerfeln())
       case "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" =>
-        controller.shut(input.toInt)
+        controller.doAndPublish(controller.shut, input.toInt)
       case "q" =>
       case default =>
         print("Unbekannte Eingabe!")

@@ -12,5 +12,5 @@ final case class Players private (private val players: Vector[(String, Int)]) {
     )
   }
   def getScore(player: Int): Int = players(player - 1)._2
-
+  override def toString = "test"
 }

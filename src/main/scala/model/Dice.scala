@@ -1,11 +1,30 @@
 package model
 import scala.util.Random
 
-case class Dice private (w1: Int, w2: Int) {
-  private def this(num: Int) =
-    this(new Random().nextInt(7), if (num == 2) new Random().nextInt(7) else 0)
-  def this() = this(0, 0)
-  def getSum(): Int = w1 + w2
-  def wuerfeln(amount: Int): Dice = new Dice(amount)
-  override def toString() = w1 + " und " + w2
+trait Dice(w1: Int, w2: Int) {
+  def getSum(): Int
+  def wuerfeln(amount: Int): Dice
+}
+
+case class TwoDice(w1: Int, w2: Int) extends Dice(w1: Int, w2: Int) {
+  def this() = this(new Random().nextInt(7), new Random().nextInt(7))
+  override def getSum(): Int = w1 + w2
+  def wuerfeln(amount: Int): Dice =
+    if (amount == 2) Dice("two") else Dice("one")
+  override def toString() = "Gewuerfelt: " + w1 + " und " + w2
+}
+
+class OneDice(w1: Int, w2: Int) extends Dice(w1: Int, w2: Int) {
+  def this() = this(new Random().nextInt(7), 0)
+  override def getSum(): Int = w1
+  def wuerfeln(amount: Int): Dice =
+    if (amount == 2) Dice("two") else Dice("one")
+  override def toString() = "Gewuerfelt: " + w1
+}
+
+object Dice {
+  def apply(kind: String) = kind match {
+    case "1" | "one" => new OneDice()
+    case "2" | "two" => new TwoDice()
+  }
 }
