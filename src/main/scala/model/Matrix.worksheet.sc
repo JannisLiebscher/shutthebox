@@ -26,11 +26,11 @@ print(bo)
 import aview.Tui
 import controller.Controller
 val c = new Controller(new Game())
-c.wuerfeln()
+c.wuerfeln
 c.toString()
 
 c.shut(4).shut(3).toString()
 c.shut(3).toString()
 c.toString()
-c.wuerfeln()
+c.wuerfeln
 var pl = new Players(1)

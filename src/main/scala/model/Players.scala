@@ -1,17 +1,22 @@
 package model
 
-case class Players private (count: Int, players: Vector[(String, Int)]) {
+case class Players private (
+    count: Int,
+    players: Vector[(String, Int)],
+    turn: Int
+) {
   require(players.size >= 1)
   def this(count: Int) =
-    this(count, Vector.tabulate(count)(n => ("Player " + (n + 1), 0)))
+    this(count, Vector.tabulate(count)(n => ("Player " + (n + 1), 0)), 1)
 
-  def addScore(player: Int, amount: Int): Players = {
+  def addScore(amount: Int): Players = {
     new Players(
       count,
       players.updated(
-        player - 1,
-        (players(player - 1)._1, players(player - 1)._2 + amount)
-      )
+        turn - 1,
+        (players(turn - 1)._1, players(turn - 1)._2 + amount)
+      ),
+      if (turn == count) 1 else turn + 1
     )
   }
   def getScore(player: Int): Int = players(player - 1)._2
@@ -30,5 +35,5 @@ case class Players private (count: Int, players: Vector[(String, Int)]) {
       out = out + player._1 +
         ": " + player._2.toString + " | "
     }
-    return out
+    return out + "Player " + turn + "'s turn"
 }

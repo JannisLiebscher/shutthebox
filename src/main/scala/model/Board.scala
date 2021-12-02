@@ -7,7 +7,7 @@ case class Board private (var m: Matrix[Int]) {
     for (n <- (0 to m.size - 1)) m = m.replace(n, 0, n + 1)
 
   def shut(num: Int): Board =
-    assert(m.cell(num - 1, 0) != 0, "shutting down twice")
+    //assert(m.cell(num - 1, 0) != 0, "shutting down twice")
     return new Board(m.replace(num - 1, 0, 0).replace(num - 1, 1, num))
 
   def count(): Int =

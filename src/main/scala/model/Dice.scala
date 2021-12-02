@@ -7,7 +7,7 @@ trait Dice(w1: Int, w2: Int) {
 }
 
 case class TwoDice(w1: Int, w2: Int) extends Dice(w1: Int, w2: Int) {
-  def this() = this(new Random().nextInt(7), new Random().nextInt(7))
+  def this() = this(new Random().nextInt(6) + 1, new Random().nextInt(6) + 1)
   override def getSum(): Int = w1 + w2
   def wuerfeln(amount: Int): Dice =
     if (amount == 2) Dice("two") else Dice("one")
@@ -15,7 +15,7 @@ case class TwoDice(w1: Int, w2: Int) extends Dice(w1: Int, w2: Int) {
 }
 
 class OneDice(w1: Int, w2: Int) extends Dice(w1: Int, w2: Int) {
-  def this() = this(new Random().nextInt(7), 0)
+  def this() = this(new Random().nextInt(6) + 1, 0)
   override def getSum(): Int = w1
   def wuerfeln(amount: Int): Dice =
     if (amount == 2) Dice("two") else Dice("one")

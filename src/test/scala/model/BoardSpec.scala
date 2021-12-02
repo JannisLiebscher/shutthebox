@@ -17,11 +17,9 @@ class BoardSpec extends AnyWordSpec {
       bo.shut(1).shut(2).count() should be(7)
       bo.shut(1).shut(2).shut(3).shut(4).count() should be(0)
     }
-    "cause an AssertionError when shutting down a single stone more than once" in {
+    "return the same Board when shutting down a already shutted stone" in {
       val bo = new Board(4)
-      the[AssertionError] thrownBy bo
-        .shut(4)
-        .shut(4) should have message "assertion failed: shutting down twice"
+      bo.shut(4) should be(bo.shut(4).shut(4))
     }
     "have a String representation depending on the shutted stones" in {
       val bo = new Board(4)

@@ -16,9 +16,11 @@ class Tui(controller: Controller) extends Observer:
     val input = in
     input match
       case "w" =>
-        controller.doAndPublish(controller.wuerfeln())
+        controller.doAndPublish(controller.wuerfeln)
       case "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" =>
         controller.doAndPublish(controller.shut, input.toInt)
+      case "next" =>
+        controller.doAndPublish(controller.endMove)
       case "q" =>
       case default =>
-        print("Unbekannte Eingabe!")
+        print("Unbekannte Eingabe!\n")
