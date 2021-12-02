@@ -15,22 +15,11 @@ wu = wu.wuerfeln(2)
 wu.toString()
 wu.getSum()
 
+var game = new Game()
+game.board.shut(1)
 var bo = new Board()
-bo.count()
-bo.shut(3)
+bo = bo.shut(2)
 bo
-bo.count()
-bo.shut(1)
-bo.toString
-print(bo)
-import aview.Tui
-import controller.Controller
-val c = new Controller(new Game())
-c.wuerfeln
-c.toString()
-
-c.shut(4).shut(3).toString()
-c.shut(3).toString()
-c.toString()
-c.wuerfeln
-var pl = new Players(1)
+bo.isShut(2)
+bo.isShut(1)
+bo.isShut(3)

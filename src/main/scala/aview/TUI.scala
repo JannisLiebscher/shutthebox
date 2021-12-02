@@ -21,6 +21,8 @@ class Tui(controller: Controller) extends Observer:
         controller.doAndPublish(controller.shut, input.toInt)
       case "next" =>
         controller.doAndPublish(controller.endMove)
+      case "z" => controller.doAndPublish(controller.redo); None
+      case "y" => controller.doAndPublish(controller.undo); None
       case "q" =>
       case default =>
         print("Unbekannte Eingabe!\n")

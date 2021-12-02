@@ -1,10 +1,8 @@
 package controller
-import util.Observable
-import model.Dice
-import model.Board
+import util.*
 import model.Game
 case class Controller(var game: Game) extends Observable:
-
+  val undoManager = new UndoManager[Game]
   override def toString(): String = game.toString()
 
   def doAndPublish(doThis: => Game) =
@@ -20,9 +18,12 @@ case class Controller(var game: Game) extends Observable:
     return game
 
   def shut(num: Int): Game =
-    game = game.shut(num)
+    game = undoManager.doStep(game, ShutCommand(num))
     return game
 
   def endMove: Game =
     game = game.endMove()
     return game
+
+  def undo: Game = undoManager.undoStep(game)
+  def redo: Game = undoManager.redoStep(game)
