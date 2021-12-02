@@ -18,8 +18,8 @@ case class Game(var board: Board, var w: Dice, players: Players, sum: Int) {
       return new Game(board, tmp, players, tmp.getSum())
 
   def shut(stone: Int): Game =
-    if (stone <= sum || board.count() <= sum)
-      new Game(board.shut(stone), w, players, sum - stone)
+    if (stone <= sum && board.count() >= sum)
+      return new Game(board.shut(stone), w, players, sum - stone)
     else error = "cant shut"
     this
 
@@ -28,8 +28,10 @@ case class Game(var board: Board, var w: Dice, players: Players, sum: Int) {
       .wuerfeln(2)
 
   override def toString(): String =
+    val tmp = error
+    error = ""
     players.toString + eol +
       board.toString + eol +
       w.toString + " | Summe: " + sum +
-      error
+      "\n" + tmp
 }
