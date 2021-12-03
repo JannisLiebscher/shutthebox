@@ -5,7 +5,6 @@ case class Players private (
     players: Vector[(String, Int)],
     turn: Int
 ) {
-  require(players.size >= 1)
   def this(count: Int) =
     this(count, Vector.tabulate(count)(n => ("Player " + (n + 1), 0)), 1)
 
@@ -22,10 +21,9 @@ case class Players private (
   def getScore(player: Int): Int = players(player - 1)._2
 
   override def toString = {
-    count match {
+    count match
       case 1       => solo
       case default => multi
-    }
   }
   private def solo: String =
     "-----| " + players(0)._1 + ": " + players(0)._2.toString + " |-----"

@@ -40,7 +40,7 @@ class GameSpec extends AnyWordSpec {
     "start next players round" in {
       var game = new Game().wuerfeln(2)
       game.shut(1).count() should be(44)
-      game.endMove().count() should be(45)
+      game.endMove.count() should be(45)
     }
   }
 }
