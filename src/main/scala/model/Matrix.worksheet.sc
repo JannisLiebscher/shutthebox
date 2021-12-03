@@ -23,3 +23,15 @@ bo
 bo.isShut(2)
 bo.isShut(1)
 bo.isShut(3)
+val e = Some(1)
+val z = Some(2)
+val n = None
+val res = e.getOrElse(0)
+n.getOrElse(0)
+e match {
+  case Some(x) => x
+}
+val ga = Some(new Game)
+ga.get
+
+case class Ex(message: String) extends Exception()

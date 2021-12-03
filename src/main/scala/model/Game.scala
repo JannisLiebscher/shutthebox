@@ -2,7 +2,7 @@ package model
 
 val eol = sys.props("line.separator")
 
-case class Game(var board: Board, var w: Dice, players: Players, sum: Int) {
+case class Game(board: Board, w: Dice, players: Players, sum: Int) {
   var error = ""
   def this() = this(new Board(), Dice("two"), new Players(2), 0)
   def this(player: Int = 2) =
