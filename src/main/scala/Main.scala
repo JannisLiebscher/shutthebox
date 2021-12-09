@@ -5,6 +5,7 @@ object shutthebox {
     val c =
       new controller.Controller(new Game())
     val tui = new aview.Tui(c)
+    val gui = new aview.Gui(c)
 
     var input: String = ""
     while (input != "q") {

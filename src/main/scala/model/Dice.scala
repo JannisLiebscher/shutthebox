@@ -11,15 +11,14 @@ case class TwoDice(w1: Int, w2: Int) extends Dice(w1: Int, w2: Int) {
   override def getSum(): Int = w1 + w2
   def wuerfeln(amount: Int): Dice =
     if (amount == 2) Dice("two") else Dice("one")
-  override def toString() = "Gewuerfelt: " + w1 + " und " + w2
+  override def toString() = w1.toString + " und " + w2.toString
 }
-
 class OneDice(w1: Int, w2: Int) extends Dice(w1: Int, w2: Int) {
   def this() = this(new Random().nextInt(6) + 1, 0)
   override def getSum(): Int = w1
   def wuerfeln(amount: Int): Dice =
     if (amount == 2) Dice("two") else Dice("one")
-  override def toString() = "Gewuerfelt: " + w1
+  override def toString() = w1.toString
 }
 
 object Dice {

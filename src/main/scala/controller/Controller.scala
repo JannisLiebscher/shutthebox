@@ -4,7 +4,9 @@ import model.Game
 case class Controller(var game: Game) extends Observable:
   val undoManager = new UndoManager[Game]
   override def toString(): String = game.toString()
-
+  def getSum: Int = game.sum
+  def getDice: String = game.getDice
+  def getBoard: String = game.getBoard
   def doAndPublish(doThis: => Game) =
     game = doThis
     notifyObservers

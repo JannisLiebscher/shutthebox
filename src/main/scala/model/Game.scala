@@ -8,7 +8,9 @@ case class Game(board: Board, w: Dice, players: Players, sum: Int) {
   def this(player: Int = 2) =
     this(new Board(), Dice("two"), new Players(player), 0)
   def count(): Int = board.count()
-
+  def getDice: String = w.toString
+  def getBoard: String = board.toString
+  def getScore(player: Int): Int = players.getScore(player)
   def wuerfeln(num: Int): Game =
     if (sum != 0)
       error = "complete turn before rolling dice again"
@@ -39,6 +41,6 @@ case class Game(board: Board, w: Dice, players: Players, sum: Int) {
     error = ""
     players.toString + eol +
       board.toString + eol +
-      w.toString + " | Summe: " + sum +
+      "Gewuerfelt " + w.toString + " | Summe: " + sum +
       "\n" + tmp
 }
