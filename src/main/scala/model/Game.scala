@@ -5,8 +5,6 @@ val eol = sys.props("line.separator")
 case class Game(board: Board, w: Dice, players: Players, sum: Int) {
   var error = ""
   def this() = this(new Board(), Dice("two"), new Players(2), 0)
-  def this(player: Int = 2) =
-    this(new Board(), Dice("two"), new Players(player), 0)
   def count(): Int = board.count()
   def getDice: String = w.toString
   def getBoard: String = board.toString
@@ -31,10 +29,8 @@ case class Game(board: Board, w: Dice, players: Players, sum: Int) {
     else this
 
   def endMove: Game =
-    if (sum == 0)
-      new Game(new Board(9), Dice("two"), players.addScore(board.count()), 0)
-        .wuerfeln(2)
-    else this
+    new Game(new Board(9), Dice("two"), players.addScore(board.count()), 0)
+      .wuerfeln(2)
 
   override def toString(): String =
     val tmp = error

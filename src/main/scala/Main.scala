@@ -1,5 +1,5 @@
 import scala.io.StdIn.readLine
-import model.*
+import model.Game
 object shutthebox {
   @main def run: Unit =
     val c =

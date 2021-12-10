@@ -33,5 +33,4 @@ e match {
 }
 val ga = Some(new Game)
 ga.get
-
 case class Ex(message: String) extends Exception()

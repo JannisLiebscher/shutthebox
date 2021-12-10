@@ -7,9 +7,11 @@ case class Controller(var game: Game) extends Observable:
   def getSum: Int = game.sum
   def getDice: String = game.getDice
   def getBoard: String = game.getBoard
+  def isShut(stone: Int): Boolean = game.board.isShut(stone)
   def doAndPublish(doThis: => Game) =
     game = doThis
     notifyObservers
+
   def doAndPublish(doThis: Int => Game, num: Int) =
     game = doThis(num)
     notifyObservers
