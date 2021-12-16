@@ -4,7 +4,7 @@ case class Players private (
     count: Int,
     players: Vector[(String, Int)],
     turn: Int
-) {
+) extends PlayerInterface {
   def this(count: Int) =
     this(count, Vector.tabulate(count)(n => ("Player " + (n + 1), 0)), 1)
 

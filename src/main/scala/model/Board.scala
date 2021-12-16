@@ -1,6 +1,6 @@
 package model
 import model.Matrix
-case class Board private (var m: Matrix[Int]) {
+case class Board private (var m: Matrix[Int]) extends BoardInterface {
 
   def this(size: Int = 9) =
     this(new Matrix[Int](size, 0))

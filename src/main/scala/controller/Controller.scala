@@ -1,26 +1,28 @@
 package controller
 import util.*
-import model.Game
-case class Controller(var game: Game) extends Observable:
-  val undoManager = new UndoManager[Game]
+import model.GameInterface
+case class Controller(var game: GameInterface) extends ControllerInterface:
+  val undoManager = new UndoManager[GameInterface]
   override def toString(): String = game.toString()
-  def getSum: Int = game.sum
+  def getSum: Int = game.getSum
   def getDice: String = game.getDice
   def getBoard: String = game.getBoard
-  def isShut(stone: Int): Boolean = game.board.isShut(stone)
-  def doAndPublish(doThis: => Game) =
+  def isShut(stone: Int): Boolean = game.isShut(stone)
+  def doAndPublish(doThis: => GameInterface) =
     game = doThis
     notifyObservers
 
-  def doAndPublish(doThis: Int => Game, num: Int) =
+  def doAndPublish(doThis: Int => GameInterface, num: Int) =
     game = doThis(num)
     notifyObservers
 
-  def wuerfeln: Game =
+  def wuerfeln: GameInterface =
     if (game.count() <= 6) undoManager.doStep(game, WuerfelnCommand(1))
     else undoManager.doStep(game, WuerfelnCommand(2))
 
-  def shut(num: Int): Game = undoManager.doStep(game, ShutCommand(num))
-  def endMove: Game = undoManager.doStep(game, EndMoveCommand())
-  def undo: Game = undoManager.undoStep(game)
-  def redo: Game = undoManager.redoStep(game)
+  def shut(num: Int): GameInterface =
+    undoManager.doStep(game, ShutCommand(num))
+  def endMove: GameInterface =
+    undoManager.doStep(game, EndMoveCommand())
+  def undo: GameInterface = undoManager.undoStep(game)
+  def redo: GameInterface = undoManager.redoStep(game)

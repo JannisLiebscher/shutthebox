@@ -1,10 +1,10 @@
 package aview
 
 import scala.io.StdIn.readLine
-import controller.Controller
+import controller.ControllerInterface
 import util.Observer
 
-class Tui(controller: Controller) extends Observer:
+class Tui(controller: ControllerInterface) extends Observer:
 
   controller.add(this)
 

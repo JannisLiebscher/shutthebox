@@ -1,10 +1,10 @@
 package controller
 
 import util.Command
-import model.Game
+import model.GameInterface
 
-class ShutCommand(num: Int) extends Command[Game]:
-  override def noStep(game: Game): Game = game
-  override def doStep(game: Game): Game = game.shut(num)
-  override def undoStep(game: Game): Game = game.resShut(num)
-  override def redoStep(game: Game): Game = game.shut(num)
+class ShutCommand(num: Int) extends Command[GameInterface]:
+  override def noStep(game: GameInterface): GameInterface = game
+  override def doStep(game: GameInterface): GameInterface = game.shut(num)
+  override def undoStep(game: GameInterface): GameInterface = game.resShut(num)
+  override def redoStep(game: GameInterface): GameInterface = game.shut(num)
