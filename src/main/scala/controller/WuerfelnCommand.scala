@@ -5,8 +5,8 @@ import model.Game
 import model.GameInterface
 
 class WuerfelnCommand(num: Int) extends Command[GameInterface]:
-  var afterDo: GameInterface
-  var beforeDo: GameInterface
+  var afterDo: GameInterface = new Game
+  var beforeDo: GameInterface = new Game
   override def noStep(game: GameInterface): GameInterface = game
   override def doStep(game: GameInterface): GameInterface =
     beforeDo = game

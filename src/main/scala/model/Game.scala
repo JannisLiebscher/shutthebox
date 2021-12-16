@@ -12,7 +12,9 @@ case class Game(
   def this() = this(new Board(), Dice("two"), new Players(2), 0)
   def count(): Int = board.count()
   def getDice: String = w.toString
+  def getSum: Int = sum
   def getBoard: String = board.toString
+  def isShut(stone: Int): Boolean = board.isShut(stone)
   def getScore(player: Int): Int = players.getScore(player)
   def wuerfeln(num: Int): Game =
     if (sum != 0)

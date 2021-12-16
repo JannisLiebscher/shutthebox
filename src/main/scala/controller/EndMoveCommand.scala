@@ -5,8 +5,8 @@ import model.GameInterface
 import model.Game
 
 class EndMoveCommand extends Command[GameInterface]:
-  var afterDo = new Game
-  var beforeDo = new Game
+  var afterDo: GameInterface = new Game
+  var beforeDo: GameInterface = new Game
   override def noStep(game: GameInterface): GameInterface = game
   override def doStep(game: GameInterface): GameInterface =
     beforeDo = game
