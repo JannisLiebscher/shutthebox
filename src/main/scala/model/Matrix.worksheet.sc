@@ -34,3 +34,17 @@ e match {
 val ga = Some(new Game)
 ga.get
 case class Ex(message: String) extends Exception()
+import aview.*
+var topButtons = Vector[guiButtonTop]()
+for (w <- 1 to 4) topButtons = topButtons :+ new guiButtonTop(w)
+topButtons.size
+for (w <- 0 until 4) topButtons(w).shut
+topButtons(0).text
+topButtons(1).text
+topButtons(2).text
+topButtons(3).text
+for (w <- 0 until 3) topButtons(w).notShut
+topButtons(0).text
+topButtons(1).text
+topButtons(2).text
+topButtons(3).text
