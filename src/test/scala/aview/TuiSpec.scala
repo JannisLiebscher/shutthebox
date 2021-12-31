@@ -21,9 +21,6 @@ class TuiSpec extends AnyWordSpec {
       tui.getInputAndPrintLoop("4")
       controller.game.count() should be(41)
     }
-    "do nothing on input 'q'" in {
-      tui.getInputAndPrintLoop("q")
-    }
     "should notify you of unknown inputs" in {
       tui.getInputAndPrintLoop("")
     }
