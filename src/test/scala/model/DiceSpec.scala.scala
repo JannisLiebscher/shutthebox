@@ -23,15 +23,14 @@ class DiceSpec extends AnyWordSpec {
       }
     }
     "print out only one dice when switching from 2 dices to 1" in {
-      val wu = Dice("one")
+      val wu = Dice("two")
       breakable {
         while (true) {
           wu.wuerfeln(2)
           if (wu.wuerfeln(2).getSum() > 6) break
         }
       }
-      wu.wuerfeln(1)
-      wu.toString should fullyMatch regex """[1-6]"""
+      wu.wuerfeln(1).toString should fullyMatch regex """[1-6]"""
     }
   }
 }
