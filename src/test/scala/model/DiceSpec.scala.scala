@@ -32,5 +32,12 @@ class DiceSpec extends AnyWordSpec {
       }
       wu.wuerfeln(1).toString should fullyMatch regex """[1-6]"""
     }
+    "have a mock implemantation" in {
+      val wu = Dice("mock")
+      for (n <- (0 to 100)) {
+        wu.wuerfeln(1).getSum() should be(2)
+        wu.wuerfeln(1).toString should fullyMatch regex "1 und 1"
+      }
+    }
   }
 }
