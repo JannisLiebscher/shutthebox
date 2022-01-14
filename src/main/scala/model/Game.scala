@@ -1,5 +1,4 @@
 package model
-
 val eol = sys.props("line.separator")
 
 case class Game(
@@ -47,3 +46,8 @@ case class Game(
       "Gewuerfelt " + w.toString + " | Summe: " + sum +
       "\n" + tmp
 }
+object Game:
+  def apply(): Game = new Game(new Board(), Dice("two"), new Players(2), 0)
+  def apply(kind: String) = kind match {
+    case "mock" => new Game(new Board(), Dice("mock"), new Players(2), 0)
+  }

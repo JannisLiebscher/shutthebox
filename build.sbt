@@ -11,6 +11,9 @@ lazy val root = project
       .cross(CrossVersion.for3Use2_13),
     libraryDependencies += "org.scalactic" %% "scalactic" % "3.2.10",
     libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.10" % "test",
+    libraryDependencies += "com.google.inject" % "guice" % "4.2.3",
+    libraryDependencies += ("net.codingwell" %% "scala-guice" % "4.2.11")
+      .cross(CrossVersion.for3Use2_13),
     jacocoCoverallsServiceName := "github-actions",
     jacocoCoverallsBranch := sys.env.get("CI_BRANCH"),
     jacocoCoverallsPullRequest := sys.env.get("GITHUB_EVENT_NAME"),

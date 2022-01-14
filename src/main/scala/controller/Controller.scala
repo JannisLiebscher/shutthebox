@@ -1,7 +1,10 @@
 package controller
 import util.*
 import model.GameInterface
-case class Controller(var game: GameInterface) extends ControllerInterface:
+import com.google.inject.{Guice, Inject}
+
+case class Controller @Inject() (var game: GameInterface)
+    extends ControllerInterface:
   val undoManager = new UndoManager[GameInterface]
   override def toString(): String = game.toString()
   def getSum: Int = game.getSum
@@ -26,3 +29,9 @@ case class Controller(var game: GameInterface) extends ControllerInterface:
     undoManager.doStep(game, EndMoveCommand())
   def undo: GameInterface = undoManager.undoStep(game)
   def redo: GameInterface = undoManager.redoStep(game)
+
+object Controller:
+  def apply(): Controller = new Controller(model.Game())
+  def apply(kind: String) = kind match {
+    case "mock" => new Controller(model.Game("mock"))
+  }
