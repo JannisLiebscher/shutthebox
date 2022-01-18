@@ -10,7 +10,7 @@ class EndMoveCommandSpec extends AnyWordSpec {
       command.afterDo.isShut(1) should be(false)
       command.beforeDo.isShut(1) should be(false)
     }
-    "return the updated game in the dopStep" in {
+    "do a Step" in {
       val command = new EndMoveCommand
       command.doStep(Game("mock")).getPlayers should include("Player 2's turn")
     }
