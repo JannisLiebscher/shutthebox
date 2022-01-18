@@ -18,6 +18,6 @@ lazy val root = project
     jacocoCoverallsBranch := sys.env.get("CI_BRANCH"),
     jacocoCoverallsPullRequest := sys.env.get("GITHUB_EVENT_NAME"),
     jacocoCoverallsRepoToken := sys.env.get("COVERALLS_REPO_TOKEN"),
-    jacocoExcludes := Seq("*aview.GUI*")
+    jacocoExcludes := Seq("aview.GUI*")
   )
   .enablePlugins(JacocoCoverallsPlugin)
