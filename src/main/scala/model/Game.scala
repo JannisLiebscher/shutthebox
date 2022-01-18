@@ -47,6 +47,7 @@ case class Game(
       "Gewuerfelt " + w.toString + " | Summe: " + sum +
       "\n" + tmp
 }
+
 object Game:
   def apply(): Game = new Game(new Board(), Dice("two"), new Players(2), 0)
   def apply(kind: String) = kind match {
