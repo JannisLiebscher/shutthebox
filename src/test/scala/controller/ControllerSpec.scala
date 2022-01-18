@@ -7,7 +7,9 @@ class ControllerSpec extends AnyWordSpec {
   "A Controller" should {
     "be created" in {
       val con = new Controller(new Game())
+      con.getScore(1) should be(0)
       val conObject = new Controller(Game())
+      conObject.getScore(1) should be(0)
     }
     "always roll a \"2\" when beeing created as a \"mock\" implementation" in {
       val conObjectMock = new Controller(Game("Mock"))
@@ -19,8 +21,10 @@ class ControllerSpec extends AnyWordSpec {
       con.getSum should be > 2
     }
     "return a String representation of a rolled dice" in {
-      val con = new Controller(Game("mock")).wuerfeln
+      var con = new Controller(Game("mock")).wuerfeln
       con.getDice should fullyMatch regex "1 und 1"
+      con = new Controller(Game()).wuerfeln
+      con.getDice should fullyMatch regex """[1-6]\sund\s[1-6]"""
     }
     "return the sum of the rolled dice" in {
       val con = new Controller(Game("mock")).wuerfeln
