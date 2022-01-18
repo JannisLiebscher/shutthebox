@@ -7,6 +7,8 @@ trait ControllerInterface extends Observable {
   def getSum: Int
   def getDice: String
   def getBoard: String
+  def getScore(PlayerNum: Int): Int
+  def getPlayers: String
   def isShut(stone: Int): Boolean
   def doAndPublish(doThis: => GameInterface): Unit
   def doAndPublish(doThis: Int => GameInterface, num: Int): Unit

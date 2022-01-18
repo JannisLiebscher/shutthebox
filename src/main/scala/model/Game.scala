@@ -12,6 +12,7 @@ case class Game(
   def count(): Int = board.count()
   def getDice: String = w.toString
   def getSum: Int = sum
+  def getPlayers: String = players.toString
   def getBoard: String = board.toString
   def isShut(stone: Int): Boolean = board.isShut(stone)
   def getScore(player: Int): Int = players.getScore(player)

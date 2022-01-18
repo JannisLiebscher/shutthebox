@@ -2,6 +2,7 @@ package aview
 import swing._
 import controller.ControllerInterface
 import util.Observer
+import org.w3c.dom.Text
 class Gui(controller: ControllerInterface) extends MainFrame with Observer {
   controller.add(this)
 
@@ -17,10 +18,22 @@ class Gui(controller: ControllerInterface) extends MainFrame with Observer {
         baseButtons(x).notShut
       }
     }
-    this.repaint
+    score.text = controller.getPlayers
+    if (controller.getScore(2) > 45 && controller.getScore(2) <= 45)
+      score.text = "Player 1 wins!"
 
-  object sum extends TextField { columns = 5 }
-  object dice extends TextField { columns = 5 }
+  object sum extends TextField {
+    columns = 5
+    editable = false
+  }
+  object dice extends TextField {
+    columns = 5
+    editable = false
+  }
+  object score extends TextField {
+    columns = 30
+    editable = false
+  }
 
   val buttonCount = 9
   var topButtons = Vector[guiButtonTop]()
@@ -76,12 +89,16 @@ class Gui(controller: ControllerInterface) extends MainFrame with Observer {
       for (w <- 0 to buttonCount - 1) contents += baseButtons(w)
     }
   }
+  val southPanel = new FlowPanel {
+    contents += score
+    contents += next
+  }
   contents = new BorderPanel {
     add(northPanel, BorderPanel.Position.North)
     add(undo, BorderPanel.Position.West)
     add(redo, BorderPanel.Position.East)
     add(centerPanel, BorderPanel.Position.Center)
-    add(next, BorderPanel.Position.South)
+    add(southPanel, BorderPanel.Position.South)
   }
   pack()
   centerOnScreen()

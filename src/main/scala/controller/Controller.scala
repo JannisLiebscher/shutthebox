@@ -11,6 +11,8 @@ case class Controller @Inject() (var game: GameInterface)
   def getDice: String = game.getDice
   def getBoard: String = game.getBoard
   def isShut(stone: Int): Boolean = game.isShut(stone)
+  def getScore(PlayerNum: Int): Int = game.getScore(PlayerNum)
+  def getPlayers: String = game.getPlayers
   def doAndPublish(doThis: => GameInterface) =
     game = doThis
     notifyObservers

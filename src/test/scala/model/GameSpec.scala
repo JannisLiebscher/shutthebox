@@ -56,8 +56,7 @@ class GameSpec extends AnyWordSpec {
       game.getBoard should include("| # | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |")
       game.isShut(1) should be(true)
       game.getScore(1) should be(0)
-      game.wuerfeln(2) should be(game)
-
+      game.getPlayers should include("Player 1's turn")
     }
   }
 }

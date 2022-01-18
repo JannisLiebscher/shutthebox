@@ -25,5 +25,18 @@ class PlayersSpec extends AnyWordSpec {
       pl.toString should include("-----| Player 1: 0 |-----")
       new Players(2).toString should include("Player 1: 0 | Player 2: 0 | ")
     }
+    "tell who won the game if the last player made his move and one players score exceeds 45" in {
+      var pl = new Players(3)
+      pl.addScore(100).addScore(200).addScore(20).toString should include(
+        "Player 3 wins"
+      )
+      pl.addScore(0).addScore(100).addScore(100).toString should include(
+        "Player 1 wins"
+      )
+      pl.addScore(0).addScore(100).toString should not include ("Player 1 wins")
+      pl.addScore(10).addScore(20).addScore(30).toString should not include (
+        "Player 1 wins"
+      )
+    }
   }
 }
