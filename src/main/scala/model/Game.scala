@@ -49,5 +49,6 @@ case class Game(
 object Game:
   def apply(): Game = new Game(new Board(), Dice("two"), new Players(2), 0)
   def apply(kind: String) = kind match {
-    case "mock" => new Game(new Board(), Dice("mock"), new Players(2), 0)
+    case "mock" | "Mock" =>
+      new Game(new Board(), Dice("mock"), new Players(2), 0)
   }

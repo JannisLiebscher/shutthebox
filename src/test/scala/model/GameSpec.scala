@@ -9,6 +9,14 @@ class GameSpec extends AnyWordSpec {
       var game = new Game()
       game.count() should be(45)
       game.sum should be(0)
+      var gameObj = Game()
+      gameObj.count() should be(45)
+      gameObj.sum should be(0)
+    }
+    "be created using the Mock version to get a game that gives you a 2 at every dice roll" in {
+      var game = Game("Mock").wuerfeln(2)
+      game.count() should be(45)
+      game.sum should be(2)
     }
     "not allow you to roll the dice again if the sum is not 0" in {
       var game = new Game(new Board(), Dice("two"), new Players(2), 1)
@@ -44,7 +52,7 @@ class GameSpec extends AnyWordSpec {
     }
     "return essential values" in {
       var game = new Game().wuerfeln(2).shut(1)
-      game.getSum should be > 2
+      game.getSum should be > 1
       game.getBoard should include("| # | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |")
       game.isShut(1) should be(true)
       game.getScore(1) should be(0)
