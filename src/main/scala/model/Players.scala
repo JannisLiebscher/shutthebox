@@ -25,6 +25,7 @@ case class Players private (
       case 1       => solo
       case default => multi
   }
+
   private def solo: String =
     if (getScore(count) > 45) "Game Over!"
     else "-----| " + players(0)._1 + ": " + players(0)._2.toString + " |-----"
