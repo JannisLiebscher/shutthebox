@@ -5,6 +5,7 @@ import org.scalatest.matchers.should.Matchers._
 import scala.util.control.Breaks._
 class DiceSpec extends AnyWordSpec {
 
+  
   "A Dice" should {
     "be created using the amount of dices to roll" in {
       val wone = Dice("one")
