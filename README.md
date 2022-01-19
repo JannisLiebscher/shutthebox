@@ -4,9 +4,12 @@
 </p>
 
 A simplified version of the Board Game Shut the Box!
-
-![example workflow](https://github.com/JannisLiebscher/shutthebox/actions/workflows/scala.yml/badge.svg)
-<a href='https://coveralls.io/github/JannisLiebscher/shutthebox?branch=master'><img src='https://coveralls.io/repos/github/JannisLiebscher/shutthebox/badge.svg?branch=master' alt='Coverage Status' /></a>
+<p align="center">
+  <img src="https://github.com/JannisLiebscher/shutthebox/actions/workflows/scala.yml/badge.svg?branch=main" /> 
+  <a href="https://coveralls.io/github/JannisLiebscher/shutthebox?branch=master">
+    <img src="https://coveralls.io/repos/github/JannisLiebscher/shutthebox/badge.svg?branch=master" />
+  </a>
+</p>
 
 ## How the Game works
 * You begin with 9 Open Boxes. 
