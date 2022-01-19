@@ -26,4 +26,4 @@ you're unable to close boxes that are equal to your Dice Roll.
 
 Remember, a lower Score is better!
 
-![alt text](src/main/pics/logo.jpg)<br/>
+![alt text](src/main/scala/pics/logo.PNG)<br/>
