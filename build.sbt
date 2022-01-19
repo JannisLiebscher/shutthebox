@@ -31,7 +31,7 @@ lazy val root = project
     jacocoExcludes := Seq(
       "*aview.*",
       "*ShutTheBoxModule*",
-      "*Main"
+      "**Main"
     ),
     jacocoReportSettings := JacocoReportSettings(
       "Jacoco Coverage Report",
