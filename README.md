@@ -17,13 +17,11 @@ Project for a Software Engineering class
 A simplified version of the Board Game Shut the Box!
 
 ## How the Game works
-You begin with 9 Open Boxes. The Aim of the Game is to shut
-as many Boxes as Possible.
-
-Roll Two Dices, then close one or more Boxes such that the Sum
-of the Boxes closed is equal to your Dice Roll. The Game Ends when
-you're unable to close boxes that are equal to your Dice Roll.
-
-Remember, a lower Score is better!
+* You begin with 9 Open Boxes. 
+* The Aim of the Game is to shut as many Boxes as Possible.
+* Roll Two Dices, then close one or more Boxes such that the Sum
+  of the Boxes closed is equal to your Dice Roll. 
+* The Game Ends when you're unable to close boxes that are equal to your Dice Roll.
+>>Remember, a lower Score is better!!
 
 ![alt text](src/main/scala/pics/logo.PNG)<br/>
