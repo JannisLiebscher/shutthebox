@@ -33,7 +33,6 @@ lazy val root = project
       "*ShutTheBoxModule*",
       "*Main*"
     ),
-
     jacocoReportSettings := JacocoReportSettings(
       "Jacoco Coverage Report",
       None,
