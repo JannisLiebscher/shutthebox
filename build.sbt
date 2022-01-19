@@ -20,8 +20,8 @@ lazy val root = project
     jacocoCoverallsRepoToken := sys.env.get("COVERALLS_REPO_TOKEN"),
     jacocoExcludes := Seq(
       "*aview.*",
-      "scala.Main",
-      "scala.ShutTheBoxModule"
+      "*Main.*",
+      "*ShutTheBoxModule.*"
       )
   )
   .enablePlugins(JacocoCoverallsPlugin)
