@@ -22,9 +22,8 @@ A simplified version of the Board Game Shut the Box!
 * The Game Ends when you're unable to close Boxes that are equal to your Dice Roll.
 - Remember, a lower Score is better!!
 
-<p align="center">
 ![alt text](src/main/scala/pics/Logo.PNG)<br/>
-</p>
+
 
 # Authors
 * Jannis Liebscher
