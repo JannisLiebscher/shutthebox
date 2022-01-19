@@ -39,7 +39,7 @@ lazy val root = project
       None,
       JacocoThresholds(),
       Seq(JacocoReportFormats.ScalaHTML, JacocoReportFormats.XML), // note XML formatter
-    "utf-8"),
+      "utf-8"),
 
     jacocoCoverallsServiceName := "github-actions",
     jacocoCoverallsBranch := sys.env.get("CI_BRANCH"),
