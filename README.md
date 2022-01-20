@@ -25,7 +25,7 @@ A simplified version of the Board Game Shut the Box!
 # How to play
 * Roll the Dice
 * Drop down Boxes, equal to the Sum of your Roll.
-* Repeat until u can`t shut any more Boxes.
+* Repeat until u can't shut any more Boxes.
 * Click on "Nächster Spieler".
 * Player Score is now shown on the bottom left corner.
 - Remember, a lower Score is better!
