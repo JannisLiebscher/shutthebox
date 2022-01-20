@@ -52,7 +52,7 @@ class GameSpec extends AnyWordSpec {
     }
     "return essential values" in {
       var game = new Game().wuerfeln(2).shut(1)
-      game.getSum should be > 1
+      game.getSum should be >= 1
       game.getBoard should include("| # | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |")
       game.isShut(1) should be(true)
       game.getScore(1) should be(0)
