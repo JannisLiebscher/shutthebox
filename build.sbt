@@ -14,9 +14,9 @@ lazy val root = project
     libraryDependencies += "com.google.inject" % "guice" % "4.2.3",
     libraryDependencies += ("net.codingwell" %% "scala-guice" % "4.2.11")
       .cross(CrossVersion.for3Use2_13),
-    
     jacocoExcludes := Seq(
       "*aview.*",
+      "*ShutTheBoxModule*",
       "*Main*"
     ),
     jacocoReportSettings := JacocoReportSettings(
