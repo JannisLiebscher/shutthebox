@@ -16,7 +16,6 @@ lazy val root = project
       .cross(CrossVersion.for3Use2_13),
     jacocoExcludes := Seq(
       "*aview.*",
-      "*ShutTheBoxModule*",
       "*Main*"
     ),
     jacocoReportSettings := JacocoReportSettings(
