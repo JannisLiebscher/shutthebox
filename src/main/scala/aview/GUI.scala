@@ -6,6 +6,7 @@ import org.w3c.dom.Text
 class Gui(controller: ControllerInterface) extends MainFrame with Observer {
   controller.add(this)
 
+  
   override def update =
     sum.text = controller.getSum.toString
     dice.text = controller.getDice
