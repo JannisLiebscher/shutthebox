@@ -18,7 +18,7 @@ class ControllerSpec extends AnyWordSpec {
     "roll a dice" in {
       val con = new Controller(Game()).wuerfeln
       con.getSum should be <= 12
-      con.getSum should be > 2
+      con.getSum should be >= 2
     }
     "return a String representation of a rolled dice" in {
       var con = new Controller(Game("mock")).wuerfeln
