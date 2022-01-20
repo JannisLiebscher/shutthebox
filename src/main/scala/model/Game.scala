@@ -37,7 +37,6 @@ case class Game(
 
   def endMove: Game =
     new Game(new Board(9), Dice("two"), players.addScore(board.count()), 0)
-      .wuerfeln(2)
 
   override def toString(): String =
     val tmp = error
