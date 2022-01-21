@@ -34,17 +34,37 @@ e match {
 val ga = Some(new Game)
 ga.get
 case class Ex(message: String) extends Exception()
-import aview.*
-var topButtons = Vector[guiButtonTop]()
-for (w <- 1 to 4) topButtons = topButtons :+ new guiButtonTop(w)
-topButtons.size
-for (w <- 0 until 4) topButtons(w).shut
-topButtons(0).text
-topButtons(1).text
-topButtons(2).text
-topButtons(3).text
-for (w <- 0 until 3) topButtons(w).notShut
-topButtons(0).text
-topButtons(1).text
-topButtons(2).text
-topButtons(3).text
+
+import play.api.libs.json._
+var js = Json.obj("players" -> Json.toJson(Seq(true, false, true)))
+var test = (js \ "players").get.toString.split(",")
+var b = test(0).slice(1, 30)
+var end = test(test.length - 1).slice(0, test(test.length - 1).length - 1)
+import scala.xml.{NodeSeq, PrettyPrinter}
+var xm = <game>
+    <board>
+        <box> true </box>
+        <box> true </box>
+        <box> true </box>
+        <box> false </box>
+        <box> false </box>
+        <box> false </box>
+        <box> false </box>
+        <box> true </box>
+        <box> false </box>
+    </board>
+    <players>
+        <score1> 35 </score1>
+        <score2> 45 </score2>
+        <turn> 1 </turn>
+    </players>
+    <sum> 2 </sum>
+</game>
+var board = new Board()
+var se = Seq[String]()
+var i = 1
+(xm \\ "game" \ "board" \ "box").foreach(x =>
+  if (x.text.equals(" true ")) board = board.shut(i)
+  i += 1
+)
+board

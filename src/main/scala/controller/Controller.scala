@@ -2,10 +2,15 @@ package controller
 import util.*
 import model.GameInterface
 import com.google.inject.{Guice, Inject}
+import model.fileioComponent.*
+import module.ShutTheBoxModule
 
 case class Controller @Inject() (var game: GameInterface)
     extends ControllerInterface:
   val undoManager = new UndoManager[GameInterface]
+  //val injector = Guice.createInjector(new ShutTheBoxModule)
+  //val file = injector.getInstance(classOf[FileIOInterface])
+  val file = new FileIOJSON
   override def toString(): String = game.toString()
   def getSum: Int = game.getSum
   def getDice: String = game.getDice
@@ -13,6 +18,9 @@ case class Controller @Inject() (var game: GameInterface)
   def isShut(stone: Int): Boolean = game.isShut(stone)
   def getScore(PlayerNum: Int): Int = game.getScore(PlayerNum)
   def getPlayers: String = game.getPlayers
+  def save: Unit = file.save(game)
+  def load: GameInterface = file.load
+
   def doAndPublish(doThis: => GameInterface) =
     game = doThis
     notifyObservers

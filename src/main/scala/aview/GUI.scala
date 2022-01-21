@@ -6,7 +6,6 @@ import org.w3c.dom.Text
 class Gui(controller: ControllerInterface) extends MainFrame with Observer {
   controller.add(this)
 
-  
   override def update =
     sum.text = controller.getSum.toString
     dice.text = controller.getDice
@@ -47,7 +46,18 @@ class Gui(controller: ControllerInterface) extends MainFrame with Observer {
     }
     baseButtons = baseButtons :+ new guiButtonBase(w)
   }
-
+  val load = new Button("Laden") {
+    maximumSize = new Dimension(20, 20)
+    reactions += { case event.ButtonClicked(_) =>
+      controller.doAndPublish(controller.load)
+    }
+  }
+  val save = new Button("Speichern") {
+    maximumSize = new Dimension(20, 20)
+    reactions += { case event.ButtonClicked(_) =>
+      controller.save
+    }
+  }
   val next = new Button("Nächster Spieler") {
     maximumSize = new Dimension(20, 20)
     reactions += { case event.ButtonClicked(_) =>
@@ -76,11 +86,14 @@ class Gui(controller: ControllerInterface) extends MainFrame with Observer {
   this.preferredSize = new Dimension(580, 200)
   title = "ShutTheBox"
   val northPanel = new FlowPanel {
+    contents += load
+    contents += save
     contents += wuerfel
     contents += new Label(" Gewürfelt: ")
     contents += dice
     contents += new Label(" Summe: ")
     contents += sum
+
   }
   val centerPanel = new FlowPanel {
     contents += new FlowPanel {

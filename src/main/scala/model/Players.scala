@@ -1,6 +1,6 @@
 package model
 
-case class Players private (
+case class Players(
     count: Int,
     players: Vector[(String, Int)],
     turn: Int
@@ -19,7 +19,7 @@ case class Players private (
     )
   }
   def getScore(player: Int): Int = players(player - 1)._2
-
+  def getTurn = turn
   override def toString = {
     count match
       case 1       => solo

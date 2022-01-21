@@ -1,0 +1,19 @@
+<game>
+    <board>
+        <box> false </box>
+        <box> false </box>
+        <box> false </box>
+        <box> false </box>
+        <box> true </box>
+        <box> false </box>
+        <box> true </box>
+        <box> false </box>
+        <box> false </box>
+    </board>
+    <players>
+        <score1> 29 </score1>
+        <score2> 0 </score2>
+        <turn> 2 </turn>
+    </players>
+    <sum> 7 </sum>
+</game>

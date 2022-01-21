@@ -1,4 +1,6 @@
 package model
+import fileioComponent.FileIOXML
+import model.fileioComponent.FileIOJSON
 val eol = sys.props("line.separator")
 
 case class Game(
@@ -13,6 +15,7 @@ case class Game(
   def getDice: String = w.toString
   def getSum: Int = sum
   def getPlayers: String = players.toString
+  def getTurn: Int = players.getTurn
   def getBoard: String = board.toString
   def isShut(stone: Int): Boolean = board.isShut(stone)
   def getScore(player: Int): Int = players.getScore(player)

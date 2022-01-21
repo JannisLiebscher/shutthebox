@@ -1,0 +1,11 @@
+{
+  "game" : {
+    "board" : [ true, true, true, false, true, false, true, true, false ],
+    "players" : {
+      "score1" : 20,
+      "score2" : 34,
+      "turn" : 1
+    },
+    "sum" : 0
+  }
+}

@@ -4,6 +4,8 @@ import model.GameInterface
 
 trait ControllerInterface extends Observable {
   override def toString(): String
+  def save: Unit
+  def load: GameInterface
   def getSum: Int
   def getDice: String
   def getBoard: String
