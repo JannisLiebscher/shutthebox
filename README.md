@@ -1,4 +1,13 @@
 <p align="center">
+  
+  <h1 align="center">Shut The Box</h3>
+</p>
+
+<p align="center">
+A simplified version of the Board Game Shut the Box!
+</p>
+
+<p align="center">
   <img src="https://github.com/JannisLiebscher/shutthebox/actions/workflows/scala.yml/badge.svg" /> 
   <a href="https://coveralls.io/github/JannisLiebscher/shutthebox?branch=master">
     <img src="https://coveralls.io/repos/github/JannisLiebscher/shutthebox/badge.svg?branch=master" alt='Coverage Status' />
