@@ -6,7 +6,7 @@ import controller.*
 class TuiSpec extends AnyWordSpec {
 
   "A shutthebox Tui" should {
-    val controller = new Controller(new Game())
+    val controller = Controller("json")
     val tui = new Tui(controller)
     "be subscriber to its controller" in {
       controller.subscribers should contain(tui)

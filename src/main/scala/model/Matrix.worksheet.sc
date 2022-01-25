@@ -37,9 +37,8 @@ case class Ex(message: String) extends Exception()
 
 import play.api.libs.json._
 var js = Json.obj("players" -> Json.toJson(Seq(true, false, true)))
-var test = (js \ "players").get.toString.split(",")
-var b = test(0).slice(1, 30)
-var end = test(test.length - 1).slice(0, test(test.length - 1).length - 1)
+var re = (js \\ "players")(0).asInstanceOf[JsArray]
+re(1).toString.toBoolean
 import scala.xml.{NodeSeq, PrettyPrinter}
 var xm = <game>
     <board>
@@ -60,11 +59,3 @@ var xm = <game>
     </players>
     <sum> 2 </sum>
 </game>
-var board = new Board()
-var se = Seq[String]()
-var i = 1
-(xm \\ "game" \ "board" \ "box").foreach(x =>
-  if (x.text.equals(" true ")) board = board.shut(i)
-  i += 1
-)
-board

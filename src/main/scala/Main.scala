@@ -7,9 +7,6 @@ import model.fileioComponent.FileIOJSON
 import module.*
 object shutthebox {
   @main def run: Unit =
-    val a = new FileIOJSON
-    println("test")
-    println(a.load.toString)
     val injector = Guice.createInjector(new ShutTheBoxModule)
     val c = injector.getInstance(classOf[ControllerInterface])
     val tui = new aview.Tui(c)

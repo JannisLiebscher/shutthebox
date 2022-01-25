@@ -21,13 +21,16 @@ class FileIOJSON extends FileIOInterface {
       Vector(("Player 1", playersSeq(0)), ("Player 2", playersSeq(1))),
       playersSeq(2)
     )
-    val boardstate = (json \ "game" \ "board").get.toString.split(",")
-    boardstate(0) = boardstate(0).slice(1, 30)
-    boardstate(boardstate.length - 1) = boardstate(boardstate.length - 1)
-      .slice(0, boardstate(boardstate.length - 1).length - 1)
+    // val boardstate = (json \ "game" \ "board").get.toString.split(",")
+    // boardstate(0) = boardstate(0).slice(1, 30)
+    // boardstate(boardstate.length - 1) = boardstate(boardstate.length - 1)
+    //   .slice(0, boardstate(boardstate.length - 1).length - 1)
 
+    // for (i <- (0 to 8))
+    //   if (boardstate(i).equals("true")) board = board.shut(i + 1)
+    val boardstate = (json \ "game" \\ "board")(0).asInstanceOf[JsArray]
     for (i <- (0 to 8))
-      if (boardstate(i).equals("true")) board = board.shut(i + 1)
+      if (boardstate(i).toString.toBoolean) board = board.shut(i + 1)
     return new Game(board, Dice("two"), players, sum)
   }
 
