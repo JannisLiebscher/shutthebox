@@ -13,7 +13,7 @@ class FileIOXML extends FileIOInterface {
     var sum = sumAtr
     var i = 1
     (file \\ "game" \ "board" \ "box").foreach(x =>
-      if (x.text.equals(" true ")) board = board.shut(i)
+      if (x.text.trim.toBoolean) board = board.shut(i)
       i += 1
     )
     playerSeq = playerSeq
@@ -28,11 +28,7 @@ class FileIOXML extends FileIOInterface {
     return new Game(board, Dice("two"), players, sum)
   }
 
-  def save(game: GameInterface): Unit = saveString(game)
-  def saveXML(game: GameInterface): Unit = {
-    scala.xml.XML.save("game.xml", gameToXML(game))
-  }
-  def saveString(game: GameInterface) = {
+  def save(game: GameInterface) = {
     import java.io._
     val pw = new PrintWriter(new File("game.xml"))
     val prettyPrinter = new PrettyPrinter(120, 4)
@@ -45,7 +41,7 @@ class FileIOXML extends FileIOInterface {
     <game>{
       <board>
         {
-        for (i <- (1 to 9)) yield { boardToXML(game, i) }
+        for (i <- (1 to 9)) yield { boxToXML(game, i) }
       }
         </board>
         <players>
@@ -66,7 +62,7 @@ class FileIOXML extends FileIOInterface {
       </game>
 
   }
-  def boardToXML(game: GameInterface, box: Int) = {
+  def boxToXML(game: GameInterface, box: Int) = {
     <box>
         {game.isShut(box)}
     </box>

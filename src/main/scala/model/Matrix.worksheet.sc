@@ -59,3 +59,15 @@ var xm = <game>
     </players>
     <sum> 2 </sum>
 </game>
+
+var box = <box> false </box>
+var box2 = <box> false </box>
+box == box2
+var file = new model.fileioComponent.FileIOXML
+game = new Game(
+  new Board().shut(1).shut(2).shut(9),
+  Dice("two"),
+  new Players(2).addScore(31).addScore(42),
+  3
+)
+file.boxToXML(game, 1).text.trim.toBoolean
