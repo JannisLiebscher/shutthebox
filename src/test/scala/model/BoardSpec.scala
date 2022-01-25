@@ -28,6 +28,5 @@ class BoardSpec extends AnyWordSpec {
       bo.shut(1).shut(2).shut(3).toString() should include("| # | # | # | 4 |")
       bo.shut(1).shut(2).shut(3).toString() should include("| 1 | 2 | 3 | # |")
     }
-
   }
 }

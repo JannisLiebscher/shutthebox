@@ -15,7 +15,7 @@ class FileIOJSONSpec extends AnyWordSpec {
       new Players(2).addScore(31).addScore(42),
       3
     )
-    "save a test game \"game.json\"" in {
+    "save a test game in \"game.json\"" in {
       file.save(game)
     }
     "convert a game's board into a sequence" in {
@@ -33,7 +33,7 @@ class FileIOJSONSpec extends AnyWordSpec {
       (json \ "turn").get.toString.toInt should be(1)
 
     }
-    "load a testgame from\"game.json\"" in {
+    "load a testgame from \"game.json\"" in {
       var game = file.load
       game.getScore(1) should be(31)
       game.getScore(2) should be(42)
@@ -45,5 +45,4 @@ class FileIOJSONSpec extends AnyWordSpec {
       game.isShut(9) should be(true)
     }
   }
-
 }
