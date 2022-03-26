@@ -1,7 +1,6 @@
 import model.*
 
 val field = new Matrix[Int](4, 0)
-field.replace(0, 0, 1)
 field.replace(0, 1, 8)
 val field2 = field.replace(1, 0, 9)
 field.size
