@@ -18,7 +18,6 @@ var game = new Game()
 game.board.shut(1)
 var bo = new Board()
 bo = bo.shut(2)
-bo
 bo.isShut(2)
 bo.isShut(1)
 bo.isShut(3)
