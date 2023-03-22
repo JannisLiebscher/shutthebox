@@ -21,14 +21,14 @@ class DiceSpec extends AnyWordSpec {
       w2.toString should fullyMatch regex """[1-6]\sund\s[1-6]"""
       w2.getSum() should be <= 12
     }
-    "not mor than 6 when one dice is used" in {
+    "not return more than 6 when only one dice is used" in {
       val wu = Dice("one")
       for (n <- (0 to 100)) {
         wu.wuerfeln(1).getSum() should be <= 6
         wu.wuerfeln(1).toString should fullyMatch regex """[1-6]"""
       }
     }
-    "return between 2 and 12 when twoo dices are used" in {
+    "return between 2 and 12 when two dices are used" in {
       val wu = Dice("one")
       for (n <- (0 to 100)) {
         wu.wuerfeln(2).getSum() should be <= 12
@@ -46,7 +46,7 @@ class DiceSpec extends AnyWordSpec {
       }
       wu.wuerfeln(1).toString should fullyMatch regex """[1-6]"""
     }
-    "always roll two times a one when using the mock implementation" in {
+    "always roll two 'ones' when using the mock implementation" in {
       val wu = Dice("mock")
       for (n <- (0 to 100)) {
         wu.wuerfeln(1).getSum() should be(2)
