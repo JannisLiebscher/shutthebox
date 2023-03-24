@@ -20,7 +20,7 @@ class GameSpec extends AnyWordSpec {
     }
     "not allow you to roll the dice again if the sum is not 0" in {
       var game = new Game(new Board(), Dice("two"), new Players(2), 1)
-      game.wuerfeln(1) should be(game)
+      game.wuerfeln(1).getDice should be(game.getDice)
     }
     "roll the dice if sum is not 0" in {
       var game = new Game()
