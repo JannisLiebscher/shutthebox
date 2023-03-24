@@ -1,4 +1,4 @@
-package de.htwg.model
+package model
 
 case class Board private (matrix: Matrix[Int]) extends BoardInterface {
 
@@ -13,14 +13,13 @@ case class Board private (matrix: Matrix[Int]) extends BoardInterface {
   def count(): Int = matrix.row(0).sum
 
   override def toString(): String =
-    override def toString(): String =
-      "| " + (1 to matrix.size).map(n =>
-        if (matrix.cell(n - 1, 0) != 0) s"$n | "
-        else "# | ").mkString("")
-        + sys.props("line.separator") + "| "
-        + (1 to matrix.size).map(n =>
-        if (matrix.cell(n - 1, 1) != 0) s"$n | "
-        else "# | ").mkString("")
+    "| " + (1 to matrix.size).map(n =>
+      if (matrix.cell(n - 1, 0) != 0) s"$n | "
+      else "# | ").mkString("")
+      + sys.props("line.separator") + "| "
+      + (1 to matrix.size).map(n =>
+      if (matrix.cell(n - 1, 1) != 0) s"$n | "
+      else "# | ").mkString("")
 
 }
 object Board {
