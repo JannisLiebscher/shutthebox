@@ -28,7 +28,7 @@ A simplified version of the Board Game Shut the Box!
 * Repeat until u can't shut any more Boxes.
 * Click on "Nächster Spieler".
 * Player Score is now shown on the bottom left corner.
-- Remember, a lower Score is better!
+- Remember, a lower Score is better! 
 
 ![alt text](src/main/scala/de/htwg/pics/Logo.PNG)<br/>
 
