@@ -36,16 +36,10 @@ class Gui(controller: ControllerInterface) extends MainFrame with Observer {
   }
 
   val buttonCount = 9
-  var topButtons = Vector[guiButtonTop]()
-  var baseButtons = Vector[guiButtonBase]()
-  for (w <- 1 to buttonCount) {
-    topButtons = topButtons :+ new guiButtonTop(w) {
-      reactions += { case event.ButtonClicked(_) =>
-        controller.doAndPublish(controller.shut, w)
-      }
-    }
-    baseButtons = baseButtons :+ new guiButtonBase(w)
-  }
+  val topButtons = (1 to buttonCount).map(v => new guiButtonTop(v) {
+      reactions += { case event.ButtonClicked(_) => controller.doAndPublish(controller.shut, v)}}
+  ).toVector
+  val baseButtons = (1 to buttonCount).map(v => new guiButtonBase(v))
   val load = new Button("Laden") {
     maximumSize = new Dimension(20, 20)
     reactions += { case event.ButtonClicked(_) =>
