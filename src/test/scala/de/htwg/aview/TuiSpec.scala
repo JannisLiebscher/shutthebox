@@ -5,7 +5,7 @@ import model.*
 import controller.*
 class TuiSpec extends AnyWordSpec {
 
-  "A shutthebox Tui" should {
+  "A main.scala.de.htwg.shutthebox Tui" should {
     val controller = Controller("json")
     val tui = new Tui(controller)
     "be subscriber to its controller" in {

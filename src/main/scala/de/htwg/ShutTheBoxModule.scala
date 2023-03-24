@@ -1,11 +1,6 @@
-package module
-import model.*
-import controller.Controller
-import com.google.inject.AbstractModule
-import com.google.inject.name.Names
-import net.codingwell.scalaguice.ScalaModule
-import controller.ControllerInterface
-import model.fileioComponent.*
+package main.scala.de.htwg
+
+import main.scala.de.htwg.controller.Controller
 
 class ShutTheBoxModuleMock extends AbstractModule {
   override def configure(): Unit = {

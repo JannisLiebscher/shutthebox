@@ -1,4 +1,4 @@
-package main.scala.aview
+package main.scala.de.htwg.aview
 import swing._
 import controller.ControllerInterface
 import util.Observer

@@ -1,4 +1,4 @@
-package main.scala.aview
+package main.scala.de.htwg.aview
 
 import scala.io.StdIn.readLine
 import controller.ControllerInterface

@@ -1,10 +1,6 @@
+package main.scala.de.htwg
+
 import scala.io.StdIn.readLine
-import model.Game
-import controller.ControllerInterface
-import com.google.inject.Guice
-import model.fileioComponent.FileIOXML
-import model.fileioComponent.FileIOJSON
-import module.*
 object shutthebox {
   @main def run: Unit =
     val injector = Guice.createInjector(new ShutTheBoxModuleXML)

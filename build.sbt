@@ -3,7 +3,7 @@ val scala3Version = "3.0.2"
 lazy val root = project
   .in(file("."))
   .settings(
-    name := "shutthebox",
+    name := "main.scala.de.htwg.shutthebox",
     version := "1.0.1",
     scalaVersion := scala3Version,
     crossScalaVersions ++= Seq("2.13.5", "3.0.2"),

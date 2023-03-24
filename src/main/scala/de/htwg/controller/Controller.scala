@@ -1,4 +1,4 @@
-package main.scala.controller
+package main.scala.de.htwg.controller
 import util.*
 import model.GameInterface
 import model.fileioComponent.*

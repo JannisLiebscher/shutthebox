@@ -1,4 +1,4 @@
-package main.scala.model
+package main.scala.de.htwg.model
 import model.DiceInterface
 
 import scala.util.Random
