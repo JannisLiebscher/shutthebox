@@ -13,16 +13,14 @@ case class Board private (matrix: Matrix[Int]) extends BoardInterface {
   def count(): Int = matrix.row(0).sum
 
   override def toString(): String =
-    var out = "| "
-    for (n <- (1 to matrix.size))
-      if (matrix.cell(n - 1, 0) != 0) out = out + n + " | "
-      else out = out + "# | "
-    out = out + sys.props("line.separator") + "| "
-    for (n <- (1 to matrix.size)) {
-      if (matrix.cell(n - 1, 1) != 0) out = out + n + " | "
-      else out = out + "# | "
-    }
-    return out
+    "| " + (1 to matrix.size).map(n =>
+      if (matrix.cell(n - 1, 0) != 0) s"$n | "
+      else "# | ").mkString("")
+      + sys.props("line.separator") + "| "
+      + (1 to matrix.size).map(n =>
+      if (matrix.cell(n - 1, 1) != 0) s"$n | "
+      else "# | ").mkString("")
+
 }
 object Board {
   private def initialize(matrix: Matrix[Int], i: Int): Matrix[Int] = i match {
