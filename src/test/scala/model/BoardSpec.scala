@@ -9,7 +9,7 @@ class BoardSpec extends AnyWordSpec {
     "be created using the x dimension as an input" in {
       val bo = new Board(4)
       bo.count() should be(10)
-      bo.m.size should be(4)
+      bo.matrix.size should be(4)
     }
     "allow to shut down single stones" in {
       val bo = new Board(4)
