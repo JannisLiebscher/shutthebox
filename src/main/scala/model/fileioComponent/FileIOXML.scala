@@ -6,21 +6,21 @@ import scala.xml.{NodeSeq, PrettyPrinter}
 class FileIOXML extends FileIOInterface {
 
   override def load: GameInterface = {
-    var board = new Board(9)
-    var playerSeq = Seq[Int]()
     val file = scala.xml.XML.loadFile("game.xml")
-    var sumAtr = (file \\ "game" \ "sum").text.trim.toInt
-    var sum = sumAtr
-    var i = 1
-    (file \\ "game" \ "board" \ "box").foreach(x =>
-      if (x.text.trim.toBoolean) board = board.shut(i)
-      i += 1
+
+    val sum = (file \\ "game" \ "sum").text.trim.toInt
+
+    val boardstate = (file \\ "game" \ "board" \ "box")
+    val board: BoardInterface = (0 to 8)
+      .filter(i => boardstate(i).text.trim.toBoolean)
+      .foldLeft(new Board(): BoardInterface)((acc, i) => acc.shut(i + 1))
+
+    val playerSeq = Seq[Int](
+      (file \\ "game" \ "players" \ "score1").text.trim.toInt,
+      (file \\ "game" \\ "players" \ "score2").text.trim.toInt,
+      (file \\ "game" \ "players" \ "turn").text.trim.toInt
     )
-    playerSeq = playerSeq
-      :+ (file \\ "game" \ "players" \ "score1").text.trim.toInt
-      :+ (file \\ "game" \\ "players" \ "score2").text.trim.toInt
-      :+ (file \\ "game" \ "players" \ "turn").text.trim.toInt
-    var players = new Players(
+    val players = new Players(
       2,
       Vector(("Player 1", playerSeq(0)), ("Player 2", playerSeq(1))),
       playerSeq(2)
