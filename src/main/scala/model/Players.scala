@@ -29,19 +29,14 @@ case class Players(
   private def solo: String =
     if (getScore(count) > 45) "Game Over!"
     else "-----| " + players(0)._1 + ": " + players(0)._2.toString + " |-----"
-  private def multi: String =
-    var out = ""
-    if (turn == 1)
-      var min = ("empty", 100)
-      var max = ("empty", 0)
-      for (player <- players) {
-        if (min._2 > player._2) min = (player._1, player._2)
-        if (max._2 < player._2) max = (player._1, player._2)
-      }
-      if (max._2 > 45) return min._1 + " wins!"
-    for (player <- players) {
-      out = out + player._1 +
-        ": " + player._2.toString + " | "
-    }
-    return out + "Player " + turn + "'s turn"
+  private def multi: String = {
+    val outPlayers = players
+      .map(player => player._1 + ": " + player._2.toString)
+      .mkString(" | ")
+    val min = players.minBy(_._2)
+    val max = players.maxBy(_._2)
+    val out = if (max._2 > 45) min._1 + " wins!" else outPlayers
+    out + "Player " + turn + "'s turn"
+  }
+
 }
