@@ -8,6 +8,7 @@ trait GameInterface {
   def isShut(stone: Int): Boolean
   def getScore(player: Int): Int
   def getPlayers: String
+  def getWinner: Option[String]
   def getTurn: Int
   def wuerfeln(num: Int): Game
   def shut(stone: Int): Game

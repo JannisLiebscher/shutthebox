@@ -26,6 +26,12 @@ case class Players(
       case default => multi
   }
 
+  def getWinner: Option[String] = 
+    val playerMin = players.minBy(_._2)
+    val playerMax = players.maxBy(_._2)
+    if (playerMax._2 > 45 && turn == 1) Some(playerMin._1)
+    else None
+
   private def solo: String =
     if (getScore(count) > 45) "Game Over!"
     else "-----| " + players(0)._1 + ": " + players(0)._2.toString + " |-----"

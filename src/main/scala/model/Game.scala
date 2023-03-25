@@ -15,6 +15,7 @@ case class Game(
   def getDice: String = w.toString
   def getSum: Int = sum
   def getPlayers: String = players.toString
+  def getWinner: Option[String] = players.getWinner
   def getTurn: Int = players.getTurn
   def getBoard: String = board.toString
   def isShut(stone: Int): Boolean = board.isShut(stone)

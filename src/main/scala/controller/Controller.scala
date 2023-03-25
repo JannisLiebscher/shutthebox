@@ -14,6 +14,7 @@ case class Controller(
   def isShut(stone: Int): Boolean = game.isShut(stone)
   def getScore(PlayerNum: Int): Int = game.getScore(PlayerNum)
   def getPlayers: String = game.getPlayers
+  def getWinner: Option[String] = game.getWinner
   def save: Unit = file.save(game)
   def load: GameInterface = file.load
 

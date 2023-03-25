@@ -37,6 +37,9 @@ class PlayersSpec extends AnyWordSpec {
       pl.addScore(10).addScore(20).addScore(30).toString should not include (
         "Player 1 wins"
       )
+      pl.addScore(0).addScore(100).addScore(20).getWinner.get should be("Player 1")
+      pl.addScore(0).addScore(100).getWinner should be(None)
+      pl.addScore(10).addScore(20).addScore(30).getWinner should be(None)
     }
   }
 }
