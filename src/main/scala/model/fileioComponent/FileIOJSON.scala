@@ -9,7 +9,7 @@ class FileIOJSON extends FileIOInterface {
   override def load: GameInterface = {
     val source: String = Source.fromFile("game.json").getLines.mkString
     val json: JsValue = Json.parse(source)
-
+    
     val sum = (json \ "game" \ "sum").get.toString.toInt
     val playersSeq = Seq[Int](
       (json \ "game" \ "players" \ "score1").get.toString.toInt,

@@ -11,7 +11,7 @@ class FileIOXML extends FileIOInterface {
     val sum = (file \\ "game" \ "sum").text.trim.toInt
 
     val boardstate = (file \\ "game" \ "board" \ "box")
-    val board: BoardInterface = (0 to boardstate.size)
+    val board: BoardInterface = (0 to 8)
     .filter(i => boardstate(i).text.trim.toBoolean)
     .map(i => (b: BoardInterface) => b.shut(i + 1)).toList
     .foldLeft(new Board(): BoardInterface)((board, func) => func(board))
