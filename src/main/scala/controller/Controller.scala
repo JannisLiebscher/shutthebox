@@ -4,7 +4,7 @@ import model.GameInterface
 import model.fileioComponent.*
 case class Controller(
     var game: GameInterface,
-    var file: model.fileioComponent.FileIOInterface
+    file: model.fileioComponent.FileIOInterface
 ) extends ControllerInterface:
   val undoManager = new UndoManager[GameInterface]
   override def toString(): String = game.toString()
