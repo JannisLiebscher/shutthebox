@@ -13,8 +13,11 @@ object shutthebox {
     val gui = new aview.Gui(c)
 
     var input: String = ""
-    while (input != "q") {
+    while (true) {
       input = readLine()
+      if(input == "q" | input == "quit") 
+        gui.dispose() 
+        System.exit(0)
       tui.getInputAndPrintLoop(input)
     }
 }
