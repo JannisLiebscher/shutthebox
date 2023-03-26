@@ -13,19 +13,12 @@ case class Board private (matrix: Matrix[Int]) extends BoardInterface {
   def count(): Int = matrix.row(0).sum
 
   override def toString() =
-    "| " + (1 to matrix.size)
-      .map(n =>
-        if (matrix.cell(n - 1, 0) != 0) s"$n | "
-        else "# | "
-      )
-      .mkString("")
-      + sys.props("line.separator") + "| "
-      + (1 to matrix.size)
-        .map(n =>
-          if (matrix.cell(n - 1, 1) != 0) s"$n | "
-          else "# | "
-        )
-        .mkString("")
+    val topLine = "| " + (1 to matrix.size)
+      .map(n => numToString(matrix.cell(n - 1, 0)) + " | ").mkString("")
+    val bottomLine = "| " + (1 to matrix.size)
+      .map(n => numToString(matrix.cell(n - 1, 1)) + " | ").mkString("")
+    topLine + sys.props("line.separator") + bottomLine
+  private def numToString(x: Int) = if(x != 0) x.toString() else "#"
 }
 object Board {
   private def initialize(matrix: Matrix[Int], i: Int): Matrix[Int] = i match {
