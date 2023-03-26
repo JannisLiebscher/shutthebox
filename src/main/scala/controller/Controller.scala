@@ -41,7 +41,7 @@ object Controller:
   def apply(): Controller =
     new Controller(model.Game(), new FileIOJSON)
   def apply(kind: String): Controller = kind match {
-    case "mock"          => Controller(model.Game("mock"), new FileIOJSON)
-    case "xml" | "XML"   => Controller(model.Game(), new FileIOXML)
-    case "json" | "JSON" => Controller(model.Game(), new FileIOJSON)
+    case "mock" | "Mock"  => Controller(model.Game("mock"), new FileIOJSON)
+    case "xml" | "XML"    => Controller(model.Game(), new FileIOXML)
+    case "json" | "JSON"  => Controller(model.Game(), new FileIOJSON)
   }

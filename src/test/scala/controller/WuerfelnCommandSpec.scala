@@ -18,7 +18,7 @@ class WuerfelnCommandSpec extends AnyWordSpec {
     "redo an undoStep" in {
       val command = new WuerfelnCommand(2)
       val step = command.doStep(game)
-      command.redoStep(command.undoStep(game)) should be(step)
+      command.redoStep(command.undoStep(step)) should be(step)
     }
   }
 

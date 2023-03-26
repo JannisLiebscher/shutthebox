@@ -7,8 +7,8 @@ class EndMoveCommandSpec extends AnyWordSpec {
   "A EndMoveCommand" should {
     "create two default games to save the state before and after the doStep" in {
       val command = new EndMoveCommand
-      command.afterDo.isShut(1) should be(false)
-      command.beforeDo.isShut(1) should be(false)
+      command.memento.isShut(1) should be(false)
+      command.memento.isShut(1) should be(false)
     }
     "do a Step" in {
       val command = new EndMoveCommand
@@ -20,9 +20,8 @@ class EndMoveCommandSpec extends AnyWordSpec {
       command.undoStep(command.doStep(game)) should be(game)
     }
     "redo an undoStep" in {
-      val command = new EndMoveCommand
-      val game = Game("mock")
-      val step = command.doStep(game)
+      val command = new EndMoveCommand    
+      val step = command.doStep(Game("mock"))
       command.redoStep(command.undoStep(step)) should be(step)
     }
 
