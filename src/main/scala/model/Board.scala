@@ -18,6 +18,7 @@ case class Board private (matrix: Matrix[Int]) extends BoardInterface {
     val bottomLine = "| " + (1 to matrix.size)
       .map(n => numToString(matrix.cell(n - 1, 1)) + " | ").mkString("")
     topLine + sys.props("line.separator") + bottomLine
+
   private def numToString(x: Int) = if(x != 0) x.toString() else "#"
 }
 object Board {
