@@ -24,7 +24,7 @@ class BoardSpec extends AnyWordSpec {
     "have a String representation depending on the shutted stones" in {
       val bo = new Board(4)
       bo.toString() should include("| 1 | 2 | 3 | 4 |")
-      bo.toString() should include("| # | # | # | # | ")
+      bo.toString() should include("| # | # | # | # |")
       bo.shut(1).shut(2).shut(3).toString() should include("| # | # | # | 4 |")
       bo.shut(1).shut(2).shut(3).toString() should include("| 1 | 2 | 3 | # |")
     }
