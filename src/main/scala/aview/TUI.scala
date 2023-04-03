@@ -11,6 +11,7 @@ class Tui(controller: ControllerInterface) extends Observer:
   getInputAndPrintLoop("start")
 
   override def update = println(controller.toString)
+  override def handle(error: Throwable) = println(error.getMessage())
 
   def getInputAndPrintLoop(in: String): Unit =
     val input = in

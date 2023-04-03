@@ -1,4 +1,5 @@
 package model
+import scala.util.{Try, Success, Failure}
 import fileioComponent.FileIOXML
 import model.fileioComponent.FileIOJSON
 val eol = sys.props("line.separator")
@@ -20,25 +21,28 @@ case class Game(
   def getBoard: String = board.toString
   def isShut(stone: Int): Boolean = board.isShut(stone)
   def getScore(player: Int): Int = players.getScore(player)
-  def wuerfeln(num: Int): Game =
-    if (sum != 0)
-      new Game(board, w, players, sum, "complete turn before rolling dice again")
-    else
+  def wuerfeln(num: Int): Try[Game] =
+    if (sum == 0)
       val tmp = w.wuerfeln(num)
-      new Game(board, tmp, players, tmp.getSum())
+      Success(new Game(board, tmp, players, tmp.getSum()))
+    else
+      Failure(new Exception("complete turn before rolling dice again"))
 
-  def shut(stone: Int): Game =
-    if (stone <= sum && board.count() >= sum && !board.isShut(stone))
-      return new Game(board.shut(stone), w, players, sum - stone)
-    else new Game(board, w, players, sum, "cant shut")
+  def shut(stone: Int): Try[Game] =
+    if(board.isShut(stone)) Failure(new Exception("already shut"))
+    else if (board.count() < sum) 
+    Failure(new Exception("Impossible to use whole Sum, let the next player take their turn "))
+    else if(stone > sum) Failure(new Exception("Cant shut box bigger than whole sum"))
+    else Success(new Game(board.shut(stone), w, players, sum - stone))
+  
 
-  def resShut(stone: Int): Game =
+  def resShut(stone: Int): Try[Game] =
     if (board.isShut(stone))
-      new Game(board.resShut(stone), w, players, sum + stone)
-    else this
+      Success(new Game(board.resShut(stone), w, players, sum + stone))
+    else Failure(new Exception("already shut"))
 
-  def endMove: Game =
-    new Game(new Board(9), Dice("two"), players.addScore(board.count()), 0)
+  def endMove: Try[Game] =
+    Success(new Game(new Board(9), Dice("two"), players.addScore(board.count()), 0))
 
   override def toString(): String =
     players.toString + eol +

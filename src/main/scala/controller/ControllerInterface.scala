@@ -1,11 +1,12 @@
 package controller
+import scala.util.{Try, Success, Failure}
 import util.*
 import model.GameInterface
 
 trait ControllerInterface extends Observable {
   override def toString(): String
   def save: Unit
-  def load: GameInterface
+  def load: Try[GameInterface]
   def getSum: Int
   def getDice: String
   def getBoard: String
@@ -13,11 +14,11 @@ trait ControllerInterface extends Observable {
   def getPlayers: String
   def getWinner: Option[String]
   def isShut(stone: Int): Boolean
-  def doAndPublish(doThis: => GameInterface): Unit
-  def doAndPublish(doThis: Int => GameInterface, num: Int): Unit
-  def wuerfeln: GameInterface
-  def shut(num: Int): GameInterface
-  def endMove: GameInterface
-  def undo: GameInterface
-  def redo: GameInterface
+  def doAndPublish(doThis: => Try[GameInterface]): Unit
+  def doAndPublish(doThis: Int => Try[GameInterface], num: Int): Unit
+  def wuerfeln: Try[GameInterface]
+  def shut(num: Int): Try[GameInterface]
+  def endMove: Try[GameInterface]
+  def undo: Try[GameInterface]
+  def redo: Try[GameInterface]
 }

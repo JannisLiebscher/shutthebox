@@ -22,6 +22,7 @@ class Gui(controller: ControllerInterface) extends MainFrame with Observer {
     if (controller.getScore(2) > 45 && controller.getScore(2) <= 45)
       score.text = "Player 1 wins!"
 
+  override def handle(error: Throwable) = score.text = error.getMessage()
   object sum extends TextField {
     columns = 5
     editable = false

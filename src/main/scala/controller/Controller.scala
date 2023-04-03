@@ -1,12 +1,13 @@
 package controller
 import util.*
+import scala.util.{Try, Success, Failure}
 import model.GameInterface
 import model.fileioComponent.*
 case class Controller(
     var game: GameInterface,
     file: model.fileioComponent.FileIOInterface
 ) extends ControllerInterface:
-  val undoManager = new UndoManager[GameInterface]
+  val undoManager = new UndoManager[Try[GameInterface]]
   override def toString(): String = game.toString()
   def getSum: Int = game.getSum
   def getDice: String = game.getDice
@@ -16,26 +17,34 @@ case class Controller(
   def getPlayers: String = game.getPlayers
   def getWinner: Option[String] = game.getWinner
   def save: Unit = file.save(game)
-  def load: GameInterface = file.load
+  def load: Try[GameInterface] = Success(file.load)
 
-  def doAndPublish(doThis: => GameInterface) =
-    game = doThis
-    notifyObservers
+  def doAndPublish(doThis: => Try[GameInterface]) =
+    doThis match {
+      case Success(value) => 
+        game = doThis.get
+        notifyObservers
+      case Failure(e) => raiseError(e)
+    }
 
-  def doAndPublish(doThis: Int => GameInterface, num: Int) =
-    game = doThis(num)
-    notifyObservers
+  def doAndPublish(doThis: Int => Try[GameInterface], num: Int) =
+    doThis(num) match {
+      case Success(value) => 
+        game = doThis(num).get
+        notifyObservers
+      case Failure(e) => raiseError(e)
+    }
+    
+  def wuerfeln: Try[GameInterface] =
+    if (game.count() <= 6) undoManager.doStep(Success(game), WuerfelnCommand(1))
+    else undoManager.doStep(Success(game), WuerfelnCommand(2))
 
-  def wuerfeln: GameInterface =
-    if (game.count() <= 6) undoManager.doStep(game, WuerfelnCommand(1))
-    else undoManager.doStep(game, WuerfelnCommand(2))
-
-  def shut(num: Int): GameInterface =
-    undoManager.doStep(game, ShutCommand(num))
-  def endMove: GameInterface =
-    undoManager.doStep(game, EndMoveCommand())
-  def undo: GameInterface = undoManager.undoStep(game)
-  def redo: GameInterface = undoManager.redoStep(game)
+  def shut(num: Int): Try[GameInterface] =
+    undoManager.doStep(Success(game), ShutCommand(num))
+  def endMove: Try[GameInterface] =
+    undoManager.doStep(Success(game), EndMoveCommand())
+  def undo: Try[GameInterface] = undoManager.undoStep(Success(game))
+  def redo: Try[GameInterface] = undoManager.redoStep(Success(game))
 
 object Controller:
   def apply(): Controller =
