@@ -5,17 +5,17 @@ import util.Command
 import model.Game
 import model.GameInterface
 
-class WuerfelnCommand(num: Int) extends Command[Try[GameInterface]]:
+class WuerfelnCommand(num: Int) extends Command[GameInterface]:
   var memento: GameInterface = new Game
-  override def noStep(game: Try[GameInterface]): Try[GameInterface] = game
-  override def doStep(game: Try[GameInterface]): Try[GameInterface] =
-    memento = game.get
-    game.get.wuerfeln(num)
-  override def undoStep(game: Try[GameInterface]): Try[GameInterface] = 
+  override def noStep(game: GameInterface): Try[GameInterface] = Success(game)
+  override def doStep(game: GameInterface): Try[GameInterface] =
+    memento = game
+    game.wuerfeln(num)
+  override def undoStep(game: GameInterface): Try[GameInterface] = 
     val res = memento
-    memento = game.get
+    memento = game
     Success(res)
-  override def redoStep(game: Try[GameInterface]): Try[GameInterface] = 
+  override def redoStep(game: GameInterface): Try[GameInterface] = 
     val res = memento
-    memento = game.get
+    memento = game
     Success(res)

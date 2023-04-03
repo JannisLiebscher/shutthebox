@@ -5,17 +5,17 @@ import util.Command
 import model.GameInterface
 import model.Game
 
-class EndMoveCommand extends Command[Try[GameInterface]]:
+class EndMoveCommand extends Command[GameInterface]:
   var memento: GameInterface = new Game
-  override def noStep(game: Try[GameInterface]): Try[GameInterface] = game
-  override def doStep(game: Try[GameInterface]): Try[GameInterface] =
-    memento = game.get
-    game.get.endMove
-  override def undoStep(game: Try[GameInterface]): Try[GameInterface] =
+  override def noStep(game: GameInterface): Try[GameInterface] = Success(game)
+  override def doStep(game: GameInterface): Try[GameInterface] =
+    memento = game
+    game.endMove
+  override def undoStep(game: GameInterface): Try[GameInterface] =
     val res = memento
-    memento = game.get
+    memento = game
     Success(res)
-  override def redoStep(game: Try[GameInterface]): Try[GameInterface] =
+  override def redoStep(game: GameInterface): Try[GameInterface] =
     val res = memento
-    memento = game.get
+    memento = game
     Success(res)

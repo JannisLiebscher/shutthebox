@@ -7,7 +7,7 @@ case class Controller(
     var game: GameInterface,
     file: model.fileioComponent.FileIOInterface
 ) extends ControllerInterface:
-  val undoManager = new UndoManager[Try[GameInterface]]
+  val undoManager = new UndoManager[GameInterface]
   override def toString(): String = game.toString()
   def getSum: Int = game.getSum
   def getDice: String = game.getDice
@@ -36,15 +36,15 @@ case class Controller(
     }
     
   def wuerfeln: Try[GameInterface] =
-    if (game.count() <= 6) undoManager.doStep(Success(game), WuerfelnCommand(1))
-    else undoManager.doStep(Success(game), WuerfelnCommand(2))
+    if (game.count() <= 6) undoManager.doStep(game, WuerfelnCommand(1))
+    else undoManager.doStep(game, WuerfelnCommand(2))
 
   def shut(num: Int): Try[GameInterface] =
-    undoManager.doStep(Success(game), ShutCommand(num))
+    undoManager.doStep(game, ShutCommand(num))
   def endMove: Try[GameInterface] =
-    undoManager.doStep(Success(game), EndMoveCommand())
-  def undo: Try[GameInterface] = undoManager.undoStep(Success(game))
-  def redo: Try[GameInterface] = undoManager.redoStep(Success(game))
+    undoManager.doStep(game, EndMoveCommand())
+  def undo: Try[GameInterface] = undoManager.undoStep(game)
+  def redo: Try[GameInterface] = undoManager.redoStep(game)
 
 object Controller:
   def apply(): Controller =

@@ -1,5 +1,6 @@
 package aview
 import swing._
+import java.awt.Color
 import controller.ControllerInterface
 import util.Observer
 import org.w3c.dom.Text
@@ -19,10 +20,13 @@ class Gui(controller: ControllerInterface) extends MainFrame with Observer {
       }
     }
     score.text = controller.getPlayers
+    score.foreground = Color.BLACK
     if (controller.getScore(2) > 45 && controller.getScore(2) <= 45)
       score.text = "Player 1 wins!"
 
-  override def handle(error: Throwable) = score.text = error.getMessage()
+  override def handle(error: Throwable) = 
+    score.text = error.getMessage()
+    score.foreground = Color.RED
   object sum extends TextField {
     columns = 5
     editable = false
@@ -34,6 +38,7 @@ class Gui(controller: ControllerInterface) extends MainFrame with Observer {
   object score extends TextField {
     columns = 30
     editable = false
+    foreground = this.foreground
   }
 
   val buttonCount = 9
