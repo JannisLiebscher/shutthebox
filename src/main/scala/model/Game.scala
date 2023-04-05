@@ -42,7 +42,8 @@ case class Game(
     else Failure(new Exception("already shut"))
 
   def endMove: Try[Game] =
-    Success(new Game(new Board(9), Dice("two"), players.addScore(board.count()), 0))
+    if(w.getSum() != sum && sum != 0) Failure(new Exception("shut all boxes"))
+    else Success(new Game(new Board(9), Dice("two"), players.addScore(board.count()), 0))
 
   override def toString(): String =
     players.toString + eol +
