@@ -7,8 +7,10 @@ class ObserverSpec extends AnyWordSpec {
   class ObservableTest extends Observable {}
   class ObserverTest extends Observer {
     var updated = false
+    var foundError = false
     def isUpdated: Boolean = updated
     override def update = updated = true
+    override def handle(error: Throwable) = foundError = true
   }
 
   "An Observer" should {

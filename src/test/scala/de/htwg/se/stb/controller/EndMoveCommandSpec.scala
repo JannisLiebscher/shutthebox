@@ -12,17 +12,17 @@ class EndMoveCommandSpec extends AnyWordSpec {
     }
     "do a Step" in {
       val command = new EndMoveCommand
-      command.doStep(Game("mock")).getPlayers should include("Player 2's turn")
+      command.doStep(Game("mock")).get.getPlayers should include("Player 2's turn")
     }
     "undo a doStep" in {
       val command = new EndMoveCommand
       val game = Game("mock")
-      command.undoStep(command.doStep(game)) should be(game)
+      command.undoStep(command.doStep(game).get).get should be(game)
     }
     "redo an undoStep" in {
       val command = new EndMoveCommand    
-      val step = command.doStep(Game("mock"))
-      command.redoStep(command.undoStep(step)) should be(step)
+      val step = command.doStep(Game("mock")).get
+      command.redoStep(command.undoStep(step).get).get should be(step)
     }
 
   }
