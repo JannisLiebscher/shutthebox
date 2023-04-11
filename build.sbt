@@ -1,4 +1,5 @@
 bloopAggregateSourceDependencies in Global := true
+val stbVersion = "1.0.0"
 lazy val commonSettings = Seq(
   scalaVersion := "3.0.2",
   crossScalaVersions ++= Seq("2.13.5", "3.0.2"),
@@ -34,17 +35,27 @@ lazy val commonSettings = Seq(
 )
 lazy val root = project
   .in(file("."))
-  .dependsOn(model)
-  .aggregate(model)
+  .dependsOn(game)
+  .aggregate(game)
   .settings(
     name := "shutthebox",
-    version := "1.0.1",
+    version := stbVersion,
     commonSettings)
   .enablePlugins(JacocoCoverallsPlugin)
 
-lazy val model = (project in file("model"))
+lazy val game = (project in file("game"))
+  .dependsOn(board)
+  .aggregate(board)
   .settings(
-    name := "model",
-    version := "1.0.1",
+    name := "game",
+    version := stbVersion,
+    commonSettings
+  )
+
+
+lazy val board = (project in file("board"))
+  .settings(
+    name := "board",
+    version := stbVersion,
     commonSettings
   )
