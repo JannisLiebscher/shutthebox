@@ -1,3 +1,4 @@
+bloopAggregateSourceDependencies in Global := true
 lazy val commonSettings = Seq(
   scalaVersion := "3.0.2",
   crossScalaVersions ++= Seq("2.13.5", "3.0.2"),
