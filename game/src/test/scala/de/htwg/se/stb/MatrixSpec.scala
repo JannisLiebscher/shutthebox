@@ -1,6 +1,7 @@
 package de.htwg.se.stb.model
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers._
+import de.htwg.se.stb.boardComponent.*
 
 class MatrixSpec extends AnyWordSpec {
 

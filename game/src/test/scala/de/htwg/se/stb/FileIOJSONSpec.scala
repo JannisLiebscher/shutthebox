@@ -5,6 +5,7 @@ import scala.util.control.Breaks._
 import de.htwg.se.stb.model.Game
 import de.htwg.se.stb.model.fileioComponent.FileIOJSON
 import de.htwg.se.stb.model.*
+import de.htwg.se.stb.boardComponent.*
 class FileIOJSONSpec extends AnyWordSpec {
 
   "A FileIOJSON" should {

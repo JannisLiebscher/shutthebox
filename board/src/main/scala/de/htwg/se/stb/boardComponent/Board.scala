@@ -1,4 +1,4 @@
-package de.htwg.se.stb.model
+package de.htwg.se.stb.boardComponent
 
 case class Board private (matrix: Matrix[Int]) extends BoardInterface {
 

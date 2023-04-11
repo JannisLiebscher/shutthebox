@@ -1,4 +1,4 @@
-package de.htwg.se.stb.model
+package de.htwg.se.stb.boardComponent
 
 trait BoardInterface {
   def shut(size: Int): BoardInterface

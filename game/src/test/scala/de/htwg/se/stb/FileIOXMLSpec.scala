@@ -5,6 +5,7 @@ import scala.util.control.Breaks._
 import de.htwg.se.stb.model.Game
 import de.htwg.se.stb.model.fileioComponent.FileIOXML
 import de.htwg.se.stb.model.*
+import de.htwg.se.stb.boardComponent.*
 class FileIOXMLSpec extends AnyWordSpec {
 
   "A FileIOXML" should {

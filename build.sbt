@@ -54,7 +54,8 @@ lazy val game = project
   )
 
 
-lazy val board = (project in file("board"))
+lazy val board = project
+  .in(file("board"))
   .settings(
     name := "board",
     version := stbVersion,

@@ -1,4 +1,4 @@
-package de.htwg.se.stb.model
+package de.htwg.se.stb.boardComponent
 
 case class Matrix[T](rows: Vector[Vector[T]]) {
   def this(size: Int, filling: T) =
