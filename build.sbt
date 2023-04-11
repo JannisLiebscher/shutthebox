@@ -43,7 +43,8 @@ lazy val root = project
     commonSettings)
   .enablePlugins(JacocoCoverallsPlugin)
 
-lazy val game = (project in file("game"))
+lazy val game = project
+  .in(file("game"))
   .dependsOn(board)
   .aggregate(board)
   .settings(
