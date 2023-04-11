@@ -33,8 +33,17 @@ lazy val commonSettings = Seq(
 )
 lazy val root = project
   .in(file("."))
+  .dependsOn(model)
+  .aggregate(model)
   .settings(
     name := "shutthebox",
     version := "1.0.1",
     commonSettings)
   .enablePlugins(JacocoCoverallsPlugin)
+
+lazy val model = (project in file("model"))
+  .settings(
+    name := "model",
+    version := "1.0.1",
+    commonSettings
+  )
