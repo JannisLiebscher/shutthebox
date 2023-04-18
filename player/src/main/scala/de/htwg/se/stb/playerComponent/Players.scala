@@ -1,4 +1,4 @@
-package de.htwg.se.stb.model
+package de.htwg.se.stb.playerComponent
 
 case class Players(
     count: Int,

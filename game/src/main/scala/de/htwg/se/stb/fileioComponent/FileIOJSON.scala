@@ -1,6 +1,7 @@
 package de.htwg.se.stb.model.fileioComponent
 import de.htwg.se.stb.boardComponent.*
 import de.htwg.se.stb.diceComponent.*
+import de.htwg.se.stb.playerComponent.*
 import de.htwg.se.stb.model.fileioComponent.FileIOInterface
 import de.htwg.se.stb.model.*
 import play.api.libs.json._

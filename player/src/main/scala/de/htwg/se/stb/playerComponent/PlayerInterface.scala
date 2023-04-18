@@ -1,4 +1,4 @@
-package de.htwg.se.stb.model
+package de.htwg.se.stb.playerComponent
 trait PlayerInterface {
 
   def addScore(amount: Int): Players

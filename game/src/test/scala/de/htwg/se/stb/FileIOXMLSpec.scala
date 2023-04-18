@@ -7,6 +7,7 @@ import de.htwg.se.stb.model.fileioComponent.FileIOXML
 import de.htwg.se.stb.model.*
 import de.htwg.se.stb.boardComponent.Board
 import de.htwg.se.stb.diceComponent.Dice
+import de.htwg.se.stb.playerComponent.Players
 class FileIOXMLSpec extends AnyWordSpec {
 
   "A FileIOXML" should {

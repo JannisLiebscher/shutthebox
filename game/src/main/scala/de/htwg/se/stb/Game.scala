@@ -4,6 +4,7 @@ import fileioComponent.FileIOXML
 import de.htwg.se.stb.model.fileioComponent.FileIOJSON
 import de.htwg.se.stb.boardComponent.*
 import de.htwg.se.stb.diceComponent.*
+import de.htwg.se.stb.playerComponent.*
 val eol = sys.props("line.separator")
 
 case class Game(

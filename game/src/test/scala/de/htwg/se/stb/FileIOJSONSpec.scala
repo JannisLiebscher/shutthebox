@@ -7,6 +7,7 @@ import de.htwg.se.stb.model.fileioComponent.FileIOJSON
 import de.htwg.se.stb.model.*
 import de.htwg.se.stb.boardComponent.Board
 import de.htwg.se.stb.diceComponent.Dice
+import de.htwg.se.stb.playerComponent.Players
 class FileIOJSONSpec extends AnyWordSpec {
 
   "A FileIOJSON" should {

@@ -5,6 +5,7 @@ import org.scalatest.matchers.should.Matchers._
 import scala.util.control.Breaks._
 import de.htwg.se.stb.boardComponent.Board
 import de.htwg.se.stb.diceComponent.Dice
+import de.htwg.se.stb.playerComponent.Players
 import scala.util.Failure
 class GameSpec extends AnyWordSpec {
   "A Game" should {
