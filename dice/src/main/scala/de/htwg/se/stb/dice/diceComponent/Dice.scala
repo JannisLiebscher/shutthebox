@@ -1,4 +1,4 @@
-package de.htwg.se.stb.model
+package de.htwg.se.stb.diceComponent
 import scala.util.Random
 
 case class TwoDice(w1: Int, w2: Int) extends DiceInterface {

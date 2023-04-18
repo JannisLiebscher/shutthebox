@@ -3,7 +3,8 @@ package de.htwg.se.stb.model
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers._
 import scala.util.control.Breaks._
-import de.htwg.se.stb.boardComponent.*
+import de.htwg.se.stb.boardComponent.Board
+import de.htwg.se.stb.diceComponent.Dice
 import scala.util.Failure
 class GameSpec extends AnyWordSpec {
   "A Game" should {

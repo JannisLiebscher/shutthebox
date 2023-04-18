@@ -4,6 +4,7 @@ import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers._
 import scala.util.control.Breaks._
 import de.htwg.se.stb.boardComponent.Board
+import de.htwg.se.stb.diceComponent.Dice
 class ShutCommandSpec extends AnyWordSpec {
   "A ShutCommand" should {
     val game = new Game(new Board(9), Dice("two"), new Players(2), 4)

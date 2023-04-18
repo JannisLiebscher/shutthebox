@@ -3,6 +3,7 @@ import scala.util.{Try, Success, Failure}
 import fileioComponent.FileIOXML
 import de.htwg.se.stb.model.fileioComponent.FileIOJSON
 import de.htwg.se.stb.boardComponent.*
+import de.htwg.se.stb.diceComponent.*
 val eol = sys.props("line.separator")
 
 case class Game(

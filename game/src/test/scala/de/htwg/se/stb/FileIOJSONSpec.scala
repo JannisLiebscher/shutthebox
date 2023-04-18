@@ -5,7 +5,8 @@ import scala.util.control.Breaks._
 import de.htwg.se.stb.model.Game
 import de.htwg.se.stb.model.fileioComponent.FileIOJSON
 import de.htwg.se.stb.model.*
-import de.htwg.se.stb.boardComponent.*
+import de.htwg.se.stb.boardComponent.Board
+import de.htwg.se.stb.diceComponent.Dice
 class FileIOJSONSpec extends AnyWordSpec {
 
   "A FileIOJSON" should {

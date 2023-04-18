@@ -47,17 +47,26 @@ lazy val game = project
   .in(file("game"))
   .dependsOn(board)
   .aggregate(board)
+  .dependsOn(dice)
+  .aggregate(dice)
   .settings(
     name := "game",
     version := stbVersion,
     commonSettings
   )
 
-
 lazy val board = project
   .in(file("board"))
   .settings(
     name := "board",
+    version := stbVersion,
+    commonSettings
+  )
+
+lazy val dice = project
+  .in(file("dice"))
+  .settings(
+    name := "dice",
     version := stbVersion,
     commonSettings
   )
