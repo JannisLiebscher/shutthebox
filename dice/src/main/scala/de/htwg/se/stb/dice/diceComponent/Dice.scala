@@ -1,13 +1,11 @@
 package de.htwg.se.stb.diceComponent
 import scala.util.Random
-import com.typesafe.config.ConfigFactory
 
 case class TwoDice(w1: Int, w2: Int) extends DiceInterface {
-  val config = ConfigFactory.load()
   def this() = this(new Random().nextInt(6) + 1, new Random().nextInt(6) + 1)
   def getSum(): Int = w1 + w2
   def wuerfeln(amount: Int): DiceInterface = Dice.wuerfeln(amount)
-  override def toString() = config.getString("num.two") + " und " + w2.toString
+  override def toString() = w1.toString() + " und " + w2.toString
   
 }
 case class OneDice(w1: Int, w2: Int) extends DiceInterface {

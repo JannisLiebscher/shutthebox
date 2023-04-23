@@ -18,6 +18,7 @@ object shutthebox {
       val input: String = readLine()
       if (input == "q" | input == "quit")
         gui.dispose()
+        DiceService.shutdown()
         System.exit(0)
       tui.getInputAndPrintLoop(input)
     }
