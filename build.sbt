@@ -1,3 +1,4 @@
+// Settings
 bloopAggregateSourceDependencies in Global := true
 val stbVersion = "1.0.0"
 lazy val commonSettings = Seq(
@@ -40,7 +41,7 @@ lazy val commonSettings = Seq(
   jacocoCoverallsPullRequest := sys.env.get("GITHUB_EVENT_NAME"),
   jacocoCoverallsRepoToken := sys.env.get("COVERALLS_REPO_TOKEN")
 )
-
+// Custom Tasks
 val copyConf = taskKey[Unit]("Copies the application.conf file to the game module")
 copyConf := {
   val confFile = (baseDirectory in ThisBuild).value / "src/main/resources/application.conf"
@@ -52,9 +53,9 @@ copyConf := {
   )
   targetDirs.foreach(targetDir => IO.copyFile(confFile, targetDir))
 }
-
 compile in Compile := (compile in Compile).dependsOn(copyConf).value
 
+// Projects
 lazy val root = project
   .in(file("."))
   .dependsOn(game)
