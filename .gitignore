@@ -9,3 +9,7 @@ project/project
 project/target
 project/metals-sbt
 project/metals.sbt
+/board/src/main/resources/
+/dice/src/main/resources/
+/player/src/main/resources/
+/game/src/main/resources/
