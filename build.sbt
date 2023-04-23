@@ -2,6 +2,8 @@
 bloopAggregateSourceDependencies in Global := true
 val stbVersion = "1.0.0"
 lazy val commonSettings = Seq(
+  resourceDirectory in Compile := file(".") / "./src/main/resources",
+  resourceDirectory in Runtime := file(".") / "./src/main/resources",
   scalaVersion := "3.0.2",
   crossScalaVersions ++= Seq("2.13.5", "3.0.2"),
   libraryDependencies += ("org.scala-lang.modules" %% "scala-swing" % "3.0.0")
@@ -42,18 +44,7 @@ lazy val commonSettings = Seq(
   jacocoCoverallsRepoToken := sys.env.get("COVERALLS_REPO_TOKEN")
 )
 // Custom Tasks
-val copyConf = taskKey[Unit]("Copies the application.conf file to the game module")
-copyConf := {
-  val confFile = (baseDirectory in ThisBuild).value / "src/main/resources/application.conf"
-  val targetDirs = Seq(
-    (baseDirectory in ThisBuild).value / "dice/src/main/resources/application.conf",
-    (baseDirectory in ThisBuild).value / "board/src/main/resources/application.conf",
-    (baseDirectory in ThisBuild).value / "player/src/main/resources/application.conf",
-    (baseDirectory in ThisBuild).value / "game/src/main/resources/application.conf"
-  )
-  targetDirs.foreach(targetDir => IO.copyFile(confFile, targetDir))
-}
-compile in Compile := (compile in Compile).dependsOn(copyConf).value
+
 
 // Projects
 lazy val root = project
@@ -77,7 +68,7 @@ lazy val game = project
   .settings(
     name := "game",
     version := stbVersion,
-    commonSettings,
+    commonSettings
   )
 
 lazy val board = project
