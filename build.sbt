@@ -40,6 +40,21 @@ lazy val commonSettings = Seq(
   jacocoCoverallsPullRequest := sys.env.get("GITHUB_EVENT_NAME"),
   jacocoCoverallsRepoToken := sys.env.get("COVERALLS_REPO_TOKEN")
 )
+
+val copyConf = taskKey[Unit]("Copies the application.conf file to the game module")
+copyConf := {
+  val confFile = (baseDirectory in ThisBuild).value / "src/main/resources/application.conf"
+  val targetDirs = Seq(
+    (baseDirectory in ThisBuild).value / "dice/src/main/resources/application.conf",
+    (baseDirectory in ThisBuild).value / "board/src/main/resources/application.conf",
+    (baseDirectory in ThisBuild).value / "player/src/main/resources/application.conf",
+    (baseDirectory in ThisBuild).value / "game/src/main/resources/application.conf"
+  )
+  targetDirs.foreach(targetDir => IO.copyFile(confFile, targetDir))
+}
+
+compile in Compile := (compile in Compile).dependsOn(copyConf).value
+
 lazy val root = project
   .in(file("."))
   .dependsOn(game)
@@ -61,7 +76,7 @@ lazy val game = project
   .settings(
     name := "game",
     version := stbVersion,
-    commonSettings
+    commonSettings,
   )
 
 lazy val board = project
