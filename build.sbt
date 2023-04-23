@@ -5,7 +5,12 @@ lazy val commonSettings = Seq(
   crossScalaVersions ++= Seq("2.13.5", "3.0.2"),
   libraryDependencies += ("org.scala-lang.modules" %% "scala-swing" % "3.0.0")
     .cross(CrossVersion.for3Use2_13),
-  libraryDependencies += "com.typesafe.akka" %% "akka-http" % "10.2.6",
+  libraryDependencies += ("com.typesafe.akka" %% "akka-actor-typed" % "2.7.0")
+    .cross(CrossVersion.for3Use2_13),
+  libraryDependencies += ("com.typesafe.akka" %% "akka-stream" % "2.7.0")
+    .cross(CrossVersion.for3Use2_13),
+  libraryDependencies += ("com.typesafe.akka" %% "akka-http" % "10.5.1")
+    .cross(CrossVersion.for3Use2_13),
   libraryDependencies += "com.typesafe" % "config" % "1.4.1",
   libraryDependencies += "org.scalactic" %% "scalactic" % "3.2.10",
   libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.10" % "test",
