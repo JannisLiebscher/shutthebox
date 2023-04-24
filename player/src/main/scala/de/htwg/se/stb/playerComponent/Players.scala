@@ -1,5 +1,5 @@
 package de.htwg.se.stb.playerComponent
-
+import play.api.libs.json._
 case class Players(
     count: Int,
     players: Vector[(String, Int)],
@@ -46,4 +46,20 @@ case class Players(
     else outPlayers + "Player " + turn + "'s turn"
   }
 
+}
+object Players {
+  def toJson(players: PlayerInterface) = 
+    Json.obj(
+      "score1" -> JsNumber(players.getScore(1)),
+      "score2" -> JsNumber(players.getScore(2)),
+      "turn" -> JsNumber(players.getTurn)
+    )
+  def fromJson(json: JsValue) = 
+    val playersSeq = Seq[Int](
+      (json \ "score1").get.toString.toInt,
+      (json \ "score2").get.toString.toInt,
+      (json \ "turn").get.toString.toInt
+    )
+    new Players(2, Vector(("Player 1", playersSeq(0)),
+     ("Player 2", playersSeq(1))), playersSeq(2))
 }

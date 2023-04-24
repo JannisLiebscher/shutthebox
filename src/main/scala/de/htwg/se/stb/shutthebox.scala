@@ -4,7 +4,7 @@ import com.google.inject.Guice
 import de.htwg.se.stb.controller.ControllerInterface
 import de.htwg.se.stb.module.ShutTheBoxModuleXML
 import scala.io.StdIn.readLine
-import de.htwg.se.stb.dice.rest.DiceService
+import de.htwg.se.stb.rest.DiceService
 
 object shutthebox {
   @main def run: Unit =

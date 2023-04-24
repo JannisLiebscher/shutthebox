@@ -1,4 +1,5 @@
 package de.htwg.se.stb.boardComponent
+import play.api.libs.json._
 
 case class Board private (matrix: Matrix[Int]) extends BoardInterface {
 
@@ -25,9 +26,16 @@ case class Board private (matrix: Matrix[Int]) extends BoardInterface {
     }
   private def numOption(x: Int) = if(x != 0) Some(x) else None
 }
+
 object Board {
   private def initialize(matrix: Matrix[Int], i: Int): Matrix[Int] = i match {
     case 0 => matrix
     case _ => initialize(matrix.replace(i - 1, 0, i), i - 1)
   }
+  def toJson(board: BoardInterface) = Json.toJson((1 to 9).map(x => board.isShut(x)).toSeq)
+  def fromJson(json: JsValue) = 
+    val boardstate = json.asInstanceOf[JsArray]
+    val board: BoardInterface = (0 to 8)
+      .filter(i => boardstate(i).toString.toBoolean)
+      .foldLeft(new Board(): BoardInterface)((acc, i) => acc.shut(i + 1))
 }

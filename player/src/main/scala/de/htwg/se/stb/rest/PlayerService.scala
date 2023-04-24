@@ -7,38 +7,45 @@ import akka.http.scaladsl.model._
 import akka.stream.ActorMaterializer
 import scala.io.StdIn
 import scala.concurrent.ExecutionContext.Implicits.global
-import de.htwg.se.stb.diceComponent.*
+import de.htwg.se.stb.playerComponent.*
 import play.api.libs.json._
 import com.typesafe.config.ConfigFactory
 
-object DiceService {
+object PlayerService {
     val config = ConfigFactory.load()
-    val port = config.getInt("port.dice")
+    val port = config.getInt("port.player")
     private var server: Option[Http.ServerBinding] = None
-    given system: ActorSystem = ActorSystem("DiceService")
+    given system: ActorSystem = ActorSystem("PlayerService")
     @main def main = {
-      var w: DiceInterface = Dice("two")
-      val route = path("wuerfeln" / IntNumber) {
+      var players: PlayerInterface = new Players(2)
+      val route = path("players") {
+        get {
+          val json = Players.toJson(players)
+          complete(json.toString())
+        }
+      } ~
+      path("getTurn") {
+        get {
+          val json = Json.obj("turn" -> JsNumber(players.getTurn))
+          complete(json.toString())
+        }
+      } ~
+      path("getScore" / IntNumber) {
         num =>
         get {
-          w = w.wuerfeln(num)
-          val json = Json.obj("sum" -> JsNumber(w.getSum()))
+          val json = Json.obj("score" -> JsNumber(players.getScore(num)))
           complete(json.toString())
         }
       } ~
-      path("summe") {
+      path("addScore" / IntNumber) {
+        num =>
         get {
-          val json = Json.obj("sum" -> JsNumber(w.getSum()))
+          players = players.addScore(num)  
+          val json = Players.toJson(players)
           complete(json.toString())
         }
       } ~
-      path("string") {
-        get {
-          val json = Json.obj("wurf" -> JsString(w.toString()))
-          complete(json.toString())
-        }
-      } ~
-      path("shutdown") {
+      path(config.getString("route.shutdown")) {
       get {
         shutdown()
         complete("Server shutting down...")

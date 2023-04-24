@@ -7,34 +7,37 @@ import akka.http.scaladsl.model._
 import akka.stream.ActorMaterializer
 import scala.io.StdIn
 import scala.concurrent.ExecutionContext.Implicits.global
-import de.htwg.se.stb.diceComponent.*
+import de.htwg.se.stb.boardComponent.*
 import play.api.libs.json._
 import com.typesafe.config.ConfigFactory
 
-object DiceService {
+object BoardService {
     val config = ConfigFactory.load()
-    val port = config.getInt("port.dice")
+    val port = config.getInt("port.board")
     private var server: Option[Http.ServerBinding] = None
-    given system: ActorSystem = ActorSystem("DiceService")
+    given system: ActorSystem = ActorSystem("BoardService")
     @main def main = {
-      var w: DiceInterface = Dice("two")
-      val route = path("wuerfeln" / IntNumber) {
+      var board: BoardInterface = new Board(9)
+      val route = path("shut" / IntNumber) {
         num =>
         get {
-          w = w.wuerfeln(num)
-          val json = Json.obj("sum" -> JsNumber(w.getSum()))
+          board = board.shut(num)
+          val json = Board.toJson(board)
           complete(json.toString())
         }
       } ~
-      path("summe") {
+      path("resShut" / IntNumber) {
+        num =>
         get {
-          val json = Json.obj("sum" -> JsNumber(w.getSum()))
+          board = board.resShut(num)
+          val json = Board.toJson(board)
           complete(json.toString())
         }
       } ~
-      path("string") {
+      path("isShut" / IntNumber) {
+        num =>
         get {
-          val json = Json.obj("wurf" -> JsString(w.toString()))
+          val json = Json.obj("isShut" -> JsBoolean(board.isShut(num)))
           complete(json.toString())
         }
       } ~
@@ -56,3 +59,4 @@ object DiceService {
     system.terminate()
   }
 }
+
