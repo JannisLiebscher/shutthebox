@@ -1,5 +1,6 @@
 package de.htwg.se.stb.diceComponent
 import scala.util.Random
+import play.api.libs.json._
 
 case class TwoDice(w1: Int, w2: Int) extends DiceInterface {
   def this() = this(new Random().nextInt(6) + 1, new Random().nextInt(6) + 1)
@@ -29,4 +30,14 @@ object Dice {
     case "mock" | "Mock" => new MockDice()
   }
   def wuerfeln = (x: Int) => Dice(x.toString())
+  def toJson(dice: DiceInterface) = 
+    Json.obj(
+      "w1" -> JsNumber(dice.toString().head.asDigit),
+      "w2" -> JsNumber(dice.toString().last.asDigit)
+    )
+  def fromJson(json: JsValue) = 
+    val w1 =  (json \ "w1").get.toString.toInt
+    val w2 = (json \ "w2").get.toString.toInt
+    if(w2 != 0) new TwoDice(w1, w2)
+    else new OneDice(w1, w2)
 }

@@ -22,19 +22,13 @@ object DiceService {
         num =>
         get {
           w = w.wuerfeln(num)
-          val json = Json.obj("sum" -> JsNumber(w.getSum()))
+          val json = Dice.toJson(w)
           complete(json.toString())
         }
       } ~
-      path("summe") {
+      path("wuerfel") {
         get {
-          val json = Json.obj("sum" -> JsNumber(w.getSum()))
-          complete(json.toString())
-        }
-      } ~
-      path("string") {
-        get {
-          val json = Json.obj("wurf" -> JsString(w.toString()))
+          val json = Dice.toJson(w)
           complete(json.toString())
         }
       } ~
