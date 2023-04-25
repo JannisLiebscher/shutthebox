@@ -11,8 +11,7 @@ case class Game(
     board: BoardInterface,
     w: DiceInterface,
     players: PlayerInterface,
-    sum: Int,
-    error: String = ""
+    sum: Int
 ) extends GameInterface {
   def this() = this(new Board(), Dice("two"), new Players(2), 0)
   def count(): Int = board.count()
@@ -51,8 +50,7 @@ case class Game(
   override def toString(): String =
     players.toString + eol +
       board.toString + eol +
-      "Gewuerfelt " + w.toString + " | Summe: " + sum +
-      "\n" + error
+      "Gewuerfelt " + w.toString + " | Summe: " + sum
 }
 
 object Game:
