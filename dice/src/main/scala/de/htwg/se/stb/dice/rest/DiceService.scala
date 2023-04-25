@@ -22,6 +22,7 @@ object DiceService {
         num =>
         get {
           w = w.wuerfeln(num)
+          println("Served Dice: " + w.toString())
           val json = Dice.toJson(w)
           complete(json.toString())
         }
