@@ -16,15 +16,14 @@ object shutthebox {
     //PlayerService.main
     //BoardService.main
     tui.update
-    var loop = true
-    while (loop) {
+    while (true) {
       val input: String = readLine()
       if (input == "q" | input == "quit")
         gui.dispose()
         DiceService.shutdown()
         //PlayerService.shutdown()
         //BoardService.shutdown()
-        loop = false
+        System.exit(0)
       tui.getInputAndPrintLoop(input)
     }
 }
