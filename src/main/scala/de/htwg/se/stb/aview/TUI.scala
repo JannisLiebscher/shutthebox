@@ -25,6 +25,5 @@ class Tui(controller: ControllerInterface) extends Observer:
         controller.doAndPublish(controller.endMove)
       case "z" => controller.doAndPublish(controller.redo); None
       case "y" => controller.doAndPublish(controller.undo); None
-      case "q" => System.exit(0)
       case default =>
         print("Unbekannte Eingabe!\n")

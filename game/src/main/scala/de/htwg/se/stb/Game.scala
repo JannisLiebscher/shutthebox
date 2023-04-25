@@ -19,8 +19,11 @@ import akka.actor.TypedActor.dispatcher
 import concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration._
 import scala.concurrent.Await
+import com.typesafe.config.ConfigFactory
 val eol = sys.props("line.separator")
 given system: ActorSystem = ActorSystem("GameService")
+val config = ConfigFactory.load()
+val diceHost = config.getString("host.dice") + config.getString("port.dice")
 
 case class Game(
     board: BoardInterface,
@@ -44,7 +47,7 @@ case class Game(
     )
     if (sum == 0) {
       val responseFuture: Future[HttpResponse] = Http().singleRequest(
-        HttpRequest(uri = "http://localhost:8080/wuerfeln/2")
+        HttpRequest(uri = diceHost + "/" + config.getString("route.dice.roll") + "/" + num)
       )
       val response = Await.result(responseFuture, 10.seconds)
       response match {

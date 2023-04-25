@@ -18,7 +18,7 @@ object DiceService {
     given system: ActorSystem = ActorSystem("DiceService")
     @main def main = {
       var w: DiceInterface = Dice("two")
-      val route = path("wuerfeln" / IntNumber) {
+      val route = path(config.getString("route.dice.roll") / IntNumber) {
         num =>
         get {
           w = w.wuerfeln(num)
@@ -27,13 +27,7 @@ object DiceService {
           complete(json.toString())
         }
       } ~
-      path("wuerfel") {
-        get {
-          val json = Dice.toJson(w)
-          complete(json.toString())
-        }
-      } ~
-      path("shutdown") {
+      path(config.getString("route.shutdown")) {
       get {
         shutdown()
         complete("Server shutting down...")
@@ -41,7 +35,7 @@ object DiceService {
       }
       val server = Some(Http().newServerAt("localhost", port).bind(route))
       server.get.map { _ => 
-        println("Server online at http://localhost:" + port)
+        println("Server online at " + config.getString("host.dice") + port)
       }  recover { case ex => 
         println(s"Server could not start: ${ex.getMessage}")
       }
