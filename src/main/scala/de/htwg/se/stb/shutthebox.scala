@@ -4,7 +4,7 @@ import com.google.inject.Guice
 import de.htwg.se.stb.controller.ControllerInterface
 import de.htwg.se.stb.module.ShutTheBoxModuleXML
 import scala.io.StdIn.readLine
-import de.htwg.se.stb.rest.DiceService
+import de.htwg.se.stb.rest.*
 
 object shutthebox {
   @main def run: Unit =
@@ -13,12 +13,16 @@ object shutthebox {
     val tui = new aview.Tui(c)
     val gui = new aview.Gui(c)
     DiceService.main
+    PlayerService.main
+    BoardService.main
 
     while (true) {
       val input: String = readLine()
       if (input == "q" | input == "quit")
         gui.dispose()
         DiceService.shutdown()
+        PlayerService.shutdown()
+        BoardService.shutdown()
         System.exit(0)
       tui.getInputAndPrintLoop(input)
     }
