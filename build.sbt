@@ -2,7 +2,6 @@
 bloopAggregateSourceDependencies in Global := true
 val stbVersion = "1.0.0"
 lazy val commonSettings = Seq(
-  fork in console := true,
   resourceDirectory in Compile := file(".") / "./src/main/resources",
   resourceDirectory in Runtime := file(".") / "./src/main/resources",
   scalaVersion := "3.0.2",
