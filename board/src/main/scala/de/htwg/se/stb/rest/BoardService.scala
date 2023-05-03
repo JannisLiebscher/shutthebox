@@ -20,10 +20,12 @@ object BoardService {
       var board: BoardInterface = new Board(9)
       val route = path("shut" / IntNumber) {
         num =>
-        get {
-          board = board.shut(num)
-          val json = Board.toJson(board)
-          complete(json.toString())
+        post {
+          entity(as[String]) { body =>
+            val board = Board.fromJson(Json.parse(body))
+            val json = Board.toJson(board.shut(num))
+            complete(json.toString())
+          }
         }
       } ~
       path("resShut" / IntNumber) {
@@ -37,9 +39,17 @@ object BoardService {
       path("isShut" / IntNumber) {
         num =>
         get {
+          println("test")
           val json = Json.obj("isShut" -> JsBoolean(board.isShut(num)))
           complete(json.toString())
         }
+      } ~
+      path("newBoard") {
+        post {
+        entity(as[String]) { body =>
+          println(Board.fromJson(Json.parse(body)))
+          complete(StatusCodes.OK)
+        }}
       } ~
       path("shutdown") {
       get {

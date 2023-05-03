@@ -33,9 +33,9 @@ object Board {
     case _ => initialize(matrix.replace(i - 1, 0, i), i - 1)
   }
   def toJson(board: BoardInterface) = Json.toJson((1 to 9).map(x => board.isShut(x)).toSeq)
-  def fromJson(json: JsValue) = 
+  def fromJson(json: JsValue):BoardInterface = 
     val boardstate = json.asInstanceOf[JsArray]
-    val board: BoardInterface = (0 to 8)
+    return (0 to 8)
       .filter(i => boardstate(i).toString.toBoolean)
       .foldLeft(new Board(): BoardInterface)((acc, i) => acc.shut(i + 1))
 }
