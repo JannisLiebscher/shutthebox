@@ -24,6 +24,7 @@ val eol = sys.props("line.separator")
 given system: ActorSystem = ActorSystem("GameService")
 val config = ConfigFactory.load()
 val diceHost = config.getString("host.dice") + config.getString("port.dice")
+val boardHost = config.getString("host.board") + config.getString("port.board")
 
 case class Game(
     board: BoardInterface,
@@ -49,11 +50,11 @@ case class Game(
       val responseFuture: Future[HttpResponse] = Http().singleRequest(
         HttpRequest(uri = diceHost + "/" + config.getString("route.dice.roll") + "/" + num)
       )
-      val response = Await.result(responseFuture, 10.seconds)
+      val response = Await.result(responseFuture, 3.seconds)
       response match {
         case HttpResponse(StatusCodes.OK, _, entity, _) =>
           val entityString =
-            Await.result(entity.toStrict(5.seconds), 10.seconds).data.utf8String
+            Await.result(entity.toStrict(3.seconds), 3.seconds).data.utf8String
           val tmp = Dice.fromJson(Json.parse(entityString))
           result = Success(new Game(board, tmp, players, tmp.getSum()))
         case _ =>
@@ -70,11 +71,48 @@ case class Game(
           "Impossible to use whole Sum, let the next player take their turn"))
     else if (stone > sum)
       Failure(new Exception("Cant shut box bigger than whole sum"))
-    else Success(new Game(board.shut(stone), w, players, sum - stone))
+    else {
+      val request = HttpEntity(ContentTypes.`application/json`, Board.toJson(board).toString())
+      val responseFuture: Future[HttpResponse] = Http().singleRequest(
+        HttpRequest(
+          method = HttpMethods.POST,
+          uri = boardHost + "/" + config.getString("route.board.shut") + "/" + stone,
+          entity = request
+        )
+      )
+      val response = Await.result(responseFuture, 3.seconds)
+      response match {
+        case HttpResponse(StatusCodes.OK, _, entity, _) =>
+          val entityString =
+            Await.result(entity.toStrict(3.seconds), 3.seconds).data.utf8String
+          val tmp = Board.fromJson(Json.parse(entityString))
+          Success(new Game(tmp, w, players, sum - stone))
+        case _ =>
+          Failure(new Exception("Error fetching Dice Json"))
+      }
+    }
+    
 
   def resShut(stone: Int): Try[Game] =
     if (board.isShut(stone))
-      Success(new Game(board.resShut(stone), w, players, sum + stone))
+      val request = HttpEntity(ContentTypes.`application/json`, Board.toJson(board).toString())
+      val responseFuture: Future[HttpResponse] = Http().singleRequest(
+        HttpRequest(
+          method = HttpMethods.POST,
+          uri = boardHost + "/" + config.getString("route.board.resshut") + "/" + stone,
+          entity = request
+        )
+      )
+      val response = Await.result(responseFuture, 3.seconds)
+      response match {
+        case HttpResponse(StatusCodes.OK, _, entity, _) =>
+          val entityString =
+            Await.result(entity.toStrict(3.seconds), 3.seconds).data.utf8String
+          val tmp = Board.fromJson(Json.parse(entityString))
+          Success(new Game(tmp, w, players, sum + stone))
+        case _ =>
+          Failure(new Exception("Error fetching Dice Json"))
+      }
     else Failure(new Exception("already shut"))
 
   def endMove: Try[Game] =

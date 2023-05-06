@@ -30,21 +30,6 @@ object PlayerService {
           complete(json.toString())
         }
       } ~
-      path("getScore" / IntNumber) {
-        num =>
-        get {
-          val json = Json.obj("score" -> JsNumber(players.getScore(num)))
-          complete(json.toString())
-        }
-      } ~
-      path("addScore" / IntNumber) {
-        num =>
-        get {
-          players = players.addScore(num)  
-          val json = Players.toJson(players)
-          complete(json.toString())
-        }
-      } ~
       path(config.getString("route.shutdown")) {
       get {
         shutdown()

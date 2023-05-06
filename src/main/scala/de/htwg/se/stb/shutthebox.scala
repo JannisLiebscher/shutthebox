@@ -14,7 +14,7 @@ object shutthebox {
     val gui = new aview.Gui(c)
     DiceService.main
     //PlayerService.main
-    //BoardService.main
+    BoardService.main
     tui.update
     while (true) {
       val input: String = readLine()
@@ -22,7 +22,7 @@ object shutthebox {
         gui.dispose()
         DiceService.shutdown()
         //PlayerService.shutdown()
-        //BoardService.shutdown()
+        BoardService.shutdown()
         System.exit(0)
       tui.getInputAndPrintLoop(input)
     }
