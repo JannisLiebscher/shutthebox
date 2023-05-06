@@ -32,9 +32,9 @@ object DiceService {
         complete("Server shutting down...")
         }
       }
-      val server = Some(Http().newServerAt("localhost", port).bind(route))
+      val server = Some(Http().newServerAt(config.getString("host.dice"), port).bind(route))
       server.get.map { _ => 
-        println("Server online at " + config.getString("host.dice") + port)
+        println("Server online at http://" + config.getString("host.dice") + ":" + port)
       }  recover { case ex => 
         println(s"Server could not start: ${ex.getMessage}")
       }

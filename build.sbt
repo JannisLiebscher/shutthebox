@@ -43,8 +43,6 @@ lazy val commonSettings = Seq(
   jacocoCoverallsPullRequest := sys.env.get("GITHUB_EVENT_NAME"),
   jacocoCoverallsRepoToken := sys.env.get("COVERALLS_REPO_TOKEN")
 )
-// Custom Tasks
-
 
 // Projects
 lazy val root = project

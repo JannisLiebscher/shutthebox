@@ -1,0 +1,12 @@
+version: '3.3'
+services:
+  dice:
+    container_name: dice
+    image: dice
+    restart: "no"
+    ports:
+      # <Port exposed> : < Port running inside container>
+      - '8080:8080'
+    expose:
+      # Opens port 8080 on the container
+      - '8080'

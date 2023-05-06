@@ -23,7 +23,7 @@ import com.typesafe.config.ConfigFactory
 val eol = sys.props("line.separator")
 given system: ActorSystem = ActorSystem("GameService")
 val config = ConfigFactory.load()
-val diceHost = config.getString("host.dice") + config.getString("port.dice")
+val diceHost = "http://" + config.getString("host.dice") + ":" + config.getString("port.dice")
 val boardHost = config.getString("host.board") + config.getString("port.board")
 
 case class Game(
