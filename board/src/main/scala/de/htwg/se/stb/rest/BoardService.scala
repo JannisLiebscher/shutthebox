@@ -51,8 +51,11 @@ object BoardService {
         shutdown()
         complete("Server shutting down...")
         }
+      } ~
+      path(config.getString("route.check")) {
+      get { complete("OK") }
       }
-      val server = Some(Http().newServerAt("localhost", port).bind(route))
+      val server = Some(Http().newServerAt("0.0.0.0", port).bind(route))
       server.get.map { _ => 
         println("Server online at http://localhost:" + port)
       }  recover { case ex => 

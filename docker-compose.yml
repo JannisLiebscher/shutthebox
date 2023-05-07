@@ -3,6 +3,11 @@ services:
   dice:
     container_name: dice
     image: dice
+    healthcheck:
+      test: ["CMD-SHELL", "curl --fail http://localhost/test || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
     restart: "no"
     ports:
       # <Port exposed> : < Port running inside container>
@@ -10,3 +15,15 @@ services:
     expose:
       # Opens port 8080 on the container
       - '8080'
+  board:
+    container_name: board
+    image: board
+    healthcheck:
+      test: ["CMD-SHELL", "curl --fail http://localhost/test || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    restart: "no"
+    ports:
+      # <Port exposed> : < Port running inside container>
+      - '8082:8082'

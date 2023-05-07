@@ -35,6 +35,9 @@ object PlayerService {
         shutdown()
         complete("Server shutting down...")
         }
+      } ~
+      path(config.getString("route.check")) {
+      get { complete("OK") }
       }
       val server = Some(Http().newServerAt("localhost", port).bind(route))
       server.get.map { _ => 
