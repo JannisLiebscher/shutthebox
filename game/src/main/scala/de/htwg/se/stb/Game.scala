@@ -141,7 +141,8 @@ case class Game(
       
 
   override def toString(): String =
-    players.toString + eol +
+    if(players.getWinner.isDefined) players.toString
+    else players.toString + eol +
       board.toString + eol +
       "Gewuerfelt " + w.toString + " | Summe: " + sum
 }
