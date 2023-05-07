@@ -11,7 +11,7 @@ object shutthebox {
     val injector = Guice.createInjector(new ShutTheBoxModuleXML)
     val c = injector.getInstance(classOf[ControllerInterface])
     val tui = new aview.Tui(c)
-    val gui = new aview.Gui(c)
+    //val gui = new aview.Gui(c)
     //DiceService.main
     //PlayerService.main
     //BoardService.main
@@ -19,7 +19,7 @@ object shutthebox {
     while (true) {
       val input: String = readLine()
       if (input == "q" | input == "quit")
-        gui.dispose()
+        //gui.dispose()
         //DiceService.shutdown()
         //PlayerService.shutdown()
         //BoardService.shutdown()

@@ -1,5 +1,5 @@
 // Settings
-bloopAggregateSourceDependencies in Global := true
+//bloopAggregateSourceDependencies in Global := true
 val stbVersion = "1.0.0"
 lazy val commonSettings = Seq(
   resourceDirectory in Compile := file(".") / "./src/main/resources",

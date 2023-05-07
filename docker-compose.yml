@@ -39,4 +39,12 @@ services:
     ports:
       # <Port exposed> : < Port running inside container>
       - '8082:8082'
-  
+  game:
+    container_name: game
+    image: game
+    healthcheck:
+      test: ["CMD-SHELL", "curl --fail http://localhost:8082/test || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    restart: "no"
