@@ -18,16 +18,20 @@ object PlayerService {
     given system: ActorSystem = ActorSystem("PlayerService")
     @main def main = {
       var players: PlayerInterface = new Players(2)
-      val route = path("players") {
+      val route = path(config.getString("route.player.players")) {
         get {
           val json = Players.toJson(players)
           complete(json.toString())
         }
       } ~
-      path("getTurn") {
-        get {
-          val json = Json.obj("turn" -> JsNumber(players.getTurn))
-          complete(json.toString())
+      path(config.getString("route.player.addscore") / IntNumber) {
+        num =>
+        post {
+          entity(as[String]) { body =>
+            val players = Players.fromJson(Json.parse(body))
+            val json = Players.toJson(players.addScore(num))
+            complete(json.toString())
+          }
         }
       } ~
       path(config.getString("route.shutdown")) {
@@ -39,7 +43,7 @@ object PlayerService {
       path(config.getString("route.check")) {
       get { complete("OK") }
       }
-      val server = Some(Http().newServerAt("localhost", port).bind(route))
+      val server = Some(Http().newServerAt("0.0.0.0", port).bind(route))
       server.get.map { _ => 
         println("Server online at http://localhost:" + port)
       }  recover { case ex => 
