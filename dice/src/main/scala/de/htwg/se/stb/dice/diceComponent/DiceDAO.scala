@@ -19,18 +19,18 @@ object DiceDAO {
 
   def saveDice(dice: DiceInterface): Future[Int] =  {
     val insertAction = diceSchema += (None, dice.toString().head.toInt, dice.toString().last.toInt)
-    return db.run(insertAction)
+    db.run(insertAction)
   }
-  def loadDice(id: Int): DiceInterface =  {
+
+  def loadDice(id: Int): Future[DiceInterface] =  {
     val query = diceSchema.filter(_.id === id)
     val result = db.run(query.result.headOption)
-    result.onComplete {
-      case Success(Some((id, w1, w2))) => {
-        if(w2 != 0) return new TwoDice(w1,w2)
-        else return new OneDice(w1,w2)
+    result.map {
+      case Some((id, w1, w2)) => {
+        if(w2 != 0) new TwoDice(w1,w2)
+        else new OneDice(w1,w2)
       }
-      case Success(None) => None
-      case Failure(error) => println(s"Fehler beim Abrufen des Datensatzes: $error")
+      case None => throw new Exception("Dice not found")
     }
   }
 }
