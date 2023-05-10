@@ -1,0 +1,20 @@
+version: '3.3'
+services:
+
+  db:
+    container_name: db
+    image: mariadb:latest
+    restart: "no"
+    environment:
+      MYSQL_DATABASE: 'app'
+      MARIADB_USER: 'app'
+      MARIADB_PASSWORD: 'password'
+      MARIADB_ROOT_PASSWORD: 'password'
+    ports:
+      # <Port exposed> : < MySQL Port running inside container>
+      - '3306:3306'
+    expose:
+      # Opens port 3306 on the container
+      - '3306'
+    #volumes:
+     # - .\sql:/docker-entrypoint-initdb.d/
