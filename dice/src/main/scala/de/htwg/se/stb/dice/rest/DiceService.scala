@@ -12,6 +12,8 @@ import play.api.libs.json._
 import com.typesafe.config.ConfigFactory
 import slick.jdbc.MySQLProfile.api._
 import de.htwg.se.stb.dice.diceComponent.DiceDAO
+import scala.concurrent.Await
+import scala.concurrent.duration._
 
 object DiceService {
     val config = ConfigFactory.load()
@@ -44,7 +46,8 @@ object DiceService {
         get {
           val newDice = new TwoDice
           DiceDAO.saveDice(newDice)
-          DiceDAO.loadDice(1)
+          val d = Await.result(DiceDAO.loadDice(1), 3.seconds)
+          println(d)
           complete("OK")
         }
       } ~
