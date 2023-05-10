@@ -11,6 +11,7 @@ import de.htwg.se.stb.diceComponent.*
 import play.api.libs.json._
 import com.typesafe.config.ConfigFactory
 import slick.jdbc.MySQLProfile.api._
+import de.htwg.se.stb.dice.diceComponent.DiceDAO
 
 object DiceService {
     val config = ConfigFactory.load()
@@ -25,7 +26,9 @@ object DiceService {
                          driver = "org.mariadb.jdbc.Driver")
     val diceSchema = TableQuery(new DiceTable(_))
     db.run(diceSchema.schema.create)
-    
+    val dice = new TwoDice
+    val insertAction = diceSchema += (None, dice.toString().head.asDigit, dice.toString().last.asDigit)
+    db.run(insertAction)
 
 
       var w: DiceInterface = Dice("two")
@@ -39,16 +42,9 @@ object DiceService {
       } ~
       path("save") {
         get {
-          // Erstelle eine neue Instanz des DiceInterfaces
           val newDice = new TwoDice
-
-          // Füge den neuen Würfel in die Datenbank ein
-          val insertAction = diceSchema += (None, 3, 4)
-
-          // Führe die Aktion aus und warte auf das Ergebnis
-          val insertResult = db.run(insertAction)
-
-          // Handle das Ergebnis der Aktion
+          DiceDAO.saveDice(newDice)
+          DiceDAO.loadDice(1)
           complete("OK")
         }
       } ~
