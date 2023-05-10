@@ -10,6 +10,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import de.htwg.se.stb.diceComponent.*
 import play.api.libs.json._
 import com.typesafe.config.ConfigFactory
+import slick.jdbc.MySQLProfile.api._
 
 object DiceService {
     val config = ConfigFactory.load()
@@ -17,6 +18,15 @@ object DiceService {
     private var server: Option[Http.ServerBinding] = None
     given system: ActorSystem = ActorSystem("DiceService")
     @main def main = {
+
+    val db = Database.forURL("jdbc:mariadb://localhost:3306/shutthebox", 
+                         user = "test", 
+                         password = "password", 
+                         driver = "org.mariadb.jdbc.Driver")
+    val diceSchema = TableQuery(new DiceTable(_))
+    db.run(diceSchema.schema.create)
+
+
       var w: DiceInterface = Dice("two")
       val route = path(config.getString("route.dice.roll") / IntNumber) {
         num =>

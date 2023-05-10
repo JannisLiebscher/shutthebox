@@ -6,8 +6,8 @@ services:
     image: mariadb:latest
     restart: "no"
     environment:
-      MYSQL_DATABASE: 'app'
-      MARIADB_USER: 'app'
+      MYSQL_DATABASE: 'shutthebox'
+      MARIADB_USER: 'test'
       MARIADB_PASSWORD: 'password'
       MARIADB_ROOT_PASSWORD: 'password'
     ports:

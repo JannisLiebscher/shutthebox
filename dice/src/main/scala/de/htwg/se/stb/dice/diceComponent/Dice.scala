@@ -35,9 +35,10 @@ object Dice {
       "w1" -> JsNumber(dice.toString().head.asDigit),
       "w2" -> JsNumber(dice.toString().last.asDigit)
     )
-  def fromJson(json: JsValue) = 
+  def fromJson(json: JsValue) = {
     val w1 =  (json \ "w1").get.toString.toInt
     val w2 = (json \ "w2").get.toString.toInt
     if(w2 != 0) new TwoDice(w1, w2)
     else new OneDice(w1, w2)
+  }
 }

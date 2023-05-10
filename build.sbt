@@ -20,8 +20,9 @@ lazy val commonSettings = Seq(
   libraryDependencies += "org.scala-lang.modules" %% "scala-xml" % "2.0.0",
   libraryDependencies += ("com.typesafe.play" %% "play-json" % "2.9.2")
     .cross(CrossVersion.for3Use2_13),
-  libraryDependencies += ("com.typesafe.slick" %% "slick" % "3.3.3")
+  libraryDependencies += ("com.typesafe.slick" %% "slick" % "3.5.0-M3")
   .cross(CrossVersion.for3Use2_13),
+  libraryDependencies += "org.mariadb.jdbc" % "mariadb-java-client" % "3.1.0",
   libraryDependencies += "org.slf4j" % "slf4j-nop" % "1.6.4",
   libraryDependencies += "com.google.inject" % "guice" % "4.2.3",
   libraryDependencies += ("net.codingwell" %% "scala-guice" % "4.2.11")
