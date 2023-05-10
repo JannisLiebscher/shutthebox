@@ -25,6 +25,7 @@ object DiceService {
                          driver = "org.mariadb.jdbc.Driver")
     val diceSchema = TableQuery(new DiceTable(_))
     db.run(diceSchema.schema.create)
+    
 
 
       var w: DiceInterface = Dice("two")
@@ -34,6 +35,21 @@ object DiceService {
           w = w.wuerfeln(num)
           val json = Dice.toJson(w)
           complete(json.toString())
+        }
+      } ~
+      path("save") {
+        get {
+          // Erstelle eine neue Instanz des DiceInterfaces
+          val newDice = new TwoDice
+
+          // Füge den neuen Würfel in die Datenbank ein
+          val insertAction = diceSchema += (None, 3, 4)
+
+          // Führe die Aktion aus und warte auf das Ergebnis
+          val insertResult = db.run(insertAction)
+
+          // Handle das Ergebnis der Aktion
+          complete("OK")
         }
       } ~
       path(config.getString("route.shutdown")) {
