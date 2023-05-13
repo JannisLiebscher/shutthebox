@@ -28,8 +28,6 @@ object BoardService {
                          password = "password", 
                          driver = "org.mariadb.jdbc.Driver")
       val boardSchema = TableQuery(new BoardTable(_))
-      val b = Await.result(loadBoard(1), 3.seconds)
-      print(b)
       db.run(boardSchema.schema.create)
       val route = path("shut" / IntNumber) {
         num =>

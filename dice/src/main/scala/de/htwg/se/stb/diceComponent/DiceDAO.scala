@@ -1,4 +1,4 @@
-package de.htwg.se.stb.dice.diceComponent
+package de.htwg.se.stb.diceComponent
 
 import concurrent.ExecutionContext.Implicits.global
 import de.htwg.se.stb.diceComponent.DiceInterface
@@ -16,7 +16,6 @@ object DiceDAO {
                          password = "password", 
                          driver = "org.mariadb.jdbc.Driver")
   val diceSchema = TableQuery(new DiceTable(_))
-
   def saveDice(dice: DiceInterface): Future[Int] = {
     val insertAction = diceSchema returning diceSchema.map(_.id) 
       += (None, dice.toString().head.toInt, dice.toString().last.toInt)
