@@ -15,7 +15,8 @@ object BoardDAO {
   val boardSchema = TableQuery(new BoardTable(_))
 
   def saveBoard(board: BoardInterface): Future[Int] =  {
-    val insertAction = boardSchema += (None, toBinary(board))
+    val insertAction = boardSchema returning boardSchema.map(_.id) 
+      += (None, toBinary(board))
     db.run(insertAction)
   }
   def toBinary(board: BoardInterface  ): Int = {

@@ -17,10 +17,12 @@ object DiceDAO {
                          driver = "org.mariadb.jdbc.Driver")
   val diceSchema = TableQuery(new DiceTable(_))
 
-  def saveDice(dice: DiceInterface): Future[Int] =  {
-    val insertAction = diceSchema += (None, dice.toString().head.toInt, dice.toString().last.toInt)
+  def saveDice(dice: DiceInterface): Future[Int] = {
+    val insertAction = diceSchema returning diceSchema.map(_.id) 
+      += (None, dice.toString().head.toInt, dice.toString().last.toInt)
     db.run(insertAction)
   }
+
 
   def loadDice(id: Int): Future[DiceInterface] =  {
     val query = diceSchema.filter(_.id === id)

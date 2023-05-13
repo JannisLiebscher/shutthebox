@@ -45,7 +45,6 @@ object DiceService {
       path("save") {
         get {
           val newDice = new TwoDice
-          DiceDAO.saveDice(newDice)
           val d = Await.result(DiceDAO.loadDice(1), 3.seconds)
           println(d)
           complete("OK")

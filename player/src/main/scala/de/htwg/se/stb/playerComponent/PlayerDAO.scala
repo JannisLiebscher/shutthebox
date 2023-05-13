@@ -16,7 +16,8 @@ object PlayerDAO {
   val playerSchema = TableQuery(new PlayerTable(_))
 
   def savePlayer(player: PlayerInterface): Future[Int] =  {
-    val insertAction = playerSchema += (None, player.getScore(1), player.getScore(2), player.getTurn)
+    val insertAction = playerSchema returning playerSchema.map(_.id)
+      += (None, player.getScore(1), player.getScore(2), player.getTurn)
     db.run(insertAction)
   }
 
