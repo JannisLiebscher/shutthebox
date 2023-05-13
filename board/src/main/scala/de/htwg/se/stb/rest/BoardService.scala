@@ -10,6 +10,12 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import de.htwg.se.stb.boardComponent.*
 import play.api.libs.json._
 import com.typesafe.config.ConfigFactory
+import de.htwg.se.stb.boardComponent.BoardDAO.boardSchema
+import slick.jdbc.MySQLProfile.api._
+import scala.concurrent.Await
+import scala.concurrent.duration._
+import de.htwg.se.stb.boardComponent.BoardDAO.saveBoard
+import de.htwg.se.stb.boardComponent.BoardDAO.loadBoard
 
 object BoardService {
     val config = ConfigFactory.load()
@@ -17,7 +23,16 @@ object BoardService {
     private var server: Option[Http.ServerBinding] = None
     given system: ActorSystem = ActorSystem("BoardService")
     @main def main = {
-      var board: BoardInterface = new Board(9)
+      val board = new Board().shut(1).shut(3).shut(6)
+
+      val db = Database.forURL("jdbc:mariadb://localhost:3306/shutthebox", 
+                         user = "test", 
+                         password = "password", 
+                         driver = "org.mariadb.jdbc.Driver")
+      val boardSchema = TableQuery(new BoardTable(_))
+      val b = Await.result(loadBoard(1), 3.seconds)
+      print(b)
+      db.run(boardSchema.schema.create)
       val route = path("shut" / IntNumber) {
         num =>
         post {
