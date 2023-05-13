@@ -10,12 +10,10 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import de.htwg.se.stb.boardComponent.*
 import play.api.libs.json._
 import com.typesafe.config.ConfigFactory
-import de.htwg.se.stb.boardComponent.BoardDAO.boardSchema
 import slick.jdbc.MySQLProfile.api._
 import scala.concurrent.Await
 import scala.concurrent.duration._
-import de.htwg.se.stb.boardComponent.BoardDAO.saveBoard
-import de.htwg.se.stb.boardComponent.BoardDAO.loadBoard
+import de.htwg.se.stb.boardComponent.BoardDAO._
 
 object BoardService {
     val config = ConfigFactory.load()
