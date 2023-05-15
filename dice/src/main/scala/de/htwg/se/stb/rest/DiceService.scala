@@ -21,18 +21,6 @@ object DiceService {
     private var server: Option[Http.ServerBinding] = None
     given system: ActorSystem = ActorSystem("DiceService")
     @main def main = {
-
-    val db = Database.forURL("jdbc:mariadb://localhost:3306/shutthebox", 
-                         user = "test", 
-                         password = "password", 
-                         driver = "org.mariadb.jdbc.Driver")
-    val diceSchema = TableQuery(new DiceTable(_))
-    db.run(diceSchema.schema.create)
-    val dice = new TwoDice
-    val insertAction = diceSchema += (None, dice.toString().head.asDigit, dice.toString().last.asDigit)
-    db.run(insertAction)
-
-
       var w: DiceInterface = Dice("two")
       val route = path(config.getString("route.dice.roll") / IntNumber) {
         num =>
@@ -40,14 +28,6 @@ object DiceService {
           w = w.wuerfeln(num)
           val json = Dice.toJson(w)
           complete(json.toString())
-        }
-      } ~
-      path("save") {
-        get {
-          val newDice = new TwoDice
-          val d = Await.result(DiceDAO.loadDice(1), 3.seconds)
-          println(d)
-          complete("OK")
         }
       } ~
       path(config.getString("route.shutdown")) {

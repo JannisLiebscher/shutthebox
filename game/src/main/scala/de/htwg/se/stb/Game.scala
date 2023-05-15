@@ -29,13 +29,16 @@ val playerHost = "http://" + config.getString("host.player") + ":" +config.getSt
 
 case class Game(
     board: BoardInterface,
-    w: DiceInterface,
+    dice: DiceInterface,
     players: PlayerInterface,
     sum: Int
 ) extends GameInterface {
   def this() = this(new Board(), Dice("two"), new Players(2), 0)
+  def _getBoard: BoardInterface = board
+  def _getDice: DiceInterface = dice
+  def _getPlayers: PlayerInterface = players
   def count(): Int = board.count()
-  def getDice: String = w.toString
+  def getDice: String = dice.toString
   def getSum: Int = sum
   def getPlayers: String = players.toString
   def getWinner: Option[String] = players.getWinner
@@ -87,7 +90,7 @@ case class Game(
           val entityString =
             Await.result(entity.toStrict(3.seconds), 3.seconds).data.utf8String
           val tmp = Board.fromJson(Json.parse(entityString))
-          Success(new Game(tmp, w, players, sum - stone))
+          Success(new Game(tmp, dice, players, sum - stone))
         case _ =>
           Failure(new Exception("Error fetching Dice Json"))
       }
@@ -110,14 +113,14 @@ case class Game(
           val entityString =
             Await.result(entity.toStrict(3.seconds), 3.seconds).data.utf8String
           val tmp = Board.fromJson(Json.parse(entityString))
-          Success(new Game(tmp, w, players, sum + stone))
+          Success(new Game(tmp, dice, players, sum + stone))
         case _ =>
           Failure(new Exception("Error fetching Dice Json"))
       }
     else Failure(new Exception("already shut"))
 
   def endMove: Try[Game] =
-    if (w.getSum() != sum && sum != 0) Failure(new Exception("shut all boxes"))
+    if (dice.getSum() != sum && sum != 0) Failure(new Exception("shut all boxes"))
     else {
       val request = HttpEntity(ContentTypes.`application/json`, Players.toJson(players).toString())
       val responseFuture: Future[HttpResponse] = Http().singleRequest(
@@ -144,7 +147,7 @@ case class Game(
     if(players.getWinner.isDefined) players.toString
     else players.toString + eol +
       board.toString + eol +
-      "Gewuerfelt " + w.toString + " | Summe: " + sum
+      "Gewuerfelt " + dice.toString + " | Summe: " + sum
 }
 
 object Game:

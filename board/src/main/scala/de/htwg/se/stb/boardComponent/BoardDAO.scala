@@ -13,7 +13,7 @@ object BoardDAO {
                          password = "password", 
                          driver = "org.mariadb.jdbc.Driver")
   val boardSchema = TableQuery(new BoardTable(_))
-
+  db.run(boardSchema.schema.create)
   def saveBoard(board: BoardInterface): Future[Int] =  {
     val insertAction = boardSchema returning boardSchema.map(_.id) 
       += (None, toBinary(board))

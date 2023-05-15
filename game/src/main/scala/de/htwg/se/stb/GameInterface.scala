@@ -1,7 +1,13 @@
 package de.htwg.se.stb.model
 import scala.util.{Try, Success, Failure}
+import de.htwg.se.stb.diceComponent.DiceInterface
+import de.htwg.se.stb.boardComponent.BoardInterface
+import de.htwg.se.stb.playerComponent.PlayerInterface
 
 trait GameInterface {
+  def _getDice: DiceInterface
+  def _getBoard: BoardInterface
+  def _getPlayers: PlayerInterface
   def count(): Int
   def getDice: String
   def getSum: Int

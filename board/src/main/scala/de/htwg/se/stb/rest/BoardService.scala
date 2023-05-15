@@ -22,13 +22,6 @@ object BoardService {
     given system: ActorSystem = ActorSystem("BoardService")
     @main def main = {
       val board = new Board().shut(1).shut(3).shut(6)
-
-      val db = Database.forURL("jdbc:mariadb://localhost:3306/shutthebox", 
-                         user = "test", 
-                         password = "password", 
-                         driver = "org.mariadb.jdbc.Driver")
-      val boardSchema = TableQuery(new BoardTable(_))
-      db.run(boardSchema.schema.create)
       val route = path("shut" / IntNumber) {
         num =>
         post {

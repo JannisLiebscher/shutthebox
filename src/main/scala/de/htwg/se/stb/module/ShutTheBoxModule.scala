@@ -26,5 +26,12 @@ class ShutTheBoxModuleXML extends AbstractModule {
     bind(classOf[ControllerInterface]).toInstance(
       Controller("xml")
     )
+  } 
+}
+class ShutTheBoxModuleSQL extends AbstractModule {
+  override def configure(): Unit = {
+    bind(classOf[ControllerInterface]).toInstance(
+      Controller("sql")
+    )
   }
 }

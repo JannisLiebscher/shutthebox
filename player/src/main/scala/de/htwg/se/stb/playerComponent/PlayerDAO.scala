@@ -14,7 +14,7 @@ object PlayerDAO {
                          driver = "org.mariadb.jdbc.Driver")
 
   val playerSchema = TableQuery(new PlayerTable(_))
-
+  db.run(playerSchema.schema.create)
   def savePlayer(player: PlayerInterface): Future[Int] =  {
     val insertAction = playerSchema returning playerSchema.map(_.id)
       += (None, player.getScore(1), player.getScore(2), player.getTurn)
