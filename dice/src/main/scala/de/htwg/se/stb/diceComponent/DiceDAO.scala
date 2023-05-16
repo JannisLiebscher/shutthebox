@@ -16,7 +16,7 @@ object DiceDAO {
                          password = "password", 
                          driver = "org.mariadb.jdbc.Driver")
   val diceSchema = TableQuery(new DiceTable(_))
-  db.run(diceSchema.schema.create)
+  def create() = db.run(diceSchema.schema.create)
   def saveDice(dice: DiceInterface): Future[Int] = {
     val insertAction = diceSchema returning diceSchema.map(_.id) 
       += (None, dice.toString().head.asDigit, dice.toString().last.asDigit)

@@ -7,11 +7,13 @@ import scala.concurrent.duration._
 class FileIOSQL extends FileIOInterface {
   var saved = 1
   override def load: GameInterface = {
-    Await.result(GameDAO.loadGame(saved), 3.seconds)
+    val result = Await.result(GameDAO.loadGame(saved), 3.seconds)
+    println("Loaded Game" + saved)
+    result
   }
 
   override def save(game: GameInterface) = {
    saved = Await.result(GameDAO.saveGame(game), 3.seconds)
+   println("Saved Game " + saved)
   }
-  
 }
