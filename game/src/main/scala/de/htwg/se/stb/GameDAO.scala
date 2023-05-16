@@ -21,10 +21,11 @@ object GameDAO {
                          driver = "org.mariadb.jdbc.Driver")
   val gameSchema = TableQuery(new GameTable(_))
   def create() = {
-    db.run(gameSchema.schema.create)
     DiceDAO.create()
     BoardDAO.create()
     PlayerDAO.create()
+    val test = Await.result(db.run(gameSchema.schema.create), 3.second)
+    println("Created Tables")
   }
   def saveGame(game: GameInterface): Future[Int] = {
     val diceId =  Await.result(DiceDAO.saveDice(game._getDice), 3.seconds)
