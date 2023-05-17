@@ -24,8 +24,10 @@ object GameDAO {
     DiceDAO.create()
     BoardDAO.create()
     PlayerDAO.create()
-    val test = Await.result(db.run(gameSchema.schema.create), 3.second)
-    println("Created Tables")
+    db.run(gameSchema.schema.create).onComplete {
+      case Success(_) => println("Created Tables")
+      case Failure(exception) => println(s"Failed to create tables: ${exception.getMessage}")
+    }
   }
   def saveGame(game: GameInterface): Future[Int] = {
     val diceId =  Await.result(DiceDAO.saveDice(game._getDice), 3.seconds)
