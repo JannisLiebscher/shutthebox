@@ -8,7 +8,7 @@ import de.htwg.se.stb.rest.*
 
 object shutthebox {
   @main def run: Unit =
-    val injector = Guice.createInjector(new ShutTheBoxModuleSQL)
+    val injector = Guice.createInjector(new ShutTheBoxModuleMongo)
     val c = injector.getInstance(classOf[ControllerInterface])
     val tui = new aview.Tui(c)
     val gui = new aview.Gui(c)

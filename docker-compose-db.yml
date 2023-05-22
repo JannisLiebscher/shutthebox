@@ -27,6 +27,6 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: password
-      MONGI_INITDB_DATABASE: shutthebox  # Hinzugefügte Zeile
+      MONGI_INITDB_DATABASE: shutthebox
     ports:
       - 27017:27017

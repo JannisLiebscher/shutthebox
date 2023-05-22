@@ -10,32 +10,59 @@ import play.api.libs.json.Json
 import scala.util.Using
 import scala.concurrent.Await
 import scala.concurrent.duration._
+import com.mongodb.client.result.UpdateResult
+import com.mongodb.client.result.InsertOneResult
+import org.mongodb.scala.model.Filters._
+import org.mongodb.scala.model.Projections._
+import org.mongodb.scala.model.Sorts._
+import play.api.libs.json.JsValue
+import de.htwg.se.stb.diceComponent.Dice
+import de.htwg.se.stb.boardComponent.Board
+import de.htwg.se.stb.playerComponent.Players
 
 object GameDAOMongo {
   val database_pw = "password"
   val database_username = "root"
-  val uri: String = s"mongodb://$database_username:$database_pw@localhost:27017/?authSource=admin"
-  val mongoClient: MongoClient = MongoClient(uri)
-  val database: MongoDatabase = mongoClient.getDatabase("shutthebox")
-  val gameCollection: MongoCollection[Document] = database.getCollection("game")
-  val ping = database.runCommand(Document("ping" -> 1)).head()
-  Await.result(ping, 3.seconds)
+  val uri: String = "mongodb://root:password@localhost:27017/?authSource=admin"
+  val client: MongoClient = MongoClient(uri)
+  val db: MongoDatabase = client.getDatabase("shutthebox")
+  val gameCollection: MongoCollection[Document] = db.getCollection("game")
+  var id: Int = 0
+
   def saveGame(game: GameInterface): Future[Int] = {
-    val gameDoc = Document(
-      "test" -> 1,
-      "string"  -> "hi")
-    println(gameDoc)
-    gameCollection.insertOne(gameDoc)
-    Future.successful(1)
+    id += 1
+    var gameDoc = Document("_id" -> id, "game" -> FileIOJSON()._gameToJson(game).toString())
+    observerInsertion(gameCollection.insertOne(gameDoc))
+    Future.successful(id.toString().toInt)
+  }
+  def loadGame(id: Int): Future[GameInterface] = {
+    val gameDocument: Document = Await.result(gameCollection.find(equal("_id", id)).first().head(), Duration.Inf)
+    val json: JsValue = Json.parse(gameDocument("game").asString().getValue().toString())
+    val dice = Dice.fromJson((json \ "dice").get)
+    val board = Board.fromJson((json \ "board").get)
+    val players = Players.fromJson((json \ "players").get)
+    val sum = (json \ "sum").get.toString().toInt
+    Future.successful(new Game(board, dice, players, sum))
   }
 
-  def toInt(objectId: ObjectId): Int = {
-    val byteArray = objectId.toByteArray
-    val firstFourBytes = byteArray.take(4)
-    val intValue = java.nio.ByteBuffer.wrap(firstFourBytes).getInt
-    intValue
+  private def observerInsertion(insertObservable: SingleObservable[InsertOneResult]): Unit = {
+    insertObservable.subscribe(new Observer[InsertOneResult] {
+      override def onNext(result: InsertOneResult): Unit = println(s"inserted: $result")
+
+      override def onError(e: Throwable): Unit = println(s"insert onError: $e")
+
+      override def onComplete(): Unit = println("completed insert")
+    })
   }
-  def loadGame(id: Int): Future[GameInterface] = ???
-  
+
+  private def observerUpdate(insertObservable: SingleObservable[UpdateResult]): Unit = {
+    insertObservable.subscribe(new Observer[UpdateResult] {
+      override def onNext(result: UpdateResult): Unit = println(s"updated: $result")
+
+      override def onError(e: Throwable): Unit = println(s"update onError: $e")
+
+      override def onComplete(): Unit = println("completed update")
+    })
+  }
   
 }

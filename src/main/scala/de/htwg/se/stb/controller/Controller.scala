@@ -23,7 +23,7 @@ case class Controller(
   def doAndPublish(doThis: => Try[GameInterface]) =
     doThis match {
       case Success(value) => 
-        game = doThis.get
+        game = value
         notifyObservers
       case Failure(e) => raiseError(e)
     }
@@ -31,7 +31,7 @@ case class Controller(
   def doAndPublish(doThis: Int => Try[GameInterface], num: Int) =
     doThis(num) match {
       case Success(value) => 
-        game = doThis(num).get
+        game = value
         notifyObservers
       case Failure(e) => raiseError(e)
     }

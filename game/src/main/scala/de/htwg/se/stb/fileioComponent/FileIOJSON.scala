@@ -40,20 +40,19 @@ class FileIOJSON extends FileIOInterface {
   def gameToJson(game: GameInterface) = {
     Json.obj(
       "game" -> Json.obj(
-        "board" -> Json.toJson(boardToJson(game)),
-        "players" -> Json.toJson(playersToJson(game)),
+        "board" -> Board.toJson(game._getBoard),
+        "players" -> Players.toJson(game._getPlayers),
+        "dice" -> Dice.toJson(game._getDice),
         "sum" -> JsNumber(game.getSum)
       )
     )
   }
-  def boardToJson(game: GameInterface): Seq[Boolean] = {
-    (1 to 9).map(x => game.isShut(x)).toSeq
-  }
-  def playersToJson(game: GameInterface) = {
+  def _gameToJson(game: GameInterface) = {
     Json.obj(
-      "score1" -> JsNumber(game.getScore(1)),
-      "score2" -> JsNumber(game.getScore(2)),
-      "turn" -> JsNumber(game.getTurn)
+      "board" -> Board.toJson(game._getBoard),
+      "players" -> Players.toJson(game._getPlayers),
+      "dice" -> Dice.toJson(game._getDice),
+      "sum" -> JsNumber(game.getSum)
     )
   }
 }
