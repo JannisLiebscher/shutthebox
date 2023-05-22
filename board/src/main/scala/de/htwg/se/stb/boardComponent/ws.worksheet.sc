@@ -1,8 +1,8 @@
-import de.htwg.se.stb.boardComponent.BoardDAO.saveBoard
-import de.htwg.se.stb.boardComponent.BoardDAO.toBinary
-import de.htwg.se.stb.boardComponent.BoardDAO.fromBinary
+import de.htwg.se.stb.boardComponent.BoardDAOSQL.saveBoard
+import de.htwg.se.stb.boardComponent.BoardDAOSQL.toBinary
+import de.htwg.se.stb.boardComponent.BoardDAOSQL.fromBinary
 import de.htwg.se.stb.boardComponent._
-BoardDAO.toBinary(new Board().shut(8))
+BoardDAOSQL.toBinary(new Board().shut(8))
 
 val test = 256.toBinaryString.split("")
 fromBinary(511)

@@ -13,7 +13,7 @@ import com.typesafe.config.ConfigFactory
 import slick.jdbc.MySQLProfile.api._
 import scala.concurrent.Await
 import scala.concurrent.duration._
-import de.htwg.se.stb.boardComponent.BoardDAO._
+import de.htwg.se.stb.boardComponent.BoardDAOSQL._
 
 object BoardService {
     val config = ConfigFactory.load()
