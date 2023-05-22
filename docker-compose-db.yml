@@ -4,6 +4,7 @@ services:
   db:
     container_name: db
     image: mariadb:latest
+    profiles: ["sql"]
     restart: "no"
     environment:
       MYSQL_DATABASE: 'shutthebox'
@@ -18,3 +19,14 @@ services:
       - '3306'
     #volumes:
      # - .\sql:/docker-entrypoint-initdb.d/
+    
+  mongo:
+    container_name: mongo
+    image: mongo:4.2
+    profiles: ["mongo"]
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGI_INITDB_DATABASE: shutthebox  # Hinzugefügte Zeile
+    ports:
+      - 27017:27017
