@@ -35,3 +35,10 @@ class ShutTheBoxModuleSQL extends AbstractModule {
     )
   }
 }
+class ShutTheBoxModuleMongo extends AbstractModule {
+  override def configure(): Unit = {
+    bind(classOf[ControllerInterface]).toInstance(
+      Controller("mongo")
+    )
+  }
+}

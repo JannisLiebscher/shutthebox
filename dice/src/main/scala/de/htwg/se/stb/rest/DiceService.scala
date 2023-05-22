@@ -11,7 +11,6 @@ import de.htwg.se.stb.diceComponent.*
 import play.api.libs.json._
 import com.typesafe.config.ConfigFactory
 import slick.jdbc.MySQLProfile.api._
-import de.htwg.se.stb.diceComponent.DiceDAOSQL
 import scala.concurrent.Await
 import scala.concurrent.duration._
 

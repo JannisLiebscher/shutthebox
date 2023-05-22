@@ -1,10 +1,8 @@
 package de.htwg.se.stb.controller
 import de.htwg.se.stb.model.*
-import de.htwg.se.stb.model.fileioComponent.{FileIOInterface, FileIOJSON, FileIOXML}
+import de.htwg.se.stb.model.fileioComponent._
 import de.htwg.se.stb.util.UndoManager
-
 import scala.util.{Failure, Success, Try}
-import de.htwg.se.stb.model.fileioComponent.FileIOSQL
 
 case class Controller(
     var game: GameInterface,
@@ -57,4 +55,5 @@ object Controller:
     case "xml" | "XML"    => Controller(Game(), new FileIOXML)
     case "json" | "JSON"  => Controller(Game(), new FileIOJSON)
     case "sql" | "SQL"  => Controller(Game(), new FileIOSQL)
+    case "mongo" | "MONGO"  => Controller(Game(), new FileIOMongo)
   }

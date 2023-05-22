@@ -13,7 +13,6 @@ import com.typesafe.config.ConfigFactory
 import slick.jdbc.MySQLProfile.api._
 import scala.concurrent.Await
 import scala.concurrent.duration._
-import de.htwg.se.stb.playerComponent.PlayerDAOSQL._
 
 object PlayerService {
     val config = ConfigFactory.load()
@@ -22,13 +21,6 @@ object PlayerService {
     given system: ActorSystem = ActorSystem("PlayerService")
     @main def main = {
       var players: PlayerInterface = new Players(2)
-
-      val playerSchema = TableQuery(new PlayerTable(_))
-      db.run(playerSchema.schema.create)
-      players = players.addScore(24)
-      savePlayer(players)
-      val d = Await.result(loadPlayer(1), 3.seconds)
-      println(d)
       val route = path(config.getString("route.player.players")) {
         get {
           val json = Players.toJson(players)
