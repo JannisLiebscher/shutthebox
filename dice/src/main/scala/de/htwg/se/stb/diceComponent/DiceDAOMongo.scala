@@ -10,7 +10,8 @@ import scala.util.Failure
 import de.htwg.se.stb.diceComponent.TwoDice
 import de.htwg.se.stb.diceComponent.OneDice
 
-object DiceDAOSQL extends  DiceDAO{
+
+object DiceDAOMongo extends  DiceDAO{
   val db = Database.forURL("jdbc:mariadb://localhost:3306/shutthebox", 
                          user = "test", 
                          password = "password", 

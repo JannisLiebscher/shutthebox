@@ -14,7 +14,7 @@ import de.htwg.se.stb.diceComponent._
 import scala.concurrent.Await
 import scala.concurrent.duration._
 
-object GameDAOSQL {
+object GameDAOSQL  extends  GameDAO {
   val db = Database.forURL("jdbc:mariadb://localhost:3306/shutthebox", 
                          user = "test", 
                          password = "password", 

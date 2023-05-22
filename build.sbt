@@ -22,6 +22,8 @@ lazy val commonSettings = Seq(
     .cross(CrossVersion.for3Use2_13),
   libraryDependencies += ("com.typesafe.slick" %% "slick" % "3.5.0-M3")
   .cross(CrossVersion.for3Use2_13),
+  libraryDependencies += ("org.mongodb.scala" %% "mongo-scala-driver" % "4.9.0")
+  .cross(CrossVersion.for3Use2_13),
   libraryDependencies += "org.mariadb.jdbc" % "mariadb-java-client" % "3.1.0",
   libraryDependencies += "org.slf4j" % "slf4j-nop" % "1.6.4",
   libraryDependencies += "com.google.inject" % "guice" % "4.2.3",

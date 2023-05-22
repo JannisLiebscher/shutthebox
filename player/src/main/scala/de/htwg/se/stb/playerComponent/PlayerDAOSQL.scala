@@ -7,7 +7,7 @@ import de.htwg.se.stb.playerComponent.PlayerTable
 import scala.util.Success
 import scala.util.Failure
 
-object PlayerDAOSQL {
+object PlayerDAOSQL extends PlayerDAO{
   val db = Database.forURL("jdbc:mariadb://localhost:3306/shutthebox", 
                          user = "test", 
                          password = "password", 

@@ -7,7 +7,7 @@ import de.htwg.se.stb.boardComponent.BoardTable
 import scala.util.Success
 import scala.util.Failure
 
-object BoardDAOSQL {
+object BoardDAOSQL extends BoardDAO {
   val db = Database.forURL("jdbc:mariadb://localhost:3306/shutthebox", 
                          user = "test", 
                          password = "password", 
