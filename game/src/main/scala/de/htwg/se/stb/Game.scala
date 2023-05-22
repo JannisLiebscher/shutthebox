@@ -20,6 +20,7 @@ import concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration._
 import scala.concurrent.Await
 import com.typesafe.config.ConfigFactory
+import play.api.libs.json.JsNumber
 val eol = sys.props("line.separator")
 given system: ActorSystem = ActorSystem("GameService")
 val config = ConfigFactory.load()
@@ -156,3 +157,15 @@ object Game:
     case "mock" | "Mock" =>
       new Game(new Board(), Dice("mock"), new Players(2), 0)
   }
+  def toJson(game: GameInterface) = Json.obj(
+      "board" -> Board.toJson(game._getBoard),
+      "players" -> Players.toJson(game._getPlayers),
+      "dice" -> Dice.toJson(game._getDice),
+      "sum" -> JsNumber(game.getSum)
+    )
+  def fromJson(json: JsValue):GameInterface = 
+    val dice = Dice.fromJson((json \ "dice").get)
+    val board = Board.fromJson((json \ "board").get)
+    val players = Players.fromJson((json \ "players").get)
+    val sum = (json \ "sum").get.toString().toInt
+    new Game(board, dice, players, sum)

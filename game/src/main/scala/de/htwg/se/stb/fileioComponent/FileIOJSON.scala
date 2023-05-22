@@ -47,12 +47,4 @@ class FileIOJSON extends FileIOInterface {
       )
     )
   }
-  def _gameToJson(game: GameInterface) = {
-    Json.obj(
-      "board" -> Board.toJson(game._getBoard),
-      "players" -> Players.toJson(game._getPlayers),
-      "dice" -> Dice.toJson(game._getDice),
-      "sum" -> JsNumber(game.getSum)
-    )
-  }
 }

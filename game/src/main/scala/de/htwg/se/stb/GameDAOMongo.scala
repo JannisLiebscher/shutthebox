@@ -30,13 +30,14 @@ object GameDAOMongo {
   var id: Int = 0
 
   def saveGame(game: GameInterface): Future[Int] = {
-    id += 1
-    var gameDoc = Document("_id" -> id, "game" -> FileIOJSON()._gameToJson(game).toString())
+    id = getMaxId() + 1
+    println("Saving Game " + id)
+    var gameDoc = Document("_id" -> id, "game" -> Game.toJson(game).toString())
     observerInsertion(gameCollection.insertOne(gameDoc))
     Future.successful(id.toString().toInt)
   }
   def loadGame(id: Int): Future[GameInterface] = {
-    val gameDocument: Document = Await.result(gameCollection.find(equal("_id", id)).first().head(), Duration.Inf)
+    val gameDocument: Document = Await.result(gameCollection.find(equal("_id", id)).first().head(), 3.seconds)
     val json: JsValue = Json.parse(gameDocument("game").asString().getValue().toString())
     val dice = Dice.fromJson((json \ "dice").get)
     val board = Board.fromJson((json \ "board").get)
@@ -44,6 +45,10 @@ object GameDAOMongo {
     val sum = (json \ "sum").get.toString().toInt
     Future.successful(new Game(board, dice, players, sum))
   }
+  private def getMaxId(): Int = {
+  val doc: Document = Await.result(gameCollection.find().sort(descending("_id")).first().head(), 3.seconds)
+  doc("_id").asInt32().getValue()
+}
 
   private def observerInsertion(insertObservable: SingleObservable[InsertOneResult]): Unit = {
     insertObservable.subscribe(new Observer[InsertOneResult] {
