@@ -16,6 +16,8 @@ import scala.concurrent.duration._
 
 trait GameDAO {
   
+  def deleteGame: Unit
+  def updateGame(game: GameInterface): Unit
   def saveGame(game: GameInterface): Future[Int]
   def loadGame(id: Int): Future[GameInterface]
 }

@@ -27,5 +27,7 @@ class Tui(controller: ControllerInterface) extends Observer:
       case "y" => controller.doAndPublish(controller.undo); None
       case "save" => controller.save; None
       case "load" => controller.doAndPublish(controller.load); None
+      case "delete" => controller.delete; None
+      case "update" => controller.update; None
       case default =>
         print("Unbekannte Eingabe!\n")

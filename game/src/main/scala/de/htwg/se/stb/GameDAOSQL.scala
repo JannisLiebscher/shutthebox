@@ -21,6 +21,8 @@ object GameDAOSQL  extends  GameDAO {
                          driver = "org.mariadb.jdbc.Driver")
   val gameSchema = TableQuery(new GameTable(_))
   db.run(gameSchema.schema.create)
+  override def deleteGame: Unit = ???
+  override def updateGame(game: GameInterface): Unit = ???
   def saveGame(game: GameInterface): Future[Int] = {
     val diceId =  Await.result(DiceDAOSQL.saveDice(game._getDice), 3.seconds)
     val boardId = Await.result(BoardDAOSQL.saveBoard(game._getBoard), 3.seconds)

@@ -7,6 +7,8 @@ trait ControllerInterface extends Observable {
   override def toString(): String
   def save: Unit
   def load: Try[GameInterface]
+  def delete: Unit
+  def update: Unit
   def getSum: Int
   def getDice: String
   def getBoard: String

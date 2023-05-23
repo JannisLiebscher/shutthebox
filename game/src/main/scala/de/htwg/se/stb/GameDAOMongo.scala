@@ -19,8 +19,11 @@ import play.api.libs.json.JsValue
 import de.htwg.se.stb.diceComponent.Dice
 import de.htwg.se.stb.boardComponent.Board
 import de.htwg.se.stb.playerComponent.Players
+import com.mongodb.client.result.DeleteResult
+import org.mongodb.scala.model.Updates.set
+import scala.util.{Try, Success, Failure}
 
-object GameDAOMongo {
+object GameDAOMongo extends GameDAO{
   val database_pw = "password"
   val database_username = "root"
   val uri: String = "mongodb://root:password@localhost:27017/?authSource=admin"
@@ -28,6 +31,18 @@ object GameDAOMongo {
   val db: MongoDatabase = client.getDatabase("shutthebox")
   val gameCollection: MongoCollection[Document] = db.getCollection("game")
   var id: Int = 0
+
+  override def deleteGame = 
+   gameCollection.deleteMany(equal("_id", id)).subscribe(
+      (dr: DeleteResult) => println(s"Deleted gameDocument"),
+      (e: Throwable) => println(s"Error while trying to delete gameDocument: $e")
+    )
+    Future {
+      id -= 1
+      "Finished deleting!"
+    }
+  override def updateGame(game: GameInterface) = 
+    observerUpdate(gameCollection.updateOne(equal("_id", id), set("game", Game.toJson(game).toString())))
 
   def saveGame(game: GameInterface): Future[Int] = {
     id = getMaxId() + 1
@@ -47,8 +62,11 @@ object GameDAOMongo {
   }
   private def getMaxId(): Int = {
   val doc: Document = Await.result(gameCollection.find().sort(descending("_id")).first().head(), 3.seconds)
-  doc("_id").asInt32().getValue()
-}
+  Try(doc("_id").asInt32().getValue()) match {
+    case Success(value) => value
+    case Failure(_) => 0
+  }
+  }
 
   private def observerInsertion(insertObservable: SingleObservable[InsertOneResult]): Unit = {
     insertObservable.subscribe(new Observer[InsertOneResult] {

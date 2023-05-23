@@ -6,6 +6,8 @@ import scala.concurrent.duration._
 
 class FileIOSQL extends FileIOInterface {
   var saved = 1
+  override def delete: Unit = ???
+  override def update(game: GameInterface): Unit = ???
   override def load: GameInterface = {
     Await.result(GameDAOSQL.loadGame(saved), 3.seconds)
   }

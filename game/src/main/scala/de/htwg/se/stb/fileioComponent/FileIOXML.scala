@@ -8,6 +8,8 @@ import scala.xml.{NodeSeq, PrettyPrinter}
 
 class FileIOXML extends FileIOInterface {
 
+  override def delete: Unit = ???
+  override def update(game: GameInterface): Unit = ???
   override def load: GameInterface = {
     val file = scala.xml.XML.loadFile("game.xml")
 

@@ -13,5 +13,6 @@ class FileIOMongo extends FileIOInterface {
   override def save(game: GameInterface) = {
    saved = Await.result(GameDAOMongo.saveGame(game), 3.seconds)
   }
-  
+  override def delete = GameDAOMongo.deleteGame
+  override def update(game: GameInterface) = GameDAOMongo.updateGame(game)
 }

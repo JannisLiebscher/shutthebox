@@ -19,6 +19,8 @@ case class Controller(
   def getWinner: Option[String] = game.getWinner
   def save: Unit = file.save(game)
   def load: Try[GameInterface] = Success(file.load)
+  def delete: Unit = file.delete
+  def update: Unit = file.update(game)
 
   def doAndPublish(doThis: => Try[GameInterface]) =
     doThis match {

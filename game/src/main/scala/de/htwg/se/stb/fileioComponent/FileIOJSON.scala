@@ -9,6 +9,8 @@ import scala.io.Source
 
 class FileIOJSON extends FileIOInterface {
 
+  override def delete: Unit = ???
+  override def update(game: GameInterface): Unit = ???
   override def load: GameInterface = {
     val source: String = Source.fromFile("game.json").getLines.mkString
     val json: JsValue = Json.parse(source)
