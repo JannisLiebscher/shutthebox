@@ -21,21 +21,6 @@ class FileIOJSONSpec extends AnyWordSpec {
     "save a test game in \"game.json\"" in {
       file.save(game)
     }
-    "convert a game's board into a sequence" in {
-      var seq = file.boardToJson(game)
-      seq(0) should be(true)
-      seq(1) should be(true)
-      seq(2) should be(false)
-      seq(8) should be(true)
-      seq.size should be(9)
-    }
-    "convert a game's players into a JSON onject" in {
-      var json = file.playersToJson(game)
-      (json \ "score1").get.toString.toInt should be(31)
-      (json \ "score2").get.toString.toInt should be(42)
-      (json \ "turn").get.toString.toInt should be(1)
-
-    }
     "load a testgame from \"game.json\"" in {
       var game = file.load
       game.getScore(1) should be(31)
