@@ -56,6 +56,6 @@ object Controller:
     case "mock" | "Mock"  => Controller(Game("mock"), new FileIOJSON)
     case "xml" | "XML"    => Controller(Game(), new FileIOXML)
     case "json" | "JSON"  => Controller(Game(), new FileIOJSON)
-    case "sql" | "SQL"  => Controller(Game(), new FileIOSQL)
-    case "mongo" | "MONGO"  => Controller(Game(), new FileIOMongo)
+    case "sql" | "SQL"  => Controller(Game(), FileIOSQL)
+    case "mongo" | "MONGO"  => Controller(Game(), FileIOMongo)
   }
