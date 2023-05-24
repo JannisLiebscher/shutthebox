@@ -9,8 +9,8 @@ import scala.io.Source
 
 class FileIOJSON extends FileIOInterface {
 
-  override def delete: Unit = ???
-  override def update(game: GameInterface): Unit = ???
+  override def delete: Unit = None
+  override def update(game: GameInterface) = save(game)
   override def load: GameInterface = {
     val source: String = Source.fromFile("game.json").getLines.mkString
     val json: JsValue = Json.parse(source)
@@ -39,7 +39,7 @@ class FileIOJSON extends FileIOInterface {
     pw.write(Json.prettyPrint(gameToJson(game)))
     pw.close
   }
-  def gameToJson(game: GameInterface) = {
+  private def gameToJson(game: GameInterface) = {
     Json.obj(
       "game" -> Json.obj(
         "board" -> Board.toJson(game._getBoard),
