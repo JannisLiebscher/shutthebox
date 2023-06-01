@@ -15,13 +15,16 @@ import scala.util.Failure
 import scala.util.Success
 
 import concurrent.ExecutionContext.Implicits.global
+import com.typesafe.config.ConfigFactory
 
 
 object GameDAOSQL  extends  GameDAO {
-  val db = Database.forURL("jdbc:mariadb://localhost:3306/shutthebox", 
-                         user = "test", 
-                         password = "password", 
-                         driver = "org.mariadb.jdbc.Driver")
+  val config = ConfigFactory.load()
+  val url = config.getString("mariadb.url")
+  val user = config.getString("mariadb.user")
+  val pw = config.getString("mariadb.password")
+  val db = Database.forURL(url, user, pw, driver = "org.mariadb.jdbc.Driver")
+  
   val gameSchema = TableQuery(new GameTable(_))
   db.run(gameSchema.schema.create)
   override def deleteGame: Unit = ???

@@ -9,14 +9,17 @@ import scala.util.Failure
 import scala.util.Success
 
 import concurrent.ExecutionContext.Implicits.global
+import com.typesafe.config.ConfigFactory
 
 object BoardDAOSQL extends BoardDAO {
-  val db = Database.forURL("jdbc:mariadb://localhost:3306/shutthebox", 
-                         user = "test", 
-                         password = "password", 
-                         driver = "org.mariadb.jdbc.Driver")
+  val config = ConfigFactory.load()
+  val url = config.getString("mariadb.url")
+  val user = config.getString("mariadb.user")
+  val pw = config.getString("mariadb.password")
+  val db = Database.forURL(url, user, pw, driver = "org.mariadb.jdbc.Driver")
   val boardSchema = TableQuery(new BoardTable(_))
   db.run(boardSchema.schema.create)
+  
   def saveBoard(board: BoardInterface): Future[Int] =  {
     val insertAction = boardSchema returning boardSchema.map(_.id) 
       += (None, toBinary(board))

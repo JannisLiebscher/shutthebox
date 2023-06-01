@@ -25,11 +25,11 @@ import scala.util.{Try, Success, Failure}
 import org.bson.BsonDocument
 import de.htwg.se.stb.model.GameInterface
 import de.htwg.se.stb.model.Game
+import com.typesafe.config.ConfigFactory
 
 object GameDAOMongo extends GameDAO{
-  val database_pw = "password"
-  val database_username = "root"
-  val uri: String = "mongodb://root:password@localhost:27017/?authSource=admin"
+  val config = ConfigFactory.load()
+  val uri = config.getString("mongodb.url")
   val client: MongoClient = MongoClient(uri)
   val db: MongoDatabase = client.getDatabase("shutthebox")
   val gameCollection: MongoCollection[Document] = db.getCollection("game")
