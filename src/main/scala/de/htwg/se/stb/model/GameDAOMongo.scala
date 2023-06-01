@@ -22,6 +22,7 @@ import de.htwg.se.stb.playerComponent.Players
 import com.mongodb.client.result.DeleteResult
 import org.mongodb.scala.model.Updates.set
 import scala.util.{Try, Success, Failure}
+import org.bson.BsonDocument
 
 object GameDAOMongo extends GameDAO{
   val database_pw = "password"
@@ -42,18 +43,19 @@ object GameDAOMongo extends GameDAO{
       "Finished deleting!"
     }
   override def updateGame(game: GameInterface) = 
-    observerUpdate(gameCollection.updateOne(equal("_id", id), set("game", Game.toJson(game).toString())))
+    observerUpdate(gameCollection.updateOne(equal("_id", id), 
+      set("game", BsonDocument.parse(Game.toJson(game).toString()))))
 
   def saveGame(game: GameInterface): Future[Int] = {
     id = getMaxId() + 1
     println("Saving Game " + id)
-    var gameDoc = Document("_id" -> id, "game" -> Game.toJson(game).toString())
+    var gameDoc = Document("_id" -> id, "game" -> BsonDocument.parse(Game.toJson(game).toString()))
     observerInsertion(gameCollection.insertOne(gameDoc))
     Future.successful(id.toString().toInt)
   }
   def loadGame(id: Int): Future[GameInterface] = {
     val gameDocument: Document = Await.result(gameCollection.find(equal("_id", id)).first().head(), 3.seconds)
-    val json: JsValue = Json.parse(gameDocument("game").asString().getValue().toString())
+    val json: JsValue = Json.parse(gameDocument("game").asDocument().toJson())
     val dice = Dice.fromJson((json \ "dice").get)
     val board = Board.fromJson((json \ "board").get)
     val players = Players.fromJson((json \ "players").get)

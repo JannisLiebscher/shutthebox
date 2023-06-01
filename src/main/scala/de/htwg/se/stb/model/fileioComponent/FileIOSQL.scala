@@ -4,10 +4,10 @@ import de.htwg.se.stb.model.*
 import scala.concurrent.Await
 import scala.concurrent.duration._
 
-class FileIOSQL extends FileIOInterface {
+object FileIOSQL extends FileIOInterface {
   var saved = 1
-  override def delete: Unit = ???
-  override def update(game: GameInterface): Unit = ???
+  override def delete: Unit = None
+  override def update(game: GameInterface) = save(game)
   override def load: GameInterface = {
     Await.result(GameDAOSQL.loadGame(saved), 3.seconds)
   }

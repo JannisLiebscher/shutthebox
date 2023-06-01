@@ -20,11 +20,6 @@ case class Players(
   }
   def getScore(player: Int): Int = players(player - 1)._2
   def getTurn = turn
-  override def toString = {
-    count match
-      case 1       => solo
-      case default => multi
-  }
 
   def getWinner: Option[String] = 
     val playerMin = players.minBy(_._2)
@@ -32,11 +27,7 @@ case class Players(
     if (playerMax._2 > 45 && turn == 1) Some(playerMin._1)
     else None
 
-  private def solo: String =
-    if (getScore(count) > 45) "Game Over!"
-    else "-----| " + players(0)._1 + ": " + players(0)._2.toString + " |-----"
-
-  private def multi: String = {
+  override def toString: String = {
     val outPlayers = players
       .map(player => player._1 + ": " + player._2.toString)
       .mkString(" | ") + " | "
