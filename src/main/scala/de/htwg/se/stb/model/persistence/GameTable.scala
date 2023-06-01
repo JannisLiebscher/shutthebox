@@ -1,10 +1,10 @@
 package de.htwg.se.stb.model.persistence
 
-import slick.lifted.Tag
+import de.htwg.se.stb.boardComponent.persistence.*
+import de.htwg.se.stb.diceComponent.persistence.*
+import de.htwg.se.stb.playerComponent.persistence.*
 import slick.jdbc.MySQLProfile.api._
-import de.htwg.se.stb.diceComponent.DiceTable
-import de.htwg.se.stb.playerComponent.PlayerTable
-import de.htwg.se.stb.boardComponent.BoardTable
+import slick.lifted.Tag
 
 class GameTable(tag: Tag) extends Table[(Option[Int], Int, Int, Int, Int)](tag, "game") {
   def id = column[Int]("id", O.PrimaryKey, O.AutoInc)

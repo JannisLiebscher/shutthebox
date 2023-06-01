@@ -1,6 +1,6 @@
-package de.htwg.se.stb.boardComponent
+package de.htwg.se.stb.boardComponent.persistence
 
-import de.htwg.se.stb.boardComponent.BoardTable
+import de.htwg.se.stb.boardComponent.*
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future

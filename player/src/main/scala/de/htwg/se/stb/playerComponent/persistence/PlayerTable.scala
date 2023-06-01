@@ -1,4 +1,4 @@
-package de.htwg.se.stb.playerComponent
+package de.htwg.se.stb.playerComponent.persistence
 
 import slick.lifted.Tag
 import slick.jdbc.MySQLProfile.api._

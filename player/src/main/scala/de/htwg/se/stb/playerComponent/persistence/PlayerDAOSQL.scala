@@ -1,11 +1,13 @@
-package de.htwg.se.stb.playerComponent
+package de.htwg.se.stb.playerComponent.persistence
+
+import de.htwg.se.stb.playerComponent.*
+import slick.jdbc.MySQLProfile.api._
+
+import scala.concurrent.Future
+import scala.util.Failure
+import scala.util.Success
 
 import concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
-import slick.jdbc.MySQLProfile.api._
-import de.htwg.se.stb.playerComponent.PlayerTable
-import scala.util.Success
-import scala.util.Failure
 
 object PlayerDAOSQL extends PlayerDAO{
   val db = Database.forURL("jdbc:mariadb://localhost:3306/shutthebox", 

@@ -1,18 +1,16 @@
 package de.htwg.se.stb.model.persistence
 
-import concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
-import slick.jdbc.MySQLProfile.api._
-import de.htwg.se.stb.model.persistence.*
-import de.htwg.se.stb.model.GameInterface
-import scala.util.Success
-import scala.util.Failure
-import de.htwg.se.stb.playerComponent.PlayerDAOSQL
-import de.htwg.se.stb.boardComponent.BoardDAOSQL
 import de.htwg.se.stb.model.Game
-import de.htwg.se.stb.diceComponent._
+import de.htwg.se.stb.model.GameInterface
+import slick.jdbc.MySQLProfile.api._
+
 import scala.concurrent.Await
+import scala.concurrent.Future
 import scala.concurrent.duration._
+import scala.util.Failure
+import scala.util.Success
+
+import concurrent.ExecutionContext.Implicits.global
 
 trait GameDAO {
   

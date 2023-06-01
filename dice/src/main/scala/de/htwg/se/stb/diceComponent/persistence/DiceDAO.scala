@@ -1,4 +1,4 @@
-package de.htwg.se.stb.diceComponent
+package de.htwg.se.stb.diceComponent.persistence
 
 import concurrent.ExecutionContext.Implicits.global
 import de.htwg.se.stb.diceComponent.DiceInterface

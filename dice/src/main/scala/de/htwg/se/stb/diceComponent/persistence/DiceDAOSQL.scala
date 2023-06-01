@@ -1,14 +1,15 @@
-package de.htwg.se.stb.diceComponent
+package de.htwg.se.stb.diceComponent.persistence
+
+import de.htwg.se.stb.diceComponent.DiceInterface
+import de.htwg.se.stb.diceComponent.OneDice
+import de.htwg.se.stb.diceComponent.TwoDice
+import slick.jdbc.MySQLProfile.api._
+
+import scala.concurrent.Future
+import scala.util.Failure
+import scala.util.Success
 
 import concurrent.ExecutionContext.Implicits.global
-import de.htwg.se.stb.diceComponent.DiceInterface
-import scala.concurrent.Future
-import slick.jdbc.MySQLProfile.api._
-import de.htwg.se.stb.diceComponent.DiceTable
-import scala.util.Success
-import scala.util.Failure
-import de.htwg.se.stb.diceComponent.TwoDice
-import de.htwg.se.stb.diceComponent.OneDice
 
 object DiceDAOSQL extends  DiceDAO{
   val db = Database.forURL("jdbc:mariadb://localhost:3306/shutthebox", 

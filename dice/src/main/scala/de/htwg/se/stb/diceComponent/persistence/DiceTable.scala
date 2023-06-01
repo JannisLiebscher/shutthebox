@@ -1,4 +1,4 @@
-package de.htwg.se.stb.diceComponent
+package de.htwg.se.stb.diceComponent.persistence
 
 import slick.lifted.Tag
 import slick.jdbc.MySQLProfile.api._

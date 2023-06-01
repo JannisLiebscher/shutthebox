@@ -1,4 +1,4 @@
-package de.htwg.se.stb.boardComponent
+package de.htwg.se.stb.boardComponent.persistence
 
 import slick.lifted.Tag
 import slick.jdbc.MySQLProfile.api._
