@@ -1,3 +1,4 @@
+# docker compose -f .\docker-compose-db.yml --profile sql/mongo up -d
 version: '3.3'
 services:
 
@@ -14,11 +15,6 @@ services:
     ports:
       # <Port exposed> : < MySQL Port running inside container>
       - '3306:3306'
-    expose:
-      # Opens port 3306 on the container
-      - '3306'
-    #volumes:
-     # - .\sql:/docker-entrypoint-initdb.d/
     
   mongo:
     container_name: mongo
