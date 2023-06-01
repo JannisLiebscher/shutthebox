@@ -6,7 +6,6 @@ WORKDIR /shutthebox
 ADD ./dice /shutthebox/dice
 ADD ./board /shutthebox/board
 ADD ./player /shutthebox/player
-ADD ./game /shutthebox/game
 ADD ./src /shutthebox/src
 ADD ./build.sbt /shutthebox/build.sbt
 ADD ./project/plugins.sbt /shutthebox/project/plugins.sbt

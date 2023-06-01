@@ -53,16 +53,6 @@ lazy val commonSettings = Seq(
 // Projects
 lazy val root = project
   .in(file("."))
-  .dependsOn(game)
-  .aggregate(game)
-  .settings(
-    name := "shutthebox",
-    version := stbVersion,
-    commonSettings)
-  .enablePlugins(JacocoCoverallsPlugin)
-
-lazy val game = project
-  .in(file("game"))
   .dependsOn(board)
   .aggregate(board)
   .dependsOn(dice)
@@ -70,10 +60,10 @@ lazy val game = project
   .dependsOn(player)
   .aggregate(player)
   .settings(
-    name := "game",
+    name := "shutthebox",
     version := stbVersion,
-    commonSettings
-  )
+    commonSettings)
+  .enablePlugins(JacocoCoverallsPlugin)
 
 lazy val board = project
   .in(file("board"))
