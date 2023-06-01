@@ -1,5 +1,5 @@
 package de.htwg.se.stb.model.fileioComponent
-import de.htwg.se.stb.model.fileioComponent.FileIOInterface
+import de.htwg.se.stb.model.persistence.GameDAOSQL
 import de.htwg.se.stb.model.*
 import scala.concurrent.Await
 import scala.concurrent.duration._

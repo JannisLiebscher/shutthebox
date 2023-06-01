@@ -1,7 +1,5 @@
 package de.htwg.se.stb.model
 import scala.util.{Try, Success, Failure}
-import fileioComponent.FileIOXML
-import de.htwg.se.stb.model.fileioComponent.FileIOJSON
 import de.htwg.se.stb.boardComponent.*
 import de.htwg.se.stb.diceComponent.*
 import de.htwg.se.stb.playerComponent.*
@@ -21,6 +19,7 @@ import scala.concurrent.duration._
 import scala.concurrent.Await
 import com.typesafe.config.ConfigFactory
 import play.api.libs.json.JsNumber
+
 val eol = sys.props("line.separator")
 given system: ActorSystem = ActorSystem("GameService")
 val config = ConfigFactory.load()

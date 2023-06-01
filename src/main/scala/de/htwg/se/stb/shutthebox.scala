@@ -11,11 +11,12 @@ object shutthebox {
     val injector = Guice.createInjector(new ShutTheBoxModuleMongo)
     val c = injector.getInstance(classOf[ControllerInterface])
     val tui = new aview.Tui(c)
+    tui.update
     val gui = new aview.Gui(c)
+    // Start Services
     DiceService.main
     PlayerService.main
     BoardService.main
-    tui.update
     while (true) {
       val input: String = readLine()
       if (input == "q" | input == "quit")

@@ -1,9 +1,9 @@
-package de.htwg.se.stb.model
+package de.htwg.se.stb.model.persistence
 
 import concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import slick.jdbc.MySQLProfile.api._
-import de.htwg.se.stb.model.GameTable
+import de.htwg.se.stb.model.persistence.*
 import de.htwg.se.stb.model.GameInterface
 import scala.util.Success
 import scala.util.Failure

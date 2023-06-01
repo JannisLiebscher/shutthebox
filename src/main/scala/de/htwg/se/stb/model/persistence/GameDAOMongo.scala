@@ -1,4 +1,4 @@
-package de.htwg.se.stb.model
+package de.htwg.se.stb.model.persistence
 
 import scala.concurrent.Future
 import org.mongodb.scala._
@@ -23,6 +23,8 @@ import com.mongodb.client.result.DeleteResult
 import org.mongodb.scala.model.Updates.set
 import scala.util.{Try, Success, Failure}
 import org.bson.BsonDocument
+import de.htwg.se.stb.model.GameInterface
+import de.htwg.se.stb.model.Game
 
 object GameDAOMongo extends GameDAO{
   val database_pw = "password"

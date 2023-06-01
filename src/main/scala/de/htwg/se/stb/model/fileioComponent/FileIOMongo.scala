@@ -1,8 +1,9 @@
 package de.htwg.se.stb.model.fileioComponent
-import de.htwg.se.stb.model.fileioComponent.FileIOInterface
 import de.htwg.se.stb.model.*
 import scala.concurrent.Await
 import scala.concurrent.duration._
+import de.htwg.se.stb.model.*
+import de.htwg.se.stb.model.persistence.*
 
 object FileIOMongo extends FileIOInterface {
   var saved = -1

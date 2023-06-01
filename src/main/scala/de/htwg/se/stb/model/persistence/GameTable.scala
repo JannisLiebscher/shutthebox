@@ -1,4 +1,4 @@
-package de.htwg.se.stb.model
+package de.htwg.se.stb.model.persistence
 
 import slick.lifted.Tag
 import slick.jdbc.MySQLProfile.api._
