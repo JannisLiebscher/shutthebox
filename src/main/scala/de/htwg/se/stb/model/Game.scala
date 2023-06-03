@@ -21,11 +21,6 @@ import com.typesafe.config.ConfigFactory
 import play.api.libs.json.JsNumber
 
 val eol = sys.props("line.separator")
-given system: ActorSystem = ActorSystem("GameService")
-val config = ConfigFactory.load()
-val diceHost = "http://" + config.getString("host.dice") + ":" + config.getString("port.dice")
-val boardHost = "http://" + config.getString("host.board") + ":" +config.getString("port.board")
-val playerHost = "http://" + config.getString("host.player") + ":" +config.getString("port.player")
 
 case class Game(
     board: BoardInterface,
@@ -46,26 +41,15 @@ case class Game(
   def getBoard: String = board.toString
   def isShut(stone: Int): Boolean = board.isShut(stone)
   def getScore(player: Int): Int = players.getScore(player)
+
   def wuerfeln(num: Int): Try[Game] = {
-    var result: Try[Game] = Failure(
-      new Exception("complete turn before rolling dice again")
-    )
-    if (sum == 0) {
-      val responseFuture: Future[HttpResponse] = Http().singleRequest(
-        HttpRequest(uri = diceHost + "/" + config.getString("route.dice.roll") + "/" + num)
-      )
-      val response = Await.result(responseFuture, 3.seconds)
-      response match {
-        case HttpResponse(StatusCodes.OK, _, entity, _) =>
-          val entityString =
-            Await.result(entity.toStrict(3.seconds), 3.seconds).data.utf8String
-          val tmp = Dice.fromJson(Json.parse(entityString))
-          result = Success(new Game(board, tmp, players, tmp.getSum()))
-        case _ =>
-          result = Failure(new Exception("Error fetching Dice Json"))
+    if (sum != 0) Failure(new Exception("Complete turn before rolling dice again"))
+    else {
+     GameClient.wuerfelnRequest(num) match {
+      case Success(value) => Success(new Game(board, value, players, value.getSum()))
+      case Failure(exception) => Failure(exception)
       }
     }
-    result
   }
 
   def shut(stone: Int): Try[Game] =
@@ -76,73 +60,30 @@ case class Game(
     else if (stone > sum)
       Failure(new Exception("Cant shut box bigger than whole sum"))
     else {
-      val request = HttpEntity(ContentTypes.`application/json`, Board.toJson(board).toString())
-      val responseFuture: Future[HttpResponse] = Http().singleRequest(
-        HttpRequest(
-          method = HttpMethods.POST,
-          uri = boardHost + "/" + config.getString("route.board.shut") + "/" + stone,
-          entity = request
-        )
-      )
-      val response = Await.result(responseFuture, 3.seconds)
-      response match {
-        case HttpResponse(StatusCodes.OK, _, entity, _) =>
-          val entityString =
-            Await.result(entity.toStrict(3.seconds), 3.seconds).data.utf8String
-          val tmp = Board.fromJson(Json.parse(entityString))
-          Success(new Game(tmp, dice, players, sum - stone))
-        case _ =>
-          Failure(new Exception("Error fetching Dice Json"))
+      GameClient.shutRequest(board, stone) match {
+        case Success(value) => Success(new Game(value, dice, players, sum - stone))
+        case Failure(exception) => Failure(exception)
       }
     }
     
-
   def resShut(stone: Int): Try[Game] =
-    if (board.isShut(stone))
-      val request = HttpEntity(ContentTypes.`application/json`, Board.toJson(board).toString())
-      val responseFuture: Future[HttpResponse] = Http().singleRequest(
-        HttpRequest(
-          method = HttpMethods.POST,
-          uri = boardHost + "/" + config.getString("route.board.resshut") + "/" + stone,
-          entity = request
-        )
-      )
-      val response = Await.result(responseFuture, 3.seconds)
-      response match {
-        case HttpResponse(StatusCodes.OK, _, entity, _) =>
-          val entityString =
-            Await.result(entity.toStrict(3.seconds), 3.seconds).data.utf8String
-          val tmp = Board.fromJson(Json.parse(entityString))
-          Success(new Game(tmp, dice, players, sum + stone))
-        case _ =>
-          Failure(new Exception("Error fetching Dice Json"))
+    if (!board.isShut(stone)) Failure(new Exception("already shut"))
+    else {
+      GameClient.resShutRequest(board, stone) match {
+        case Success(value) => Success(new Game(value, dice, players, sum + stone))
+        case Failure(exception) => Failure(exception)
       }
-    else Failure(new Exception("already shut"))
+    }
 
   def endMove: Try[Game] =
     if (dice.getSum() != sum && sum != 0) Failure(new Exception("shut all boxes"))
     else {
-      val request = HttpEntity(ContentTypes.`application/json`, Players.toJson(players).toString())
-      val responseFuture: Future[HttpResponse] = Http().singleRequest(
-        HttpRequest(
-          method = HttpMethods.POST,
-          uri = playerHost + "/" + config.getString("route.player.addscore") + "/" + board.count(),
-          entity = request
-        )
-      )
-      val response = Await.result(responseFuture, 3.seconds)
-      response match {
-        case HttpResponse(StatusCodes.OK, _, entity, _) =>
-          val entityString =
-            Await.result(entity.toStrict(3.seconds), 3.seconds).data.utf8String
-          val tmp = Players.fromJson(Json.parse(entityString))
-          Success(new Game(new Board(9), Dice("two"), tmp, 0))
-        case _ =>
-          Failure(new Exception("Error fetching Dice Json"))
+      GameClient.endMoveRequest(players, board) match {
+        case Success(value) => Success(new Game(new Board, new TwoDice, value, 0))
+        case Failure(exception) => Failure(exception)
       }
     }
       
-
   override def toString(): String =
     if(players.getWinner.isDefined) players.toString
     else players.toString + eol +
