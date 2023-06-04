@@ -21,7 +21,7 @@ object BoardService {
     given system: ActorSystem = ActorSystem("BoardService")
     @main def main = {
       val board = new Board().shut(1).shut(3).shut(6)
-      val route = path("shut" / IntNumber) {
+      val route = path(config.getString("route.board.shut") / IntNumber) {
         num =>
         post {
           entity(as[String]) { body =>
@@ -31,7 +31,7 @@ object BoardService {
           }
         }
       } ~
-      path("resShut" / IntNumber) {
+      path(config.getString("route.board.resshut") / IntNumber) {
         num =>
         post {
           entity(as[String]) { body =>
@@ -41,7 +41,7 @@ object BoardService {
           }
         }
       } ~
-      path("isShut" / IntNumber) {
+      path(config.getString("route.board.isshut") / IntNumber) {
         num =>
         get {
           println("test")
@@ -49,7 +49,7 @@ object BoardService {
           complete(json.toString())
         }
       } ~
-      path("shutdown") {
+      path(config.getString("route.shutdown")) {
       get {
         shutdown()
         complete("Server shutting down...")

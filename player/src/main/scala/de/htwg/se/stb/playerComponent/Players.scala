@@ -33,7 +33,7 @@ case class Players(
       .mkString(" | ") + " | "
     val min = players.minBy(_._2)
     val max = players.maxBy(_._2)
-    if (max._2 > 45 && turn == 1) min._1 + " wins!"
+    if (max._2 > 45 && turn == 1) min._1 + " wins!" + outPlayers
     else outPlayers + "Player " + turn + "'s turn"
   }
 
