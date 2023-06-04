@@ -2,6 +2,8 @@
 //bloopAggregateSourceDependencies in Global := true
 val stbVersion = "1.0.0"
 lazy val commonSettings = Seq(
+  fork in run := true,
+  run / connectInput := true,
   resourceDirectory in Compile := file(".") / "./src/main/resources",
   resourceDirectory in Runtime := file(".") / "./src/main/resources",
   scalaVersion := "3.0.2",
@@ -25,7 +27,7 @@ lazy val commonSettings = Seq(
   libraryDependencies += ("org.mongodb.scala" %% "mongo-scala-driver" % "4.9.0")
   .cross(CrossVersion.for3Use2_13),
   libraryDependencies += "org.mariadb.jdbc" % "mariadb-java-client" % "3.1.0",
-  libraryDependencies += "org.slf4j" % "slf4j-nop" % "1.6.4",
+  libraryDependencies += "org.slf4j" % "slf4j-nop" % "2.0.0",
   libraryDependencies += "com.google.inject" % "guice" % "4.2.3",
   libraryDependencies += ("net.codingwell" %% "scala-guice" % "4.2.11")
     .cross(CrossVersion.for3Use2_13),
