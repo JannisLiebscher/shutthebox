@@ -19,6 +19,7 @@ import scala.concurrent.duration._
 import scala.concurrent.Await
 import com.typesafe.config.ConfigFactory
 import play.api.libs.json.JsNumber
+import java.util.concurrent.TimeoutException
 
 object GameClient {
     given system: ActorSystem = ActorSystem("GameService")
@@ -31,16 +32,21 @@ object GameClient {
         val responseFuture: Future[HttpResponse] = Http().singleRequest(
         HttpRequest(uri = diceHost + "/" + config.getString("route.dice.roll") + "/" + num)
         )
-        val response = Await.result(responseFuture, 3.seconds)
-        response match {
-        case HttpResponse(StatusCodes.OK, _, entity, _) =>
-            val entityString =
-            Await.result(entity.toStrict(3.seconds), 3.seconds).data.utf8String
-            val dice = Dice.fromJson(Json.parse(entityString))
-            return Success(dice)
-        case _ =>
-            return Failure(new Exception("Error fetching Dice Json"))
+        try {
+            val response = Await.result(responseFuture, 3.seconds)
+            response match {
+            case HttpResponse(StatusCodes.OK, _, entity, _) =>
+                val entityString =
+                Await.result(entity.toStrict(3.seconds), 3.seconds).data.utf8String
+                val dice = Dice.fromJson(Json.parse(entityString))
+                return Success(dice)
+            case _ =>
+                return Failure(new Exception("Error fetching Dice Json"))
+            }
+        } catch {
+            case e: TimeoutException => return Failure(new Exception("DiceService nicht erreichbar!"))
         }
+
     }
 
     def shutRequest(board: BoardInterface, stone: Int): Try[BoardInterface] = {
@@ -52,15 +58,19 @@ object GameClient {
             entity = request
         )
         )
-        val response = Await.result(responseFuture, 3.seconds)
-        response match {
-        case HttpResponse(StatusCodes.OK, _, entity, _) =>
-            val entityString =
-            Await.result(entity.toStrict(3.seconds), 3.seconds).data.utf8String
-            val result = Board.fromJson(Json.parse(entityString))
-            Success(result)
-        case _ =>
-            Failure(new Exception("Error fetching Dice Json"))
+        try {
+            val response = Await.result(responseFuture, 3.seconds)
+            response match {
+            case HttpResponse(StatusCodes.OK, _, entity, _) =>
+                val entityString =
+                Await.result(entity.toStrict(3.seconds), 3.seconds).data.utf8String
+                val result = Board.fromJson(Json.parse(entityString))
+                Success(result)
+            case _ =>
+                Failure(new Exception("Error fetching Dice Json"))
+            }
+        } catch {
+            case e: TimeoutException => return Failure(new Exception("BoardService nicht erreichbar!"))
         }
     }
 
@@ -73,15 +83,19 @@ object GameClient {
             entity = request
         )
         )
-        val response = Await.result(responseFuture, 3.seconds)
-        response match {
-        case HttpResponse(StatusCodes.OK, _, entity, _) =>
-            val entityString =
-            Await.result(entity.toStrict(3.seconds), 3.seconds).data.utf8String
-            val result = Board.fromJson(Json.parse(entityString))
-            Success(result)
-        case _ =>
-            Failure(new Exception("Error fetching Dice Json"))
+        try {
+            val response = Await.result(responseFuture, 3.seconds)
+            response match {
+            case HttpResponse(StatusCodes.OK, _, entity, _) =>
+                val entityString =
+                Await.result(entity.toStrict(3.seconds), 3.seconds).data.utf8String
+                val result = Board.fromJson(Json.parse(entityString))
+                Success(result)
+            case _ =>
+                Failure(new Exception("Error fetching Dice Json"))
+            }
+        } catch {
+            case e: TimeoutException => return Failure(new Exception("BoardService nicht erreichbar!"))
         }
     }
 
@@ -95,15 +109,19 @@ object GameClient {
             entity = request
         )
         )
-        val response = Await.result(responseFuture, 3.seconds)
-        response match {
-        case HttpResponse(StatusCodes.OK, _, entity, _) =>
-            val entityString =
-            Await.result(entity.toStrict(3.seconds), 3.seconds).data.utf8String
-            val result = Players.fromJson(Json.parse(entityString))
-            Success(result)
-        case _ =>
-            Failure(new Exception("Error fetching Dice Json"))
+        try {
+            val response = Await.result(responseFuture, 3.seconds)
+            response match {
+            case HttpResponse(StatusCodes.OK, _, entity, _) =>
+                val entityString =
+                Await.result(entity.toStrict(3.seconds), 3.seconds).data.utf8String
+                val result = Players.fromJson(Json.parse(entityString))
+                Success(result)
+            case _ =>
+                Failure(new Exception("Error fetching Dice Json"))
+            }
+        } catch {
+            case e: TimeoutException => return Failure(new Exception("PlayerService nicht erreichbar!"))
         }
     }
 }
