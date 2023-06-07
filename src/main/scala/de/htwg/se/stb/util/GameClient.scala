@@ -46,7 +46,6 @@ object GameClient {
         } catch {
             case e: TimeoutException => return Failure(new Exception("DiceService nicht erreichbar!"))
         }
-
     }
 
     def shutRequest(board: BoardInterface, stone: Int): Try[BoardInterface] = {
