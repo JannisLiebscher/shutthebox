@@ -32,7 +32,7 @@ A simplified version of the Board Game Shut the Box!
 
 ![alt text](src/main/scala/pics/Logo.PNG)<br/>
 
- <h2 align="center">Architektur</h2>
+ # Architekturc
 ![alt text](src/main/scala/pics/Architektur.png))<br/>
 
 
