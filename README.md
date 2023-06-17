@@ -30,10 +30,10 @@ A simplified version of the Board Game Shut the Box!
 * Player Score is now shown on the bottom left corner.
 - Remember, a lower Score is better!
 
-![alt text](src/main/scala/pics/Logo.PNG)<br/>
+![alt text](src/main/resources/pics/Logo.PNG)<br/>
 
  # Architektur
-![alt text](src/main/scala/pics/Architektur.png))<br/>
+![alt text](src/main/resources/pics/Architektur.png))<br/>
 
 
 # Authors
