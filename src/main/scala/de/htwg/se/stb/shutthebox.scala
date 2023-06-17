@@ -7,7 +7,7 @@ import scala.io.StdIn.readLine
 import de.htwg.se.stb.rest.*
 
 object shutthebox {
-  @main def run: Unit =
+  @main def run: Unit = {
     val injector = Guice.createInjector(new ShutTheBoxModuleSQL)
     val c = injector.getInstance(classOf[ControllerInterface])
     val tui = new aview.Tui(c)
@@ -27,4 +27,5 @@ object shutthebox {
         System.exit(0)
       tui.getInputAndPrintLoop(input)
     }
+  }
 }
