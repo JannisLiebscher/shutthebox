@@ -33,7 +33,7 @@ A simplified version of the Board Game Shut the Box!
 ![alt text](src/main/resources/pics/Logo.PNG)<br/>
 
  # Architektur
-![alt text](src/main/resources/pics/Architektur.png))<br/>
+![alt text](src/main/resources/pics/Architektur.png)<br/>
 
 
 # Authors
