@@ -1,6 +1,6 @@
 <p align="center">
   
-  <h1 align="center">Shut The Box</h3>
+  <h1 align="center">Shut The Box</h1>
 </p>
 
 <p align="center">
@@ -31,6 +31,9 @@ A simplified version of the Board Game Shut the Box!
 - Remember, a lower Score is better!
 
 ![alt text](src/main/resources/pics/Logo.PNG)<br/>
+
+ # Architektur
+![alt text](src/main/resources/pics/Architektur.png)<br/>
 
 
 # Authors
