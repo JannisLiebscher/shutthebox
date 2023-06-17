@@ -33,7 +33,7 @@ A simplified version of the Board Game Shut the Box!
 ![alt text](src/main/scala/pics/Logo.PNG)<br/>
 
  <h2 align="center">Architektur</h2>
-![image](https://github.com/JannisLiebscher/shutthebox/assets/92574348/77ef78dc-03bc-40b2-a022-4ef2f42c15f9)
+![alt text](src/main/scala/pics/Architektur.png))<br/>
 
 
 # Authors
