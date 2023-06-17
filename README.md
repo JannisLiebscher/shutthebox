@@ -1,6 +1,6 @@
 <p align="center">
   
-  <h1 align="center">Shut The Box</h3>
+  <h1 align="center">Shut The Box</h1>
 </p>
 
 <p align="center">
@@ -31,6 +31,9 @@ A simplified version of the Board Game Shut the Box!
 - Remember, a lower Score is better!
 
 ![alt text](src/main/scala/pics/Logo.PNG)<br/>
+
+ <h2 align="center">Architektur</h2>
+![image](https://github.com/JannisLiebscher/shutthebox/assets/92574348/77ef78dc-03bc-40b2-a022-4ef2f42c15f9)
 
 
 # Authors
